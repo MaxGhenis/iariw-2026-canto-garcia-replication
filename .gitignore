@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+export/*.png
+playwright-report/
+test-results/
+tsconfig.tsbuildinfo
+
+# Authors' materials and page renders stay local (not republished)
+source/
+
+# Python and uv
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+replication/data/
