@@ -11,7 +11,7 @@ export function DataSlide() {
         Administrative records for filers and non-filers, compiled by AEAT and
         provided through the Instituto de Estudios Fiscales
       </SlideSubtitle>
-      <div className="flex-1 grid grid-cols-2 gap-10 pb-10 content-center text-lg text-slate-700 leading-relaxed">
+      <div className="flex-1 grid grid-cols-2 gap-10 pb-10 content-center text-xl text-slate-700 leading-relaxed">
         <div className="space-y-4">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-1">Panel de Hogares (PH), 2022 wave</p>
@@ -41,7 +41,7 @@ export function DataSlide() {
         <div className="space-y-4">
           <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
             <p className="font-semibold mb-2 text-slate-100">2022 headline statistics (their Table A.1)</p>
-            <table className="w-full text-base">
+            <table className="w-full text-lg">
               <tbody>
                 <tr className="border-b border-slate-600">
                   <td className="py-1.5 pr-3">Mean / median net wealth, all individuals</td>
@@ -60,7 +60,7 @@ export function DataSlide() {
           </div>
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-1">Limits the authors flag</p>
-            <ul className="space-y-1.5 list-disc pl-5 text-base">
+            <ul className="space-y-1.5 list-disc pl-5 text-lg">
               <li>Business assets recorded only for wealth-tax filers</li>
               <li>Liabilities not decomposed (EFF used as complement)</li>
               <li>Cadastral values lag markets, unevenly across areas</li>
@@ -92,7 +92,7 @@ export function DesignsSlide() {
         effects only
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10">
-        <table className="w-full text-[17px] text-slate-700 border-collapse">
+        <table className="w-full text-xl text-slate-700 border-collapse">
           <thead>
             <tr className="bg-slate-800 text-white">
               <th className="text-left px-4 py-2.5 font-semibold rounded-tl-lg">Design</th>
@@ -112,7 +112,7 @@ export function DesignsSlide() {
             ))}
           </tbody>
         </table>
-        <p className="text-sm text-slate-500 mt-3">
+        <p className="text-base text-slate-500 mt-3">
           Foreign designs drop Spain&rsquo;s joint IRPF–IP cap (no analogue
           abroad). Sources: their Table 1 (p.11) and Table A.2 (p.40).
         </p>
@@ -129,10 +129,10 @@ export function MethodsSlide() {
         Standard fiscal-incidence toolkit, plus a decomposition and a long-run
         extension
       </SlideSubtitle>
-      <div className="flex-1 grid grid-cols-3 gap-8 pb-10 text-lg text-slate-700 leading-relaxed">
+      <div className="flex-1 grid grid-cols-3 gap-8 pb-10 content-center text-xl text-slate-700 leading-relaxed">
         <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-5">
           <p className="font-semibold text-slate-900 mb-2">Progressivity &amp; redistribution</p>
-          <ul className="space-y-2 list-disc pl-5 text-base">
+          <ul className="space-y-2 list-disc pl-5 text-xl">
             <li>
               <span className="font-semibold">Kakwani</span> K = C<sub>t</sub> −
               G<sub>pre</sub>: is the burden more concentrated than wealth?
@@ -153,7 +153,7 @@ export function MethodsSlide() {
         </div>
         <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-5">
           <p className="font-semibold text-slate-900 mb-2">Level vs distance</p>
-          <p className="text-base">
+          <p className="text-xl">
             Changes in R–S across designs split into a{' '}
             <span className="font-semibold">level effect</span> (more incidence
             — the tax simply collects more) and a{' '}
@@ -163,7 +163,7 @@ export function MethodsSlide() {
         </div>
         <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-5">
           <p className="font-semibold text-slate-900 mb-2">Long run</p>
-          <p className="text-base">
+          <p className="text-xl">
             Wealth is a stock: project each person&rsquo;s wealth forward at a
             constant growth rate g ∈ {'{1%, 2%, 3%}'} with and without the
             annual tax, for T = 25–100 years (Durán-Cabré &amp; Esteller-Moré

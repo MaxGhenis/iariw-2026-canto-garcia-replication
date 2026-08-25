@@ -7,7 +7,7 @@ interface SlideSubtitleProps {
 
 export default function SlideSubtitle({ children, className = '' }: SlideSubtitleProps) {
   return (
-    <p className={`text-xl text-slate-500 mb-8 ${className}`}>
+    <p className={`text-2xl text-slate-500 mb-8 ${className}`}>
       {children}
     </p>
   );

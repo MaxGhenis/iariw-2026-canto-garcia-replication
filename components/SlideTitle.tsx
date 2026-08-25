@@ -7,7 +7,7 @@ interface SlideTitleProps {
 
 export default function SlideTitle({ children, className = '' }: SlideTitleProps) {
   return (
-    <h1 className={`text-4xl font-bold text-slate-800 leading-tight tracking-tight mb-2 ${className}`}>
+    <h1 className={`text-5xl font-bold text-slate-800 leading-tight tracking-tight mb-2 ${className}`}>
       {children}
     </h1>
   );

@@ -12,7 +12,7 @@ export function MotivationSlide() {
         And most countries have walked away from the tax that targets it
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
-        <div className="w-[46%] space-y-5 text-xl text-slate-700 leading-relaxed">
+        <div className="w-[46%] space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
             Survey of Household Finances (EFF): the{' '}
             <span className="font-semibold text-slate-900">top 1% share</span>{' '}
@@ -38,7 +38,7 @@ export function MotivationSlide() {
             alt="Lorenz curves of equivalized net wealth in Spain, 2002-2022"
             className="max-h-[520px] w-auto"
           />
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-base text-slate-500 mt-2">
             Lorenz curves of equivalized net wealth (EFF, 2002–2022) — their Figure 1
           </p>
         </div>
@@ -54,7 +54,7 @@ export function SpanishIPSlide() {
       <SlideSubtitle>
         Impuesto sobre el Patrimonio (IP) — state schedule, regional control
       </SlideSubtitle>
-      <div className="flex-1 grid grid-cols-2 gap-10 pb-10 content-center text-lg text-slate-700 leading-relaxed">
+      <div className="flex-1 grid grid-cols-2 gap-10 pb-10 content-center text-xl text-slate-700 leading-relaxed">
         <div className="space-y-4">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-1">Statutory design (2022 baseline)</p>
@@ -100,16 +100,16 @@ export function SpanishIPSlide() {
             </ul>
           </div>
           <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
-            <p className="text-lg text-slate-200">The result, in their 2022 data:</p>
-            <p className="text-3xl font-bold text-teal-300 mt-1">
+            <p className="text-xl text-slate-200">The result, in their 2022 data:</p>
+            <p className="text-4xl font-bold text-teal-300 mt-1">
               170,404 effective taxpayers
             </p>
-            <p className="text-lg text-slate-200">
+            <p className="text-xl text-slate-200">
               of 44.9M individuals (0.4%) · €1.13bn revenue · zero measurable
               Gini reduction
             </p>
           </div>
-          <p className="text-base text-slate-500">
+          <p className="text-lg text-slate-500">
             Scope note: the 2022 state &ldquo;solidarity&rdquo; surcharge on
             large fortunes (ITSGF) is deliberately excluded from the baseline
             (their footnote 2) — it returns in the discussion.
@@ -127,11 +127,11 @@ export function ThisPaperSlide() {
       <SlideSubtitle>
         Hold the 2022 population and wealth fixed; swap the tax law; compare
       </SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-6 max-w-5xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
+      <div className="flex-1 flex flex-col justify-center pb-10 space-y-6 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-2 gap-8">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-7 py-5">
             <p className="font-semibold text-slate-900 mb-2">Questions</p>
-            <ul className="space-y-2 list-disc pl-5 text-lg">
+            <ul className="space-y-2 list-disc pl-5 text-xl">
               <li>How would alternative designs change progressivity and revenue?</li>
               <li>How much redistribution could the revenue buy?</li>
               <li>Which designs bend long-run wealth concentration?</li>
@@ -140,7 +140,7 @@ export function ThisPaperSlide() {
           </div>
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-7 py-5">
             <p className="font-semibold text-slate-900 mb-2">Contributions</p>
-            <ul className="space-y-2 list-disc pl-5 text-lg">
+            <ul className="space-y-2 list-disc pl-5 text-xl">
               <li>
                 First wealth-tax design comparison on Spanish{' '}
                 <span className="font-semibold">administrative register data</span>

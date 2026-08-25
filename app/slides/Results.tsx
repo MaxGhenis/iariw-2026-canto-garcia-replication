@@ -20,7 +20,7 @@ export function AETRSlide() {
               alt="AETRs from percentile 67"
               className="w-full h-auto border border-slate-200 rounded-lg"
             />
-            <p className="text-sm text-slate-500 mt-1.5">From percentile 67</p>
+            <p className="text-base text-slate-500 mt-1.5">From percentile 67</p>
           </div>
           <div className="text-center">
             <img
@@ -28,7 +28,7 @@ export function AETRSlide() {
               alt="AETRs from percentile 98.5"
               className="w-full h-auto border border-slate-200 rounded-lg"
             />
-            <p className="text-sm text-slate-500 mt-1.5">From percentile 98.5</p>
+            <p className="text-base text-slate-500 mt-1.5">From percentile 98.5</p>
           </div>
         </div>
         <div className="flex items-center justify-between mt-4">
@@ -37,7 +37,7 @@ export function AETRSlide() {
             alt="Legend"
             className="h-12 w-auto"
           />
-          <div className="text-lg text-slate-700 leading-snug max-w-[52%]">
+          <div className="text-xl text-slate-700 leading-snug max-w-[52%]">
             <p>
               <span className="font-semibold text-slate-900">Current IP (red): flat zero until ~p99.3.</span>{' '}
               Norway starts near p80; Piketty and Sim. NO climb steepest at the
@@ -69,7 +69,7 @@ export function HeadlineTableSlide() {
         Individual net wealth, 2022 — condensed from their Table 3 (p.21)
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10">
-        <table className="w-full text-[17px] text-slate-700 border-collapse">
+        <table className="w-full text-xl text-slate-700 border-collapse">
           <thead>
             <tr className="bg-slate-800 text-white">
               <th className="text-left px-4 py-2.5 font-semibold rounded-tl-lg">Design</th>
@@ -104,7 +104,7 @@ export function HeadlineTableSlide() {
             ))}
           </tbody>
         </table>
-        <div className="grid grid-cols-3 gap-6 mt-4 text-base text-slate-700">
+        <div className="grid grid-cols-3 gap-6 mt-4 text-lg text-slate-700">
           <p>
             <span className="font-semibold text-slate-900">Revenue spans 14×</span>{' '}
             — €1.1bn (IP) to €15.9bn (Piketty).
@@ -132,7 +132,7 @@ export function DecompositionSlide() {
         distance effects — their Figure 4
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
-        <div className="w-[44%] space-y-5 text-xl text-slate-700 leading-relaxed">
+        <div className="w-[44%] space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
             Every alternative redistributes more than the current IP — and in
             every case the gain is{' '}
@@ -146,7 +146,7 @@ export function DecompositionSlide() {
             <span className="font-semibold text-slate-900">negative</span> for
             the broad-base designs.
           </p>
-          <div className="border-l-4 border-pe-teal pl-5 py-2 bg-teal-50 rounded-r-lg text-lg">
+          <div className="border-l-4 border-pe-teal pl-5 py-2 bg-teal-50 rounded-r-lg text-xl">
             <p>
               Their own words: improvements are &ldquo;driven primarily by the
               Level Effect&rdquo; — incidence, not progressivity (p.22).
@@ -159,7 +159,7 @@ export function DecompositionSlide() {
             alt="Decomposition of the change in the R-S index, individual net wealth"
             className="max-h-[500px] w-auto border border-slate-200 rounded-lg"
           />
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-base text-slate-500 mt-2">
             ΔR–S vs the Spanish IP, individual net wealth
           </p>
         </div>
@@ -189,7 +189,7 @@ export function ChildBenefitSlide() {
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
         <div className="w-[48%]">
-          <table className="w-full text-lg text-slate-700 border-collapse">
+          <table className="w-full text-xl text-slate-700 border-collapse">
             <thead>
               <tr className="bg-slate-800 text-white">
                 <th className="text-left px-4 py-2 font-semibold rounded-tl-lg">Design</th>
@@ -219,7 +219,7 @@ export function ChildBenefitSlide() {
             </tbody>
           </table>
         </div>
-        <div className="flex-1 space-y-5 text-xl text-slate-700 leading-relaxed">
+        <div className="flex-1 space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
             The current IP finances{' '}
             <span className="font-semibold text-slate-900">€149 per child per year</span>.
@@ -233,7 +233,7 @@ export function ChildBenefitSlide() {
             </span>{' '}
             under Sim. 3 / Piketty — versus 0.5% under the current tax.
           </p>
-          <p className="text-lg text-slate-500">
+          <p className="text-xl text-slate-500">
             Redistribution tracks revenue capacity, not the shape of the rate
             schedule.
           </p>
@@ -252,7 +252,7 @@ export function LongRunSlide() {
         g = 2% — their Figure 5
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
-        <div className="w-[44%] space-y-5 text-xl text-slate-700 leading-relaxed">
+        <div className="w-[44%] space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
             Current IP: top 1% share drifts from 14.7% to{' '}
             <span className="font-semibold text-slate-900">13.5% after 100 years</span>{' '}
@@ -264,7 +264,7 @@ export function LongRunSlide() {
             (−5.5 to −6.7pp); Sim. 3 falls furthest among Spanish options
             (to 6.6%, −8.1pp).
           </p>
-          <p className="text-lg text-slate-500">
+          <p className="text-xl text-slate-500">
             Mechanical projection, not a forecast — the authors present it as
             illustrating how annual stock taxation cumulates (p.25). Effective
             long-run rates reach ~22% of wealth for the broad designs
@@ -277,7 +277,7 @@ export function LongRunSlide() {
             alt="Top 1% share of equivalized net wealth over 100 years by design"
             className="max-h-[500px] w-auto border border-slate-200 rounded-lg"
           />
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-base text-slate-500 mt-2">
             Top 1% share of equivalized net wealth, T = 0 → 100 years
           </p>
         </div>
@@ -300,12 +300,12 @@ export function WhoPaysSlide() {
             alt="Predicted probability of being a taxpayer by age under each design"
             className="max-h-[440px] w-auto border border-slate-200 rounded-lg"
           />
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-base text-slate-500 mt-2">
             Predicted probability of paying, by age (logit with region and
             household controls)
           </p>
         </div>
-        <div className="w-[42%] space-y-5 text-xl text-slate-700 leading-relaxed">
+        <div className="w-[42%] space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
             Under the current IP and the French design, payment is an{' '}
             <span className="font-semibold text-slate-900">old-age phenomenon</span>{' '}
@@ -334,11 +334,11 @@ export function TheirConclusionsSlide() {
     <Slide>
       <SlideTitle>Their conclusions</SlideTitle>
       <SlideSubtitle>As stated in the paper (p.33–34) and their own deck</SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-5xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
+      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-5xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-2 gap-8">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-7 py-5">
             <p className="font-semibold text-slate-900 mb-2">Current design (IP)</p>
-            <p className="text-lg">
+            <p className="text-xl">
               High formal progressivity, minimal effect: 0.4% of individuals
               pay, €1.1bn raised, no measurable inequality reduction; regional
               rebates create horizontal inequity.
@@ -346,7 +346,7 @@ export function TheirConclusionsSlide() {
           </div>
           <div className="bg-teal-50 border border-teal-200 rounded-xl px-7 py-5">
             <p className="font-semibold text-slate-900 mb-2">Reformed designs (Sim. 3, Piketty, NO)</p>
-            <p className="text-lg">
+            <p className="text-xl">
               Broader bases and harmonized rules multiply taxpayers (4.6–11M)
               and revenue (€12.7–15.9bn), cut disposable-income inequality
               once recycled, and bend long-run wealth concentration.
