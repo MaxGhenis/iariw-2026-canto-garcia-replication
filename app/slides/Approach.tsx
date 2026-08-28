@@ -165,7 +165,7 @@ export function ScheduleBuild1Slide() {
 export function ScheduleBuild2Slide() {
   return (
     <Slide>
-      <SlideTitle>Norway: a true flat 1% after a low threshold</SlideTitle>
+      <SlideTitle>Stylized Norway: a flat 1% after a low threshold</SlideTitle>
       <SlideSubtitle>
         Design 2 in paper order — the paper&rsquo;s Sim. NO, not Norway&rsquo;s two-rate 2022 statute
       </SlideSubtitle>

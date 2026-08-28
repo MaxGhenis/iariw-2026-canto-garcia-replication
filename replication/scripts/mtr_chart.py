@@ -29,7 +29,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter
+from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter, NullLocator
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from wealth_tax_es import schedules as S
@@ -52,7 +52,7 @@ from wealth_tax_es.portfolio_paths import (
 
 NOK = S.NOK_PER_EUR_2022
 STEUERFUSS = S.ZURICH_STEUERFUSS_CANTON + S.ZURICH_STEUERFUSS_CITY
-X_MIN, X_MAX = 1e5, 5e7
+X_MIN, X_MAX = 1e4, 1e8
 SURFACE = "#fcfcfb"
 
 
@@ -130,6 +130,7 @@ def euro_ticks(ax, ticks):
     ax.xaxis.set_major_locator(FixedLocator(ticks))
     ax.xaxis.set_major_formatter(FuncFormatter(
         lambda v, _: f"€{v/1e6:g}M" if v >= 1e6 else f"€{v/1e3:g}k"))
+    ax.xaxis.set_minor_locator(NullLocator())
     ax.xaxis.set_minor_formatter(NullFormatter())
 
 
@@ -200,7 +201,7 @@ def render_standalone(out_path):
                       (ax2, "Average tax ÷ non-pension net wealth")):
         ax.text(0.005, 0.96, panel, transform=ax.transAxes, fontsize=base + 1.5,
                 fontweight="bold", color="#3d3d3a", va="top")
-    euro_ticks(ax2, [1e5, 3e5, 1e6, 3e6, 1e7, 3e7])
+    euro_ticks(ax2, [1e4, 1e5, 1e6, 1e7, 1e8])
     ax2.set_xlabel("Illustrative non-pension net wealth (log scale)",
                    fontsize=base, color="#6f6f6a")
     right_labels(ax1, mtr_endpoint_labels(), base)
@@ -239,7 +240,7 @@ def render_recap_slide(out_path):
     for name, short, color, ls, fn in SERIES:
         line(ax1, mtr_values(fn), color, ls, 2.4, 1.0, 3)
     ax1.set_ylim(0, 3.7)
-    euro_ticks(ax1, [1e5, 3e5, 1e6, 3e6, 1e7, 3e7])
+    euro_ticks(ax1, [1e4, 1e5, 1e6, 1e7, 1e8])
     ax1.set_xlabel("Illustrative non-pension net wealth (log scale)",
                    fontsize=base, color="#6f6f6a")
     right_labels(ax1, mtr_endpoint_labels(), base, min_gap=0.2)
@@ -285,7 +286,7 @@ def render_buildup(out_path, upto):
                       (ax2, "Tax ÷ non-pension net wealth")):
         ax.text(0.008, 0.95, panel, transform=ax.transAxes, fontsize=base + 1,
                 fontweight="bold", color="#3d3d3a", va="top")
-    euro_ticks(ax2, [1e5, 1e6, 1e7])
+    euro_ticks(ax2, [1e4, 1e5, 1e6, 1e7, 1e8])
     ax2.set_xlabel("Illustrative non-pension net wealth (log scale)",
                    fontsize=base, color="#6f6f6a")
     fig.subplots_adjust(left=0.075, right=0.83, top=0.985, bottom=0.085, hspace=0.10)
