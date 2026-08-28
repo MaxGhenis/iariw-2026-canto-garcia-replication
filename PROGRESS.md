@@ -68,6 +68,10 @@
   isolated S3/Supabase services and a new root-owned supervisor tree, neither of
   which is available in this sandbox. The final report records the exact
   production resume sequence without weakening those controls.
+- Pushed `axiom-rulespec-migration`, `wealth-tax-source-manifests`, and
+  `wealth-tax-currency-seeds` during a brief working network interval. The four
+  country histories remain local because their organization repositories do not
+  exist and `gh` authentication is invalid.
 
 ## Next
 
