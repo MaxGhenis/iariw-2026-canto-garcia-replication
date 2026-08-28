@@ -10,6 +10,11 @@ import {
 import {
   DataSlide,
   DesignsSlide,
+  ScheduleBuild1Slide,
+  ScheduleBuild2Slide,
+  ScheduleBuild3Slide,
+  ScheduleBuild4Slide,
+  ScheduleBuild5Slide,
   SchedulesChartSlide,
   MethodsSlide,
 } from './slides/Approach';
@@ -37,6 +42,11 @@ const slides = [
   ThisPaperSlide,
   DataSlide,
   DesignsSlide,
+  ScheduleBuild1Slide,
+  ScheduleBuild2Slide,
+  ScheduleBuild3Slide,
+  ScheduleBuild4Slide,
+  ScheduleBuild5Slide,
   SchedulesChartSlide,
   MethodsSlide,
   AETRSlide,

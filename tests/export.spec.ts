@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import * as fs from 'fs';
 
-const SLIDE_COUNT = Number(process.env.SLIDE_COUNT || 21);
+const SLIDE_COUNT = Number(process.env.SLIDE_COUNT || 26);
 const port = process.env.PORT || '3000';
 
 test('export all slides as PNGs', async ({ page }) => {
