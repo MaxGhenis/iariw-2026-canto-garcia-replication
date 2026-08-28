@@ -7,7 +7,12 @@ import {
   SpanishIPSlide,
   ThisPaperSlide,
 } from './slides/Background';
-import { DataSlide, DesignsSlide, MethodsSlide } from './slides/Approach';
+import {
+  DataSlide,
+  DesignsSlide,
+  SchedulesChartSlide,
+  MethodsSlide,
+} from './slides/Approach';
 import {
   AETRSlide,
   HeadlineTableSlide,
@@ -32,6 +37,7 @@ const slides = [
   ThisPaperSlide,
   DataSlide,
   DesignsSlide,
+  SchedulesChartSlide,
   MethodsSlide,
   AETRSlide,
   HeadlineTableSlide,
