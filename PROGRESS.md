@@ -53,6 +53,11 @@
   Spanish IP computation must honor the statutory cuota anchors to avoid
   one-cent drift. These are defects in the bespoke comparison path that its
   current broad tolerances do not expose.
+- Corrected those comparison-oracle defects without changing the 26 original
+  tests: Spain now uses the statutory cumulative-quota anchors, jointly assessed
+  Norwegian spouses use the NOK 40m top-rate threshold, and the official 2022
+  Zürich tariff is available separately from the preserved 2026 paper oracle.
+  Three focused regression tests bring the full replication suite to 37/37.
 
 ## Next
 

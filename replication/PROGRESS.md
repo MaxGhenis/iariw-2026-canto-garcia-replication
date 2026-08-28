@@ -27,6 +27,10 @@
 - Confirmed two latent bespoke-oracle defects: jointly assessed Norwegian
   spouses have a doubled top-rate threshold, and Spanish IP bracket integration
   drifts one cent from the statute's mandatory quota anchors at two edges.
+- Corrected both defects in the comparison path and added the verified 2022
+  Zürich tariff without altering the original 26-test oracle file. The full
+  suite now passes 37/37, including three new legal-correction regressions and
+  eight synthetic real-engine contract tests.
 
 ## Next
 
