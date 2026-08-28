@@ -6,48 +6,48 @@ import SlideSubtitle from '@/components/SlideSubtitle';
 export function Comment1Slide() {
   return (
     <Slide>
-      <SlideTitle>1 · The baseline is pre-ITSGF law — Sim. 2 is partly the status quo</SlideTitle>
+      <SlideTitle>1 · Clarify the policy baseline — and use 2023 as validation</SlideTitle>
       <SlideSubtitle>
-        Ley 38/2022 entered into force 29 Dec 2022 and accrues each 31 December —
-        its first tax year is 2022 (your valuation date), not 2023 (fn. 2)
+        The pre-ITSGF benchmark is analytically useful; a clearer label and
+        corrected date would sharpen the comparison
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-3 gap-6">
           <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
             <p className="text-4xl font-bold text-teal-300">€623M</p>
-            <p className="text-lg text-slate-200 mt-1">
+            <p className="text-2xl text-slate-200 mt-1">
               ITSGF collected on 2022 wealth (12,010 taxpayers; 89% Madrid) —
               ≈ half of Sim. 2&rsquo;s incremental €1,280M
             </p>
           </div>
           <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
             <p className="text-4xl font-bold text-teal-300">€1,926M</p>
-            <p className="text-lg text-slate-200 mt-1">
+            <p className="text-2xl text-slate-200 mt-1">
               actual IP receipts for 2023 (+€676M, 90.6% from Madrid ending its
-              rebate under Ley 12/2023) — vs €1,126M simulated &ldquo;current
-              law&rdquo;
+              rebate under Ley 12/2023) — vs €1,126M in the simulated
+              pre-ITSGF benchmark
             </p>
           </div>
           <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
-            <p className="text-4xl font-bold text-teal-300">−60%</p>
-            <p className="text-lg text-slate-200 mt-1">
-              ITSGF outturn vs its ~€1.5bn official forecast — a live lesson in
-              static revenue scoring
+            <p className="text-4xl font-bold text-teal-300">~40%</p>
+            <p className="text-2xl text-slate-200 mt-1">
+              of the ~€1.5bn official ITSGF forecast was collected in its first
+              year — useful evidence for calibrating static scores
             </p>
           </div>
         </div>
         <p>
-          None of this invalidates the design comparison — but the baseline
-          should be labeled a{' '}
+          The design comparison remains informative. Labeling the benchmark a{' '}
           <span className="font-semibold text-slate-900">pre-ITSGF counterfactual</span>,
-          and footnote 2&rsquo;s dating corrected.
+          and correcting footnote 2&rsquo;s date, would prevent readers from
+          mistaking it for the full law applying at the 2022 valuation date.
         </p>
-        <div className="border-l-4 border-pe-teal pl-5 py-2.5 bg-teal-50 rounded-r-lg text-xl">
+        <div className="border-l-4 border-pe-teal pl-5 py-2.5 bg-teal-50 rounded-r-lg text-2xl">
           <p>
-            <span className="font-semibold text-slate-900">The opportunity:</span>{' '}
+            <span className="font-semibold text-slate-900">A useful extension:</span>{' '}
             2023 is now observable — Madrid un-rebated plus a state surcharge is
             a partial dress rehearsal of Sim. 2. An out-of-sample validation
-            against AEAT&rsquo;s 2023 statistics would be a genuinely novel
+            against AEAT&rsquo;s 2023 statistics could be a genuinely novel
             contribution.
           </p>
         </div>
@@ -59,65 +59,62 @@ export function Comment1Slide() {
 export function Comment2Slide() {
   return (
     <Slide>
-      <SlideTitle>2 · Static revenue is a ceiling — and your own citations price the gap</SlideTitle>
+      <SlideTitle>2 · Add behavioral sensitivity ranges to the static estimates</SlideTitle>
       <SlideSubtitle>
-        Behavioral erosion scales with the tax rate, so it is not
-        ranking-neutral across the eight designs
+        Static scores are a useful benchmark; a modest bounds exercise would
+        show how robust the ranking is
       </SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
+      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-2 gap-8">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-2">
-              A transparent ready-reckoner (illustration, not an estimate)
+              An illustrative sensitivity range (not a point estimate)
             </p>
-            <ul className="space-y-1.5 list-disc pl-5 text-lg">
+            <ul className="space-y-2 list-disc pl-5 text-2xl">
               <li>
-                Advani &amp; Tarrant (2021): base −7–17% per 1pp →{' '}
+                Advani &amp; Tarrant: base −7–17% per 1pp →{' '}
                 <span className="font-semibold">Sim. NO €15.5bn → €12.8–14.4bn</span>
               </li>
               <li>
-                Mas-Montserrat et al. (2025, your citation): −3.21% per 0.1pp
-                ATR → ~8–10% off Sim. NO/3/Piketty
+                Mas-Montserrat: −3.21% per 0.1pp ATR → ~8–10% lower
               </li>
               <li>
-                Brülhart et al. (2022, your citation): ≥43% reported-wealth
-                response per 1pp = the upper bound
+                Brülhart: ≥43% reported-wealth response per 1pp (high-response anchor)
               </li>
               <li>
-                Saez–Zucman score with 15% (strong) / 50% (weak enforcement)
-                erosion — zero is outside the published debate
+                Saez–Zucman: 15% / 50% erosion scenarios
               </li>
             </ul>
           </div>
           <div className="space-y-4">
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
-              <p className="font-semibold text-slate-900 mb-1">The missing citation helps you</p>
-              <p className="text-lg">
-                Agrawal, Foremny &amp; Martínez-Toledano (AEJ: Applied 2025):
-                Madrid&rsquo;s zero rate; mobility costs 6× more in income tax
-                than it saves in wealth tax;{' '}
+              <p className="font-semibold text-slate-900 mb-1">Recent evidence reinforces the harmonization case</p>
+              <p className="text-2xl">
+                Agrawal, Foremny &amp; Martínez-Toledano: mobility induced by
+                Madrid&rsquo;s zero rate costs 6× more in income tax than it saves
+                in wealth tax;{' '}
                 <span className="font-semibold">
                   Madrid itself would gain from a harmonized positive rate
                 </span>{' '}
-                — your Sim. 2/3 case, made stronger.
+                — evidence consistent with your Sim. 2/3 case.
               </p>
             </div>
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
-              <p className="font-semibold text-slate-900 mb-1">Two anchors worth one sentence each</p>
-              <p className="text-lg">
-                Norway&rsquo;s own tax yields ~0.5% of GDP vs Sim. NO&rsquo;s
-                1.13% of Spain&rsquo;s; and Sims 1–3 keep the 60% IRPF–IP cap —
-                the channel carrying 92.6% of measured Spanish avoidance.
+              <p className="font-semibold text-slate-900 mb-1">Two external anchors for context</p>
+              <p className="text-2xl">
+                Norway raises ~0.5% of GDP vs Sim. NO&rsquo;s 1.13% of Spain&rsquo;s.
+                Sims 1–3 also retain the 60% IRPF–IP cap.
               </p>
             </div>
           </div>
         </div>
         <p>
-          Because erosion rises with rates, adjusting for it{' '}
+          Because behavioral responses likely rise with rates, these ranges may{' '}
           <span className="font-semibold text-slate-900">
-            strengthens your breadth-over-rates conclusion
+            strengthen your breadth-over-rates conclusion
           </span>{' '}
-          while shrinking the headline euros — worth owning explicitly.
+          while lowering the headline euros. Showing both figures would make
+          the conclusion more robust.
         </p>
       </div>
     </Slide>
@@ -127,48 +124,53 @@ export function Comment2Slide() {
 export function Comment3Slide() {
   return (
     <Slide>
-      <SlideTitle>3 · Two mechanical results need a re-run</SlideTitle>
+      <SlideTitle>3 · The long-run mechanics merit a consistency check</SlideTitle>
       <SlideSubtitle>
-        Fixable before the journal version — neither threatens the qualitative ranking
+        Reapply each schedule under an actual or explicitly assumed threshold
+        path, then test whether the long-run ranking survives
       </SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
-        <div className="grid grid-cols-2 gap-8">
-          <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
+      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
+        <div className="grid grid-cols-3 gap-5">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
             <p className="font-semibold text-slate-900 mb-1.5">
-              The equivalized long-run Gini cannot rise
+              Reapply the schedule as wealth grows
             </p>
-            <p className="text-lg">
-              Under uniform growth the no-tax distribution is scale-invariant,
-              and with your C<sub>t</sub> = 0.974 the cumulative IP levy
-              (0.50% by T=25) can move the Gini at most{' '}
-              <span className="font-semibold">~0.17pt, downward</span>. Table 5
-              reports <span className="font-semibold">+1.04pt</span> — six
-              times the bound, wrong sign; five designs stay above the
-              starting Gini for a century. The projection code needs an audit.
+            <p className="text-2xl">
+              At g = 2%, no-tax wealth grows <span className="font-semibold">7.24×</span>{' '}
+              by T=100. But each year-0 average rate stays fixed: nobody enters,
+              exits, or changes bands. A schedule-based rerun could materially
+              change the paths.
             </p>
           </div>
-          <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
             <p className="font-semibold text-slate-900 mb-1.5">
-              Which total wealth? €5.3T vs €7.2T
+              The equivalized long-run Gini
             </p>
-            <p className="text-lg">
-              Every printed t and t<sub>s/r</sub> coheres on total net wealth
-              ≈ €5.3T (the EFF-consistent figure), but Table A.1&rsquo;s
-              mean × count implies €7.2T — a 35% gap. Since t<sub>s/r</sub>{' '}
-              seeds the entire long-run analysis, A.1&rsquo;s descriptives
-              need reconciling.
+            <p className="text-2xl">
+              Uniform growth leaves the no-tax Gini unchanged. The printed
+              inputs imply at most <span className="font-semibold">~0.17pt down</span>{' '}
+              by T=25; Table 5 reports <span className="font-semibold">+1.04pt</span>.
+              Could definitions or equivalization explain it?
+            </p>
+          </div>
+          <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
+            <p className="font-semibold text-slate-900 mb-1.5">
+              Reconcile total net wealth: €5.3T vs €7.2T
+            </p>
+            <p className="text-2xl">
+              The reported t and t<sub>s/r</sub> imply{' '}
+              <span className="font-semibold">≈ €5.3T</span>, while Table
+              A.1&rsquo;s mean × count implies <span className="font-semibold">€7.2T</span>.
+              Which aggregate seeds the projection?
             </p>
           </div>
         </div>
-        <div className="bg-slate-800 text-white rounded-xl px-6 py-4 text-lg">
-          <p className="font-semibold text-slate-100 mb-1">Smaller items for the same consistency pass</p>
+        <div className="bg-slate-800 text-white rounded-xl px-6 py-4 text-2xl">
+          <p className="font-semibold text-slate-100 mb-1">Threshold paths and comparators differ by design</p>
           <p className="text-slate-200">
-            Table 3&rsquo;s net-wealth R–S column is silently ×1000 vs Table
-            A.4 · overlap matrix has impossible cells (Piketty∩Sim.2 = 297,219
-            &gt; Sim.2&rsquo;s 201,687) · ratio 3.0838 vs 3.1125 on one page ·
-            seven vs eight vs nine scenarios · declared vs ×3.08 market values
-            across scenarios (Zurich&rsquo;s housing base ≈ 2.2× the
-            IP&rsquo;s) — state each design&rsquo;s valuation base explicitly.
+            Spain: nominal until amended · Norway: annual Storting decision ·
+            Zurich: bracket amounts CPI-adjusted every two years. State each
+            path—and label Tables 3–4 vs no IP, Figure 4 vs current IP.
           </p>
         </div>
       </div>
@@ -179,51 +181,44 @@ export function Comment3Slide() {
 export function Comment4Slide() {
   return (
     <Slide>
-      <SlideTitle>4 · Say the finding your tables prove — and open the engine</SlideTitle>
+      <SlideTitle>4 · Lead with the strongest finding — and make it reproducible</SlideTitle>
       <SlideSubtitle>
-        Redistribution and measured progressivity move in opposite directions;
-        replication is one disclosure package away
+        The breadth–progressivity trade-off is the paper&rsquo;s most interesting
+        result; replication is one disclosure package away
       </SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
+      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-2 gap-8">
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-1.5">Framing</p>
-            <p className="text-lg">
-              The abstract promises designs that &ldquo;increase tax
-              progressivity&rdquo; — but Kakwani falls under every broad-base
-              design you champion (0.231 → 0.191 Norway, 0.197 Piketty), and
-              your own decomposition credits the level effect. The inverse
-              trade-off <em>is</em> the interesting result: own it in the
-              abstract. (Also: your baseline validates within 8–10% of
-              AEAT&rsquo;s €1,250M — report that; it&rsquo;s a strength.)
+            <p className="text-2xl">
+              The broad-base designs redistribute more even as Kakwani falls:
+              0.231 → 0.191 (Norway) and 0.197 (Piketty). The level effect
+              dominates. That breadth–incidence trade-off is a sharper finding.
+              The baseline is also 8% low on payers and 10% low on revenue
+              versus AEAT&rsquo;s 2022 totals — a useful two-moment check.
             </p>
           </div>
           <div className="bg-slate-50 border border-slate-200 rounded-xl px-6 py-4">
             <p className="font-semibold text-slate-900 mb-1.5">Replicability</p>
-            <p className="text-lg">
-              The Panel de Hogares is a joint INE–AEAT–IEF product any
-              researcher can request free under the IEF protocol — unusually
-              open for register data. What&rsquo;s missing is yours, not
-              theirs: no code, no implementation-ready parameter tables (the Zurich design never
-              states its schedule — statutory 0.3% top rate vs ~0.65% with
-              multipliers). EUROMOD cannot simulate the IP at all
-              (&ldquo;lack of data on wealth&rdquo;).
+            <p className="text-2xl">
+              Researchers can request the Panel de Hogares free under the IEF
+              protocol. The remaining author-controlled inputs are code,
+              implementation-ready parameters, and the asset-base map. Zurich
+              shows why: its 0.3% statutory top tariff becomes ~0.65% only after
+              canton and city multipliers.
             </p>
           </div>
         </div>
         <div className="border-l-4 border-pe-teal pl-5 py-2.5 bg-teal-50 rounded-r-lg">
           <p>
-            <span className="font-semibold text-slate-900">The ask:</span>{' '}
-            publish the 17-region + 3-foreign-design + Piketty parameter tables, an
-            asset-by-asset base map (property values, pension rights, business
-            assets, liabilities, exemptions, and caps), and the calculator code
-            with the journal version.{' '}
+            <span className="font-semibold text-slate-900">A practical package:</span>{' '}
+            publish the 17-region + 3-foreign-design + Piketty parameters, the
+            asset-by-asset base map, and calculator code.{' '}
             <span className="font-semibold text-slate-900">
               We&rsquo;ve started an open re-encoding of all eight designs
             </span>{' '}
-            (github.com/MaxGhenis/iariw-2026-canto-garcia-replication) — with
-            your disclosures and a PH extract, it becomes the foundation for a
-            full replication.
+            — with those disclosures and a PH extract, it could become a full
+            replication.
           </p>
         </div>
       </div>
@@ -235,22 +230,22 @@ export function CloseSlide() {
   return (
     <Slide isEnd>
       <div className="space-y-10">
-        <h1 className="text-6xl font-bold text-center">Questions to open the floor</h1>
+        <h1 className="text-6xl font-bold text-center">Questions for discussion</h1>
         <div className="space-y-5 text-3xl text-slate-200 leading-relaxed max-w-5xl mx-auto">
           <p>
-            <span className="text-teal-300 font-semibold">What is the base?</span>{' '}
+            <span className="text-teal-300 font-semibold">Could you clarify the base?</span>{' '}
             Which property values, pension rights, business assets, and
             liabilities enter each scenario? What does Piketty raise on one
             common asset base?
           </p>
           <p>
-            <span className="text-teal-300 font-semibold">The 2023 test.</span>{' '}
+            <span className="text-teal-300 font-semibold">Could 2023 be an out-of-sample test?</span>{' '}
             Madrid un-rebated + ITSGF is a partial dress rehearsal of Sim. 2 —
-            does AEAT&rsquo;s 2023 outturn (€1.93bn) match what your model
+            does the combined ~€1.96bn outturn match what your model
             predicts?
           </p>
           <p>
-            <span className="text-teal-300 font-semibold">The cap.</span>{' '}
+            <span className="text-teal-300 font-semibold">How is the cap applied?</span>{' '}
             Is the 60% IRPF–IP limit active in Sims 1–3 and Piketty, and how
             much revenue does it remove from each?
           </p>

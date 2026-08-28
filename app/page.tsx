@@ -108,7 +108,7 @@ export default function Home() {
       <CurrentSlideComponent />
 
       {/* Slide counter */}
-      <div data-testid="slide-counter" className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
+      <div data-testid="slide-counter" className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white px-2 py-1 rounded">
         {currentSlide + 1} / {slides.length}
       </div>
     </main>

@@ -4,13 +4,21 @@ import SlideTitle from '@/components/SlideTitle';
 import SlideSubtitle from '@/components/SlideSubtitle';
 import { assetPath } from '@/lib/assetPath';
 
+function ResultContext({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-block rounded-md border border-slate-200 bg-slate-100 px-2.5 py-0.5 text-xl font-semibold text-slate-700 mr-2">
+      {children}
+    </span>
+  );
+}
+
 export function AETRSlide() {
   return (
     <Slide>
       <SlideTitle>Result 1 · Who faces the tax, and at what rate</SlideTitle>
       <SlideSubtitle>
-        Average effective tax rates by net-wealth percentile, 2022 — their
-        Figure 3
+        <ResultContext>Level measure · no-IP line = 0</ResultContext>
+        Average effective tax rates by net-wealth percentile, 2022 — their Figure 3
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10">
         <div className="grid grid-cols-2 gap-8">
@@ -66,6 +74,7 @@ export function HeadlineTableSlide() {
     <Slide>
       <SlideTitle>Result 2 · Base breadth, not rate steepness, drives everything</SlideTitle>
       <SlideSubtitle>
+        <ResultContext>Gini comparator · no IP</ResultContext>
         Individual net wealth, 2022 — condensed from their Table 3 (p.21)
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10">
@@ -126,10 +135,10 @@ export function HeadlineTableSlide() {
 export function DecompositionSlide() {
   return (
     <Slide>
-      <SlideTitle>Result 3 · Redistribution comes from incidence, not rate design</SlideTitle>
+      <SlideTitle>Result 3 · Incidence dominates the redistribution gains</SlideTitle>
       <SlideSubtitle>
-        Change in Reynolds–Smolensky vs the current IP, split into level and
-        distance effects — their Figure 4
+        <ResultContext>Comparator · current IP</ResultContext>
+        Change in Reynolds–Smolensky, split using Díaz et al. (2010, 2011) — their Figure 4
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
         <div className="w-[44%] space-y-5 text-2xl text-slate-700 leading-relaxed">
@@ -142,14 +151,24 @@ export function DecompositionSlide() {
             : the tax simply collects more.
           </p>
           <p>
-            The distance (structural-progressivity) effect is small and often{' '}
+            The distance contribution is{' '}
             <span className="font-semibold text-slate-900">negative</span> for
-            the broad-base designs.
+            Norway, Switzerland, and Piketty—even though all three taxes remain
+            progressive in absolute terms.
+          </p>
+          <p className="text-xl text-slate-500">
+            Mechanically: the mean net-of-tax change goes to &ldquo;level&rdquo;;
+            the change in normalized pairwise wealth gaps goes to
+            &ldquo;distance&rdquo;. This is an accounting split, not a behavioral one.
+          </p>
+          <p className="text-xl text-slate-700 border-l-4 border-slate-300 pl-5">
+            Negative is relative, not regressive: Sim. CH has K = 0.120, versus
+            0.231 for the current IP.
           </p>
           <div className="border-l-4 border-pe-teal pl-5 py-2 bg-teal-50 rounded-r-lg text-xl">
             <p>
               Their own words: improvements are &ldquo;driven primarily by the
-              Level Effect&rdquo; — incidence, not progressivity (p.22).
+              Level Effect&rdquo; (p.22).
             </p>
           </div>
         </div>
@@ -169,73 +188,148 @@ export function DecompositionSlide() {
 }
 
 const CHILD = [
-  ['IP (baseline)', '149', '0.48%'],
-  ['Sim. NO', '2,049', '4.58%'],
-  ['Sim. CH', '642', '1.40%'],
-  ['Sim. FR', '191', '0.56%'],
-  ['Sim. 1', '492', '1.19%'],
-  ['Sim. 2', '319', '1.06%'],
-  ['Sim. 3', '1,680', '4.21%'],
-  ['Sim. Piketty', '2,103', '4.87%'],
+  { design: 'IP', perChild: 149, taxOnly: 0.21, combined: 0.48 },
+  { design: 'Sim. NO', perChild: 2_049, taxOnly: 1.08, combined: 4.58 },
+  { design: 'Sim. CH', perChild: 642, taxOnly: 0.24, combined: 1.40 },
+  { design: 'Sim. FR', perChild: 191, taxOnly: 0.21, combined: 0.56 },
+  { design: 'Sim. 1', perChild: 492, taxOnly: 0.29, combined: 1.19 },
+  { design: 'Sim. 2', perChild: 319, taxOnly: 0.48, combined: 1.06 },
+  { design: 'Sim. 3', perChild: 1_680, taxOnly: 1.32, combined: 4.21 },
+  { design: 'Piketty', perChild: 2_103, taxOnly: 1.30, combined: 4.87 },
 ];
+
+function ChildBenefitComparisonChart() {
+  const left = 135;
+  const top = 54;
+  const plotWidth = 650;
+  const rowHeight = 59;
+  const plotBottom = top + CHILD.length * rowHeight;
+  const x = (value: number) => left + (value / 5) * plotWidth;
+
+  return (
+    <svg
+      viewBox="0 0 915 570"
+      role="img"
+      aria-label="Paired horizontal bars compare the percentage cut in the disposable-income Gini from the wealth tax alone and from the tax plus a universal child benefit for eight designs."
+      className="w-full h-auto"
+    >
+      {[0, 1, 2, 3, 4, 5].map((tick) => (
+        <g key={tick}>
+          <line
+            x1={x(tick)}
+            x2={x(tick)}
+            y1={top - 5}
+            y2={plotBottom - 6}
+            stroke="#E2E8F0"
+            strokeWidth="1"
+          />
+          <text
+            x={x(tick)}
+            y={plotBottom + 17}
+            textAnchor="middle"
+            fill="#64748B"
+            fontSize="14"
+          >
+            {tick}%
+          </text>
+        </g>
+      ))}
+
+      <rect x={left} y="8" width="16" height="12" fill="#64748B" />
+      <text x={left + 23} y="19" fill="#334155" fontSize="15">Tax only</text>
+      <rect x={left + 122} y="8" width="16" height="12" fill="#2EA3A3" />
+      <text x={left + 145} y="19" fill="#334155" fontSize="15">Tax + child benefit</text>
+
+      {CHILD.map((row, index) => {
+        const y = top + index * rowHeight;
+        return (
+          <g key={row.design}>
+            <text
+              x={left - 13}
+              y={y + 27}
+              textAnchor="end"
+              fill="#0F172A"
+              fontSize="17"
+              fontWeight="600"
+            >
+              {row.design}
+            </text>
+            <rect
+              x={left}
+              y={y + 6}
+              width={x(row.taxOnly) - left}
+              height="14"
+              fill="#64748B"
+            />
+            <text
+              x={x(row.taxOnly) + 7}
+              y={y + 18}
+              fill="#334155"
+              fontSize="14"
+              fontWeight="600"
+            >
+              {row.taxOnly.toFixed(2)}%
+            </text>
+            <rect
+              x={left}
+              y={y + 30}
+              width={x(row.combined) - left}
+              height="14"
+              fill="#2EA3A3"
+            />
+            <text
+              x={x(row.combined) + 7}
+              y={y + 42}
+              fill="#334155"
+              fontSize="14"
+              fontWeight="600"
+            >
+              {row.combined.toFixed(2)}% · €{row.perChild.toLocaleString('en-US')}/yr
+            </text>
+          </g>
+        );
+      })}
+
+      <text
+        x={left + plotWidth / 2}
+        y="566"
+        textAnchor="middle"
+        fill="#64748B"
+        fontSize="15"
+      >
+        Reduction in disposable-income Gini (%)
+      </text>
+    </svg>
+  );
+}
 
 export function ChildBenefitSlide() {
   return (
     <Slide>
-      <SlideTitle>Result 4 · What the revenue could buy: a universal child benefit</SlideTitle>
+      <SlideTitle>Result 4 · Most of the immediate income effect comes from recycling</SlideTitle>
       <SlideSubtitle>
-        Each design&rsquo;s revenue recycled as an equal per-child transfer —
-        their Table 4 (p.25)
+        <ResultContext>Comparator · no IP / no transfer</ResultContext>
+        Tax only (Table 3, p.21) versus tax + equal annual per-child transfer (Table 4, p.25)
       </SlideSubtitle>
-      <div className="flex-1 flex items-center gap-12 pb-10">
-        <div className="w-[48%]">
-          <table className="w-full text-xl text-slate-700 border-collapse">
-            <thead>
-              <tr className="bg-slate-800 text-white">
-                <th className="text-left px-4 py-2 font-semibold rounded-tl-lg">Design</th>
-                <th className="text-right px-4 py-2 font-semibold">€ / child / year</th>
-                <th className="text-right px-4 py-2 font-semibold rounded-tr-lg">
-                  Disposable-income Gini cut
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {CHILD.map((row, i) => (
-                <tr
-                  key={row[0]}
-                  className={
-                    row[0] === 'IP (baseline)'
-                      ? 'bg-teal-50 font-medium'
-                      : i % 2 === 0
-                        ? 'bg-white'
-                        : 'bg-slate-50'
-                  }
-                >
-                  <td className="px-4 py-1.5 font-semibold text-slate-900">{row[0]}</td>
-                  <td className="px-4 py-1.5 text-right tabular-nums">{row[1]}</td>
-                  <td className="px-4 py-1.5 text-right tabular-nums">{row[2]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className="flex-1 flex items-center gap-10 pb-10">
+        <div className="w-[64%]">
+          <ChildBenefitComparisonChart />
         </div>
         <div className="flex-1 space-y-5 text-2xl text-slate-700 leading-relaxed">
           <p>
-            The current IP finances{' '}
-            <span className="font-semibold text-slate-900">€149 per child per year</span>.
-            Broad-base designs finance{' '}
-            <span className="font-semibold text-slate-900">€1,680–2,103</span>.
+            Comparing their tables, tax + benefit cuts the Gini{' '}
+            <span className="font-semibold text-slate-900">2.2–5.9×</span>{' '}
+            as much as the tax alone.
           </p>
           <p>
-            Recycling the revenue cuts the disposable-income Gini by{' '}
+            For Norway, Sim. 3, and Piketty, the child benefit supplies{' '}
             <span className="font-semibold text-slate-900">
-              4.2–4.9% (1.6–1.8 Gini points)
-            </span>{' '}
-            under Sim. 3 / Piketty — versus 0.5% under the current tax.
+              69–76% of the combined one-year reduction
+            </span>.
           </p>
           <p className="text-xl text-slate-500">
-            Redistribution tracks revenue capacity, not the shape of the rate
-            schedule.
+            Derived from rounded R–S values; the paper reports no transfer-only
+            counterfactual.
           </p>
         </div>
       </div>
@@ -248,8 +342,8 @@ export function LongRunSlide() {
     <Slide>
       <SlideTitle>Result 5 · Compounding turns small rates into large long-run wedges</SlideTitle>
       <SlideSubtitle>
-        Top 1% share of equivalized net wealth under repeated annual taxation,
-        g = 2% — their Figure 5
+        <ResultContext>Reference · common T = 0 wealth</ResultContext>
+        Top 1% share under repeated annual taxation, g = 2% — their Figure 5
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-12 pb-10">
         <div className="w-[44%] space-y-5 text-2xl text-slate-700 leading-relaxed">
@@ -291,6 +385,7 @@ export function WhoPaysSlide() {
     <Slide>
       <SlideTitle>Result 6 · Design choices reshape who pays</SlideTitle>
       <SlideSubtitle>
+        <ResultContext>Level measure · not Δ vs IP</ResultContext>
         Taxpayer profiles across designs — their Figures 6–7 and Table 6
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-10 pb-10">
