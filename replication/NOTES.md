@@ -1,8 +1,8 @@
 # Parameter sources and open questions
 
 Every schedule in `schedules.py` cites its source inline. This file registers the
-primary sources actually consulted (all fetched during the adversarial review,
-23–26 Aug 2026) and the open questions only the authors can resolve.
+primary sources reviewed from 23–28 Aug 2026 and the open questions only the
+authors can resolve.
 
 ## Primary sources
 - Ley 19/1991 (IP), BOE historical consolidation at 28 Dec 2022: https://www.boe.es/buscar/act.php?id=BOE-A-1991-14392&p=20221228&tn=1 — art. 30.2 state schedule (anchor-tested), art. 28 €700k, art. 4.Nueve €300k, art. 31 límite conjunto (60%, 80% max reduction).
@@ -31,17 +31,25 @@ primary sources actually consulted (all fetched during the adversarial review,
 
 ## Axiom migration status
 
-- Ten official-document intake manifests covering 19 source documents are committed
-  locally in `axiom-corpus` at `f00f7d4a`. The four country repositories map every
-  intended citation root and include the `es-md`, `es-an`, `es-ga`, and `ch-zh`
-  namespaces.
+- Eleven official-document intake manifests covering 19 source documents are
+  committed and pushed in `axiom-corpus` through `574513cc`. The four country
+  repositories map every intended citation root and include the `es-md`,
+  `es-an`, `es-ga`, and `ch-zh` namespaces.
 - The replication package pins the official Axiom Python client and has a fail-closed
-  real-engine runtime contract. Its focused tests compile and execute through the Rust
-  engine; no bespoke fallback is available on that path.
-- Atomic country modules are not yet present. Terminal DNS currently prevents source
-  extraction, and Axiom correctly requires a signed corpus release plus the protected
-  supervisor/signing broker before supervised apply. The empty toolchains and workflow
-  placeholders are therefore deliberate, not validation claims.
+  real-engine runtime contract. Callers must supply independent artifact and
+  executable SHA-256 pins, and the runtime rechecks both files immediately before
+  execution. Its 12 focused runtime contract tests use a synthetic composition
+  compiled and executed through the Rust engine; no bespoke fallback is
+  available on that path.
+- Atomic country modules are not yet present. Disposable live extraction is
+  coverage-complete for 10 of 11 manifests; France needs an official DILA LEGI
+  tar/XML or credentialed PISTE adapter because Légifrance challenges direct
+  retrieval. No extracted output is committed or signed. Axiom also requires a
+  protected key-holder to create signed ingest manifests, then a signed corpus
+  release plus the protected supervisor/signing broker before supervised apply.
+  No GitHub Action performs the extraction or ingest signing. The empty
+  toolchains and workflow placeholders are therefore deliberate, not validation
+  claims.
 
 ## Source-audit implementation gaps
 

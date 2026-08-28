@@ -9,7 +9,7 @@ becomes re-runnable the moment microdata are attached.
 
 ```bash
 uv sync
-uv run pytest      # 26 unchanged anchors + 3 legal fixes + 8 engine tests
+uv run pytest      # 26 original tests + 3 legal fixes + 12 engine tests = 41
 ```
 
 ### Axiom runtime development
@@ -28,18 +28,28 @@ binary under `~/iariw-axiom-worktrees/axiom-rules-engine`. Runtime code never
 falls back to the bespoke Python calculator when Axiom is unavailable or rejects
 an artifact.
 
-The four country repositories and their source-intake maps now exist locally as
-`rulespec-es`, `rulespec-no`, `rulespec-ch`, and `rulespec-fr`. Their live atomic
-modules are intentionally absent until the prepared official documents are
-ingested into signed corpus releases and applied through Axiom's supervised
-encoder. Until then, `calculator.py` remains the explicit comparison oracle; it
-has not been relabeled or silently substituted for Axiom execution.
+Every binding must receive the expected compiled-artifact SHA-256 through
+`expected_artifact_sha256`, and every `AxiomRuntime` must receive the expected
+engine executable SHA-256 through `expected_binary_sha256`. The runtime checks
+both digests when binding and re-hashes both files immediately before each
+engine call. Production values must come from a trusted signed corpus release
+and dependency lock; the runtime does not manufacture or authenticate those
+pins.
+
+The four country repositories and their source-intake maps now exist locally
+and under `TheAxiomFoundation/rulespec-es`, `rulespec-no`, `rulespec-ch`, and
+`rulespec-fr`. Their live atomic modules are intentionally absent until the
+prepared official documents are ingested into signed corpus releases and
+applied through Axiom's supervised encoder. Until then, `calculator.py` remains
+the explicit comparison oracle; it has not been relabeled or silently
+substituted for Axiom execution.
 
 ## Current comparison-oracle coverage
 
-The pre-migration parameters remain in `src/wealth_tax_es/schedules.py` so the 26
-unchanged, hand-computed legal tests can compare the eventual RuleSpec-backed
-path against the original implementation.
+The pre-migration parameters remain in `src/wealth_tax_es/schedules.py`. The 26
+unchanged originals comprise 20 hand-computed schedule cases and six
+index/long-run cases; they can compare the eventual RuleSpec-backed path against
+the original implementation.
 
 - **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, using the published BOE
   cuota íntegra anchors rather than re-integrating rounded bracket edges),
@@ -81,7 +91,7 @@ path against the original implementation.
 - `src/wealth_tax_es/calculator.py` — liability functions (valuation-agnostic)
 - `src/wealth_tax_es/indices.py` — Gini/Kakwani/Suits/R–S (weighted)
 - `src/wealth_tax_es/longrun.py` — constant-g projection + cumulative rates
-- `tests/` — 26 unchanged anchors, three source-audit regressions, and eight
-  tests that compile and execute a synthetic composition through the real engine
+- `tests/` — 26 original tests, three source-audit regressions, and 12 runtime
+  contract tests around a real-engine-compiled synthetic composition
 - `NOTES.md` — primary-source register and open questions for the authors
 - `data/` — gitignored; put EFF/PH extracts here

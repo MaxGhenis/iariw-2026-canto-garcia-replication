@@ -7,7 +7,8 @@ Canonical coordination branch: `axiom-rulespec-migration-clean`
 Legacy mixed branch: `axiom-rulespec-migration` (contains pre-existing
 presentation commits and is not the Axiom review branch)
 
-Status: **incomplete; blocked at Axiom's protected corpus/apply boundary**
+Status: **incomplete; blocked by French source ingestion and Axiom's protected
+corpus/apply boundary**
 
 ## Outcome
 
@@ -19,16 +20,22 @@ supervisor, or relabel a synthetic engine test as a country implementation.
 
 The work did leave the migration in a more accurate and reproducible state:
 
-- 10 corpus intake manifests now identify 19 official documents and 19 unique
+- 11 corpus intake manifests now identify 19 official documents and 19 unique
   citation roots across Spain, Norway, Switzerland/Zürich, and France;
 - the previously open 2022 Zürich tariff and French IFI mid-bracket checks are
   closed against primary sources;
 - the retroactive ITSGF exemption amendment is explicitly sourced;
+- disposable live extraction is coverage-complete for 10 of 11 manifests; the
+  French historical chapter needs a DILA LEGI/PISTE ingestion adapter;
 - the bespoke comparison path's Spanish cent-anchor and Norwegian
   joint-threshold defects are corrected behind new tests;
-- CHF and NOK compile as Axiom currency units on the local engine branch;
+- CHF and NOK compile as Axiom currency units and are merged to engine
+  `main`;
+- all four country scaffold histories now have public organization repositories
+  and pushed `main` branches;
 - the replication package has a fail-closed, exact-decimal runtime for real
-  Axiom compiled artifacts, exercised by eight synthetic integration tests; and
+  Axiom compiled artifacts, exercised by 12 runtime contract tests around a
+  synthetic composition compiled and executed through the real engine; and
 - the exact publishable encode/compose/execute sequence and blockers are known.
 
 ## Definition-of-done status
@@ -37,11 +44,11 @@ The work did leave the migration in a more accurate and reproducible state:
 |---|---|---|
 | Four country encodings validate and carry provision citations | **Not complete** | `axiom-encode inventory` reports 0 files and 0 rules in every country repo. Only source maps and intake manifests exist. |
 | Axiom-backed calculator behind the existing signatures | **Not complete** | The real-engine runtime contract is implemented, but there are no country artifacts to bind; `calculator.py` remains the explicitly labelled comparator. |
-| Original 26 oracle tests pass unchanged against Axiom | **Not complete** | The original test file is byte-unchanged and passes, but still reaches the comparator. Eight additional tests execute a synthetic composition through the Rust engine. |
+| Original 26 oracle tests pass unchanged against Axiom | **Not complete** | The two original test files are byte-unchanged and pass (20 schedule cases plus 6 index/long-run cases), but still reach the comparator/Python analysis path. Twelve additional runtime contract tests exercise a synthetic composition compiled and executed through the Rust engine. |
 | Eight paper scenarios are ProgramSpec overlays | **Not complete** | No ProgramSpecs were committed because their atomic imports and exported identifiers do not exist. |
 | Cent comparison table for all eight scenarios | **Not complete** | It cannot be generated without executable country artifacts and overlays. |
 | README, NOTES, and progress ledger updated | **Complete for the actual state** | They distinguish source vintages, record implementation gaps, tests, commits, and blockers. |
-| Commits pushed | **Partly complete** | The clean coordination, corpus, and engine branches are pushed. `gh` authentication is invalid and the four country repos do not exist/have remotes, so those histories remain local. |
+| Commits pushed | **Complete for current work** | The clean coordination, corpus, engine, and all four country histories are pushed. Country validation still cannot start because the deliberately invalid `<pin-me>` workflow/toolchain placeholders require signed-release inputs. |
 
 ## Legal-source corrections
 
@@ -101,77 +108,105 @@ The work did leave the migration in a more accurate and reproducible state:
 
 ### Coordination and replication repository
 
-- Existing foundation commits: `c440d90`, `dfdd42a`, `d9ef6b8`, `45d3af2`,
-  `8b529b9`, `270066a`, `a7ac97d`, and `7e41ba9`.
-- `968d9c9` — create the replication progress ledger.
-- `886b796` — record the independent migration audit.
-- `05d5694` — record the verified 2022 Zürich source.
-- `30e5773` — correct Spanish statutory anchors and the Norwegian joint
-  threshold; add distinct 2022 Zürich law and regression tests.
-- `6d4c134` — update the replication source register and documentation.
+Clean branch commit chain:
 
-The Axiom runtime validates artifact format and SHA-256, enforces the compiler's
-exact input catalog, rejects missing or unknown slots, uses exact `Decimal`
-values, issues annual queries, and fails closed for missing dependencies,
-artifacts, inputs, outputs, or engine execution.
+- `322bb68`, `e7b1e4c`, `193df5a`, `3cefdcf`, `61d55a2`, `961ee77`,
+  `b66e18f`, and `58a42ac` — establish the migration ledger, country
+  scaffolds, source intake, runtime foundation, and initial handoff;
+- `fd554bc`, `8437585`, `beab157`, `6131bbc`, and `ab8be34` — record the
+  audit, close the historical Zürich gap, correct the Spanish and Norwegian
+  comparison oracles, and update source documentation;
+- `c8ab0e7`, `35bd133`, and `787a8f1` — finalize the blocker report and
+  publish the clean handoff; and
+- `87b42b4` — pin compiled artifacts and the exact Axiom engine binary by
+  independently supplied SHA-256 digests.
+
+The Axiom runtime validates artifact format and an externally supplied artifact
+SHA-256, enforces the compiler's exact input catalog, rejects missing or unknown
+slots, uses exact `Decimal` values, issues annual queries, and requires an
+externally supplied SHA-256 for the executable engine binary. It re-hashes both
+files immediately before each engine call and fails closed for drift, missing
+dependencies, artifacts, inputs, outputs, or engine execution. Those expected
+digests must come from a trusted signed release or lock; this runtime does not
+itself validate release signatures.
 
 ### `axiom-corpus`
 
 Branch `wealth-tax-source-manifests`:
 
 - `65abb900` — add 10 official-document intake manifests (17 documents);
-- `6cfb8231` — add the official historical 2022 Zürich § 47 source; and
-- `f00f7d4a` — add the retroactive ITSGF exemption amendment source.
+- `6cfb8231` — add the official historical 2022 Zürich § 47 source;
+- `f00f7d4a` — add the retroactive ITSGF exemption amendment source;
+- `e8a89787` — replace blocked Zürich attachment links and restrict the
+  Zürich/retroactive Spanish extraction slices; and
+- `574513cc` — split mixed Zürich scopes, narrow the remaining Swiss and
+  Spanish sources, and stop Norwegian guidance before unrelated sections.
 
-Current intake total: 10 manifests, 19 documents, 19 unique citation roots.
+Current intake total: 11 manifests, 19 documents, 19 unique citation roots.
 There are still no extracted `sources/`, `inventory/`, `provisions/`, or
 `coverage/` artifacts for these scopes and no signed named release.
-The branch is pushed to `TheAxiomFoundation/axiom-corpus`.
+The branch is pushed to `TheAxiomFoundation/axiom-corpus`. PR #624 is open,
+mergeable/clean, and has all applicable CI green; production release coverage
+is skipped by design on pull requests. It is ready for maintainer review and
+merge.
 
 ### `axiom-rules-engine`
 
-Branch `wealth-tax-currency-seeds`, commit `9d61eea`:
+Feature commit `9d61eea`, merged through
+`TheAxiomFoundation/axiom-rules-engine#165` as `bb4b568`:
 
 - registers CHF and NOK as two-minor-unit currencies; and
 - adds RuleSpec compile tests for each.
 
-The replication lock remains on upstream engine `v0.2.2`/`2c0e1ed` because the
-CHF/NOK feature commit is not reviewed, merged, or released. Pinning production
-replication code to the feature branch would get ahead of that admission step.
-
-The engine branch is now pushed to `TheAxiomFoundation/axiom-rules-engine`; the
-replication lock should move only after the engine change is reviewed and lands
-on a stable reachable revision.
+PR #165 and the resulting `main` merge commit passed Linux/macOS Rust tests,
+PyO3, WASM, and Python package checks. CHF/NOK are therefore on the default
+branch and satisfy the country workflow ancestry prerequisite. The latest
+published engine release is still `v0.2.2`/`2c0e1ed`, so the replication
+client lock should move only after a CHF/NOK-capable release is cut and
+verified.
 
 ### Country repositories
 
 | Repository | Current commit | Scope | Remote |
 |---|---:|---|---|
-| `rulespec-es` | `4f8f338` | `es`, `es-md`, `es-an`, `es-ga`; includes RDL 8/2023 authority | none |
-| `rulespec-no` | `9ace7f1` | `no`; 2022/2023 statute and guidance maps | none |
-| `rulespec-ch` | `988ebd3` | `ch`, `ch-zh`; distinct 2022/2026 tariff sources | none |
-| `rulespec-fr` | `c38c40d` | `fr`; archived 2022 CGI IFI source | none |
+| `rulespec-es` | `4f8f338` | `es`, `es-md`, `es-an`, `es-ga`; includes RDL 8/2023 authority | `TheAxiomFoundation/rulespec-es` |
+| `rulespec-no` | `9ace7f1` | `no`; 2022/2023 statute and guidance maps | `TheAxiomFoundation/rulespec-no` |
+| `rulespec-ch` | `642a3e5` | `ch`, `ch-zh`; distinct 2022/2026 tariff sources and split statute/guidance manifests | `TheAxiomFoundation/rulespec-ch` |
+| `rulespec-fr` | `c38c40d` | `fr`; archived 2022 CGI IFI source | `TheAxiomFoundation/rulespec-fr` |
 
 Each country README explicitly requires supervised encoding and says not to
 hand-author RuleSpec. Each `.axiom/toolchain.toml` is an intentional
 `NON-VALIDATING PLACEHOLDER`; workflow dependencies still contain `<pin-me>`.
 The layout tests therefore prove only repository shape, not legal coverage.
+The first push-triggered workflow in each new repository created zero jobs and
+reported the expected invalid reusable-workflow reference at `@<pin-me>`.
+Existing green BE/NZ lanes currently pin reviewed shared workflow
+`842c69d6aa62a0d75a4da850fabc3d0df20701d7`, but copying that reference and
+dependency SHAs before these four signed releases exist would only advance the
+failure to the three-key toolchain gate.
 
 ## Validation evidence
 
-- Replication: **37 passed** — 26 unchanged anchors, 3 legal-correction
-  regressions, and 8 tests that compile/execute a synthetic composition through
-  the real Rust engine.
+- Replication: **41 passed** — 26 original tests, 3 legal-correction
+  regressions, and 12 runtime contract tests around a synthetic composition
+  compiled and executed through the real Rust engine.
 - Axiom Compose core/spec/transformation suite: **18 passed**.
 - Country layout suites: **7 passed in each repo** (28 total).
 - Country encoder inventory: **0 files / 0 rules / 0 source-provision files / 0
   compositions in each repo**.
-- Corpus intake validation: **10 manifests / 19 documents / 19 unique citation
-  roots**; focused manifest/page-window suite **4 passed**.
-- GitNexus staged checks for both new corpus commits: **low risk, 0 affected
+- Corpus intake validation: **11 manifests / 19 documents / 19 unique citation
+  roots**; focused scope suite **11 passed**. Live extraction completed with
+  full coverage for 10 of 11 manifests (18 of 19 documents); the historical
+  French Légifrance source remains access-blocked.
+- Corpus repository, local macOS: **4,260 passed / 80 skipped / 208
+  deselected**. PR #624 Linux/Python 3.14 CI: **4,263 passed / 77 skipped / 208
+  deselected**. Ruff, mypy, Towncrier, artifact guard, PostgreSQL, workflow,
+  citation-grammar, and named-release selector checks passed.
+- GitNexus staged checks for the corpus fixes: **low risk, 0 affected
   processes**.
-- Engine CHF test: **1 passed**; NOK test: **1 passed**; `cargo fmt --check`
-  passed.
+- Engine PR #165: CHF test **1 passed**; NOK test **1 passed**; full Linux/macOS
+  Rust, PyO3, WASM, and Python package CI passed on both the PR and merged
+  `main`; `cargo fmt --check` passed locally.
 - Documentation and staged diffs: `git diff --check` passed for every committed
   step.
 
@@ -181,23 +216,41 @@ The supported country-lane sequence is source extraction, immutable signed
 corpus release, real three-key toolchain binding, then supervised
 `axiom-encode encode ... --apply`. This environment cannot complete that chain:
 
-1. Terminal DNS and raw outbound connections are intermittent and normally
-   fail. A brief working interval allowed the three existing branches to push,
-   but subsequent GitHub resolution failed again. Browser-accessible primary
-   sources cannot be converted into authenticated corpus snapshots by copying
-   rendered text.
-2. `gh auth status` reports an invalid token. A post-run names-only
-   `agent-secret` search confirmed that the relevant Axiom corpus/apply key
-   entries exist; no credential value was read or exposed. This does not
-   unblock the production apply path, which is deliberately bound to the
-   protected GitHub Actions workflow.
-3. The corpus worktree contains manifests only. The normal publisher needs an
-   isolated S3-compatible bucket, migrated Supabase/PostgREST, a corpus signing
-   key, and a clean tracked release selector. None is present locally.
+1. Ten of the 11 manifests now extract successfully from official sources. The
+   historical French Légifrance chapter is legally correct but returns a
+   Cloudflare challenge to the supported HTTP and browser-impersonation
+   fetches. DILA's official LEGI bulk archive is reachable, but the current
+   extractor cannot stream its tar/XML format or select the historical article
+   versions. France therefore needs a narrow LEGI archive importer or
+   credentialed PISTE adapter; BOFiP guidance is not a statute substitute.
+   The implementation is tracked in `axiom-corpus#625`.
+2. GitHub authentication recovered, the four organization repositories were
+   created, and their local histories were pushed. Their first `main` workflow
+   events fail before any job starts because the committed reusable-workflow
+   reference and dependency inputs are deliberately `<pin-me>`. Replacing
+   those placeholders before a signed corpus release would invent the required
+   three-key binding rather than validate it.
+3. The corpus branch contains only intake manifests/tests: it has no protected
+   corpus artifacts, signed `.axiom/ingest-manifests`, or immutable
+   `manifests/releases/*.json` selector. There is no Actions workflow that
+   extracts official documents or signs ingest manifests, and no repository,
+   organization, or environment Actions secret named
+   `AXIOM_CORPUS_INGEST_PRIVATE_KEY`. A protected key-holder/local wrapper must
+   create and sign those files before same-repository PR CI can verify them.
+   The two Zürich statute manifests share the `ch-zh/statute` scope, so the
+   extraction controller must assign distinct immutable source versions to
+   avoid overwriting either extraction. If one combined scope is needed, compose
+   those versions into a third distinct target version.
 4. The protected `/opt/axiom-verification` installation has fixed production
    trust roots and no apply signer. The current supervisor requires an external
    `apply_ed25519` signer file descriptor.
-5. The encoder's `--allow-local-dev` option exists only on the leaf signer. It
+5. The production publish workflow can stage, verify, and sign a complete
+   release after a canonical selector reaches `main`, but no valid selector or
+   artifacts exist yet. Live environment configuration also shows
+   `release-activation` restricted to `main` without the required-reviewer
+   rule described by its comments; activation must not be requested until that
+   policy is confirmed or repaired.
+6. The encoder's `--allow-local-dev` option exists only on the leaf signer. It
    creates a throwaway key and nonpublishable manifests that Foundation CI does
    not trust. A safe dev chain would additionally require a newly root-owned
    supervisor tree plus isolated S3/Supabase services; this sandbox cannot write
@@ -209,17 +262,29 @@ request.
 
 ## Exact resume sequence
 
-1. Restore stable terminal network/DNS and GitHub CLI authentication. Create the
-   four `TheAxiomFoundation/rulespec-*` repositories, add remotes, and push the
-   clean local histories. The coordination, corpus, and engine branches are
-   already pushed.
-2. Run all 10 corpus manifests through the normal extraction pipeline; inspect
-   official snapshots and the resulting source inventory, provisions, and
-   coverage. Commit them, create complete-expression-date release selectors,
-   and publish immutable signed country releases.
-3. Land dedicated country commits binding the real release name/content digest,
-   waiver-set digest, full dependency SHAs, and reviewed reusable workflow SHA.
-4. Through the production supervisor and apply signer, run commands of the form:
+1. Add a narrow official DILA LEGI tar/XML importer (or provision a
+   credentialed PISTE adapter), pin the source archive, and extract the
+   historical 2022 CGI Articles 964–983 without substituting guidance
+   (`axiom-corpus#625`).
+2. After manifest PR `axiom-corpus#624` passes review, have the protected
+   key-holder use the supported local wrapper to run all 11 manifests through
+   the normal extraction pipeline, inspect the official
+   snapshots/inventory/provisions/coverage, and sign the ingest manifests. Ten
+   manifests have passed disposable live extraction, but none of those outputs
+   is committed or signed. Use distinct immutable source versions for the two
+   `ch-zh/statute` manifests; if one combined scope is needed, compose them
+   into a third distinct target version.
+3. Submit those protected artifacts and ingest manifests through a
+   same-repository PR. After they merge, add canonical complete expression-date
+   release selectors on a dedicated PR, let `publish.yml` produce the signed
+   immutable release objects, and confirm the activation environment policy
+   before any activation.
+4. Land dedicated country commits binding the real release name/content digest,
+   waiver-set digest, full dependency SHAs, and a reviewed immutable reusable
+   workflow SHA. The BE/NZ snapshot observed during this session was
+   `842c69d6aa62a0d75a4da850fabc3d0df20701d7`; re-confirm it rather than
+   assuming it remains the reviewed choice.
+5. Through the production supervisor and apply signer, run commands of the form:
 
    ```bash
    axiom-encode encode \
@@ -234,16 +299,17 @@ request.
    Repeat for every national and subjurisdiction provision, then run companion
    tests, proof/money-atom validation, inventory, oracle disposition, and full
    `axiom-encode ci`.
-5. Add scenario ProgramSpecs only after the exported identifiers are fixed.
+6. Add scenario ProgramSpecs only after the exported identifiers are fixed.
    Axiom Compose does not support replacing an imported derived rule with the
    same name: overlays must produce unique scenario outputs, or import atomic
    components while omitting the baseline liability producer and synthesize a
    common output in separate artifacts.
-6. Compose each scenario with explicit country roots and the pinned corpus SHA,
+7. Compose each scenario with explicit country roots and the pinned corpus SHA,
    compile with `compile-composed`, execute with `run-compiled`, and bind each
    artifact to the existing replication signatures. Add `axiom-compose` and the
-   pushed CHF/NOK-capable engine revision to the reproducible dependency lock.
-7. Run the unchanged 26 tests through those country artifacts, generate the
+   merged CHF/NOK-capable engine revision to the reproducible dependency lock
+   after its release is verified.
+8. Run the unchanged 26 tests through those country artifacts, generate the
    eight-design cent comparison table, update this report, and push all commits.
 
 ## Scope integrity
