@@ -6,49 +6,80 @@ import SlideSubtitle from '@/components/SlideSubtitle';
 export function Comment1Slide() {
   return (
     <Slide>
-      <SlideTitle>1 · Clarify the policy baseline — and use 2023 as validation</SlideTitle>
+      <SlideTitle>1 · Use the outturns — separate model fit from policy change</SlideTitle>
       <SlideSubtitle>
-        The pre-ITSGF benchmark is analytically useful; a clearer label and
-        corrected date would sharpen the comparison
+        Benchmark against the same tax year; use 2023 as a partial test of Sim. 2
       </SlideSubtitle>
-      <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-2xl text-slate-700 leading-relaxed">
-        <div className="grid grid-cols-3 gap-6">
-          <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
-            <p className="text-4xl font-bold text-teal-300">€623M</p>
-            <p className="text-2xl text-slate-200 mt-1">
-              ITSGF collected on 2022 wealth (12,010 taxpayers; 89% Madrid) —
-              ≈ half of Sim. 2&rsquo;s incremental €1,280M
+      <div className="flex-1 flex flex-col justify-center pb-8 max-w-6xl w-full mx-auto text-slate-700">
+        <div className="grid grid-cols-[0.82fr_1.45fr] gap-10 items-stretch">
+          <div className="pr-10 border-r-2 border-slate-200 flex flex-col justify-center">
+            <p className="text-xl font-semibold uppercase tracking-wide text-slate-500 mb-4">
+              Same-year aggregate check
+            </p>
+            <div className="flex items-end justify-between gap-5">
+              <div>
+                <p className="text-5xl font-bold text-slate-800">€1.126bn</p>
+                <p className="text-xl text-slate-500 mt-1">Simulated 2022 IP</p>
+              </div>
+              <p className="text-4xl text-slate-300 pb-5">→</p>
+              <div>
+                <p className="text-5xl font-bold text-pe-teal">€1.250bn</p>
+                <p className="text-xl text-slate-500 mt-1">Observed 2022 IP</p>
+              </div>
+            </div>
+            <p className="mt-6 text-2xl leading-snug">
+              The model is <span className="font-bold text-slate-900">10% below</span>{' '}
+              AEAT&rsquo;s nationwide total; population-scope differences may explain
+              part of the gap.
             </p>
           </div>
-          <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
-            <p className="text-4xl font-bold text-teal-300">€1,926M</p>
-            <p className="text-2xl text-slate-200 mt-1">
-              actual IP receipts for 2023 (+€676M, 90.6% from Madrid ending its
-              rebate under Ley 12/2023) — vs €1,126M in the simulated
-              pre-ITSGF benchmark
+
+          <div>
+            <p className="text-xl font-semibold uppercase tracking-wide text-slate-500 mb-3">
+              After Madrid changed its rebate rule
             </p>
-          </div>
-          <div className="bg-slate-800 text-white rounded-xl px-6 py-4">
-            <p className="text-4xl font-bold text-teal-300">~40%</p>
-            <p className="text-2xl text-slate-200 mt-1">
-              of the ~€1.5bn official ITSGF forecast was collected in its first
-              year — useful evidence for calibrating static scores
+            <div className="grid grid-cols-[1fr_1.25fr_3rem_1.25fr_1fr] gap-x-3 gap-y-3 items-center text-2xl">
+              <div />
+              <p className="text-center text-xl font-semibold text-slate-500">2022</p>
+              <div />
+              <p className="text-center text-xl font-semibold text-slate-500">2023</p>
+              <p className="text-right text-xl font-semibold text-slate-500">Change</p>
+
+              <p className="font-semibold text-slate-800">IP</p>
+              <p className="text-center text-3xl font-bold text-pe-teal">€1.250bn</p>
+              <p className="text-center text-slate-300">→</p>
+              <p className="text-center text-3xl font-bold text-pe-teal">€1.926bn</p>
+              <p className="text-right text-xl font-semibold text-pe-teal whitespace-nowrap">+€676m</p>
+
+              <p className="font-semibold text-slate-800">ITSGF</p>
+              <p className="text-center text-3xl font-bold text-amber-600">€0.630bn</p>
+              <p className="text-center text-slate-300">→</p>
+              <p className="text-center text-3xl font-bold text-amber-600">€0.035bn</p>
+              <p className="text-right text-xl font-semibold text-amber-700 whitespace-nowrap">−€595m</p>
+
+              <div className="col-span-5 border-t-2 border-slate-300" />
+
+              <p className="font-bold text-slate-900">Combined</p>
+              <p className="text-center text-3xl font-bold text-slate-900">€1.880bn</p>
+              <p className="text-center text-slate-300">→</p>
+              <p className="text-center text-3xl font-bold text-slate-900">€1.961bn</p>
+              <p className="text-right text-xl font-bold text-slate-900 whitespace-nowrap">+€81m</p>
+            </div>
+            <p className="mt-4 text-xl leading-snug text-slate-600">
+              AEAT attributes <span className="font-semibold text-slate-900">90.6%</span>{' '}
+              of the IP increase to Madrid. Most of the headline jump is a shift
+              between the two taxes, not a baseline forecast miss.
             </p>
           </div>
         </div>
-        <p>
-          The design comparison remains informative. Labeling the benchmark a{' '}
-          <span className="font-semibold text-slate-900">pre-ITSGF counterfactual</span>,
-          and correcting footnote 2&rsquo;s date, would prevent readers from
-          mistaking it for the full law applying at the 2022 valuation date.
-        </p>
-        <div className="border-l-4 border-pe-teal pl-5 py-2.5 bg-teal-50 rounded-r-lg text-2xl">
-          <p>
-            <span className="font-semibold text-slate-900">A useful extension:</span>{' '}
-            2023 is now observable — Madrid un-rebated plus a state surcharge is
-            a partial dress rehearsal of Sim. 2. An out-of-sample validation
-            against AEAT&rsquo;s 2023 statistics could be a genuinely novel
-            contribution.
+
+        <div className="mt-8 border-l-4 border-pe-teal pl-6 py-3 bg-teal-50 rounded-r-lg">
+          <p className="text-2xl leading-snug text-slate-700">
+            <span className="font-semibold text-slate-900">Suggested revision:</span>{' '}
+            call the benchmark a <span className="font-semibold">2022 pre-ITSGF counterfactual</span>,
+            compare it with 2022 IP while noting the population scope, and use 2023
+            combined IP + ITSGF as a partial check on Sim. 2.
+            Also correct footnote 2: ITSGF first accrued on 31 December 2022.
           </p>
         </div>
       </div>
