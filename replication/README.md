@@ -9,7 +9,7 @@ becomes re-runnable the moment microdata are attached.
 
 ```bash
 uv sync
-uv run pytest      # 26 hand-computed anchor tests, all against primary sources
+uv run pytest      # 26 unchanged legal anchors + 8 real-engine runtime tests
 ```
 
 ### Axiom runtime development
@@ -28,7 +28,19 @@ binary under `~/iariw-axiom-worktrees/axiom-rules-engine`. Runtime code never
 falls back to the bespoke Python calculator when Axiom is unavailable or rejects
 an artifact.
 
-## What is encoded (all parameters sourced in `src/wealth_tax_es/schedules.py`)
+The four country repositories and their source-intake maps now exist locally as
+`rulespec-es`, `rulespec-no`, `rulespec-ch`, and `rulespec-fr`. Their live atomic
+modules are intentionally absent until the prepared official documents are
+ingested into signed corpus releases and applied through Axiom's supervised
+encoder. Until then, `calculator.py` remains the explicit comparison oracle; it
+has not been relabeled or silently substituted for Axiom execution.
+
+## Current comparison-oracle coverage
+
+The pre-migration parameters remain in `src/wealth_tax_es/schedules.py` so the 26
+unchanged, hand-computed legal tests can compare the eventual RuleSpec-backed
+path against the original implementation.
+
 - **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, anchor-tested against the
   BOE cuota íntegra table), €700k/€300k exemptions, the 60% IRPF–IP joint limit with
   its 80%-reduction floor, and the 2022 regional 100%/25% rebates (Madrid, Andalusia,
