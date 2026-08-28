@@ -4,7 +4,7 @@
 
 - Active branch: `axiom-rulespec-migration`.
 - Coordination repository: this replication package.
-- Current phase: source intake committed; corpus extraction/signing and first supervised country encodings are next.
+- Current phase: source intake and the real-engine runtime foundation are committed; corpus extraction/signing and first supervised country encodings are next.
 - Guardrails: use the real Axiom RuleSpec composition and rules-engine path; preserve the 26 existing oracle tests unchanged; keep paper scenarios as overlays; do not touch the slide app, staged OBBBA PDF, or Gmail drafts.
 
 ## Done
@@ -21,6 +21,8 @@
 - Validated every intake manifest with the current corpus loader, unique source/citation-path checks, compiled extraction regexes, `git diff --check`, and the focused corpus suite (102/102 tests passing). GitNexus reports low impact and no affected processes.
 - Kept the Zürich tariff source explicitly dated to its verified 2026 indexed edition; the manifest does not misstate it as a 2022 table. Verified the City of Zürich 119% factor for 2022 and 2023 from the official 2023 accounts.
 - Closed the previously flagged French IFI bracket gap against the archived 2022 CGI text; the source manifest covers the exact Article 977 scale and décote together with Articles 964, 973, and 979.
+- Added the replication package's fail-closed Axiom compiled-artifact runtime: exact input-catalog validation, `tax_year` intervals, Decimal-only inputs/outputs, artifact hashing, and explicit dependency/runtime errors. The focused suite compiles and executes a test composition through the real Rust engine; the full suite passes 34/34.
+- Pinned and locked the official Axiom Python client to engine commit `2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4`. The runtime foundation does not yet switch jurisdiction calculators or ship stand-in country artifacts.
 - Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
 
 ## Next
