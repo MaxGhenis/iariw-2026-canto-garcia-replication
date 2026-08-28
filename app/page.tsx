@@ -15,6 +15,7 @@ import {
   ScheduleBuild3Slide,
   ScheduleBuild4Slide,
   ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
   SchedulesChartSlide,
   MethodsSlide,
 } from './slides/Approach';
@@ -47,6 +48,7 @@ const slides = [
   ScheduleBuild3Slide,
   ScheduleBuild4Slide,
   ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
   SchedulesChartSlide,
   MethodsSlide,
   AETRSlide,
@@ -106,7 +108,7 @@ export default function Home() {
       <CurrentSlideComponent />
 
       {/* Slide counter */}
-      <div className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
+      <div data-testid="slide-counter" className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
         {currentSlide + 1} / {slides.length}
       </div>
     </main>
