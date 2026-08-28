@@ -2,8 +2,11 @@
 name = "wealth-tax-es-replication"
 version = "0.1.0"
 description = "Open re-encoding of the eight wealth-tax designs in Cantó & García-Rodríguez (2026), IARIW #195"
-requires-python = ">=3.11"
-dependencies = ["numpy>=1.26"]
+requires-python = "==3.14.*"
+dependencies = [
+    "axiom-rules-engine @ git+https://github.com/TheAxiomFoundation/axiom-rules-engine.git@2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4#subdirectory=python",
+    "numpy>=2,<3",
+]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.4"]
@@ -14,6 +17,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/wealth_tax_es"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

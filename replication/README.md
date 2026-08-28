@@ -12,6 +12,22 @@ uv sync
 uv run pytest      # 26 hand-computed anchor tests, all against primary sources
 ```
 
+### Axiom runtime development
+
+`uv sync` installs the official Axiom Python client from the exact engine commit
+tagged `v0.2.2` (`2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4`). The client delegates
+execution to the Rust binary. Point tests at a matching executable explicitly:
+
+```bash
+export AXIOM_RULES_ENGINE_BIN=/absolute/path/to/axiom-rules-engine/target/release/axiom-rules-engine
+uv run pytest tests/test_axiom_runtime.py
+```
+
+On Max's current checkout, the focused tests also discover the release or debug
+binary under `~/iariw-axiom-worktrees/axiom-rules-engine`. Runtime code never
+falls back to the bespoke Python calculator when Axiom is unavailable or rejects
+an artifact.
+
 ## What is encoded (all parameters sourced in `src/wealth_tax_es/schedules.py`)
 - **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, anchor-tested against the
   BOE cuota íntegra table), €700k/€300k exemptions, the 60% IRPF–IP joint limit with
