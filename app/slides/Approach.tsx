@@ -2,6 +2,7 @@ import React from 'react';
 import Slide from '@/components/Slide';
 import SlideTitle from '@/components/SlideTitle';
 import SlideSubtitle from '@/components/SlideSubtitle';
+import { assetPath } from '@/lib/assetPath';
 
 export function DataSlide() {
   return (
@@ -115,6 +116,33 @@ export function DesignsSlide() {
         <p className="text-base text-slate-500 mt-3">
           Foreign designs drop Spain&rsquo;s joint IRPF–IP cap (no analogue
           abroad). Sources: their Table 1 (p.11) and Table A.2 (p.40).
+        </p>
+      </div>
+    </Slide>
+  );
+}
+
+export function SchedulesChartSlide() {
+  return (
+    <Slide>
+      <SlideTitle>The same designs, as marginal rate schedules</SlideTitle>
+      <SlideSubtitle>
+        Discussant&rsquo;s rendering from the statutes (not from the paper) —
+        Spain shown with no abatements
+      </SlideSubtitle>
+      <div className="flex-1 flex flex-col justify-center pb-8">
+        <img
+          src={assetPath('/figures/mtr-schedules.png')}
+          alt="Marginal wealth-tax rate by net wealth for the five statutory systems"
+          className="max-h-[620px] w-auto mx-auto"
+        />
+        <p className="text-xl text-slate-700 mt-2 max-w-6xl">
+          <span className="font-semibold text-slate-900">
+            Un-abated Spain has the steepest top schedule of all five (3.5%);
+            Norway bites earliest and flattest.
+          </span>{' '}
+          The statutory schedules are not where Spain loses — the next slides
+          show what exemptions and rebates do to these lines in practice.
         </p>
       </div>
     </Slide>
