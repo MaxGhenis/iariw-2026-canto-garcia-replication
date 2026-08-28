@@ -18,6 +18,14 @@ from wealth_tax_es.calculator import (
     progressive_tax,
     zurich_liability,
 )
+from wealth_tax_es.portfolio_paths import (
+    CHF_PER_EUR_2022,
+    france_path,
+    ip_path,
+    norway_paper_path,
+    portfolio,
+    zurich_path,
+)
 
 # BOE art. 30.2 anchor points: (base liquidable, cuota íntegra)
 IP_ANCHORS = [
@@ -79,6 +87,8 @@ def test_norway_2022_two_brackets():
 
 def test_norway_paper_variant_flat_1pct():
     assert norway_liability(2_700_000, params=S.NORWAY_PAPER_VARIANT) == pytest.approx(10_000)
+    # Unlike 2022 law, the paper keeps the same 1% rate above NOK 20M.
+    assert norway_liability(25_000_000, params=S.NORWAY_PAPER_VARIANT) == pytest.approx(233_000)
 
 
 def test_norway_residence_valuation_kink():
@@ -121,3 +131,50 @@ def test_piketty_paper_variant():
     assert piketty_liability(6_000_000) == pytest.approx(64_000)
     # Book variant adds 0.1% below 200k
     assert piketty_liability(150_000, schedule=S.PIKETTY_BOOK_VARIANT) == pytest.approx(150)
+
+
+def test_common_portfolio_and_spanish_residence_cap_kinks():
+    assert portfolio(1_000_000) == pytest.approx((250_000, 750_000))
+    entry = S.IP_GENERAL_EXEMPTION / 0.75
+    assert ip_path(entry, S.IP_GENERAL_EXEMPTION) == pytest.approx(0.0, abs=1e-9)
+    assert ip_path(entry + 1, S.IP_GENERAL_EXEMPTION) == pytest.approx(0.0015)
+    # Below €1.2M, each extra euro adds 75 cents to the base; above it, the
+    # €300k home relief is capped and the full euro enters.
+    assert ip_path(1_190_001, S.IP_GENERAL_EXEMPTION) - ip_path(
+        1_190_000, S.IP_GENERAL_EXEMPTION
+    ) == pytest.approx(0.00225)
+    assert ip_path(1_210_001, S.IP_GENERAL_EXEMPTION) - ip_path(
+        1_210_000, S.IP_GENERAL_EXEMPTION
+    ) == pytest.approx(0.003)
+
+
+def test_norway_paper_path_entry_and_portfolio_marginal_rate():
+    assessable_share = 0.25 * 0.25 + 0.75
+    entry_eur = (
+        S.NORWAY_PAPER_VARIANT["threshold_single"]
+        / S.NOK_PER_EUR_2022
+        / assessable_share
+    )
+    assert entry_eur == pytest.approx(207_159.2, abs=0.1)
+    assert norway_paper_path(entry_eur) == pytest.approx(0.0, abs=1e-9)
+    assert norway_paper_path(1_000_001) - norway_paper_path(1_000_000) == pytest.approx(
+        0.008125
+    )
+
+
+def test_zurich_path_converts_euros_to_and_from_chf():
+    assert CHF_PER_EUR_2022 == pytest.approx(1.0047093385214)
+    assessable_share = 0.70 * 0.25 + 0.75
+    entry_eur = 81_000 / (assessable_share * CHF_PER_EUR_2022)
+    assert zurich_path(entry_eur - 1) == 0.0
+    assert zurich_path(entry_eur + 1) > 0.0
+    expected_marginal = assessable_share * 0.0005 * (0.99 + 1.19)
+    assert zurich_path(100_001) - zurich_path(100_000) == pytest.approx(expected_marginal)
+
+
+def test_france_path_property_light_trigger_and_entry_liability():
+    assessable_share = (1.0 - S.IFI_MAIN_RESIDENCE_ABATEMENT) * 0.25
+    entry_eur = S.IFI_TRIGGER / assessable_share
+    assert entry_eur == pytest.approx(7_428_571.43, abs=0.01)
+    assert france_path(entry_eur) == 0.0
+    assert france_path(entry_eur + 1) == pytest.approx(1_250.0, abs=0.01)

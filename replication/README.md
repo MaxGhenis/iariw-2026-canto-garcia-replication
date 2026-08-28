@@ -9,7 +9,7 @@ becomes re-runnable the moment microdata are attached.
 
 ```bash
 uv sync
-uv run pytest      # 26 original tests + 3 legal fixes + 12 engine tests = 41
+uv run pytest      # 26 starting cases + 4 master cases + 3 legal fixes + 12 engine tests = 45
 ```
 
 ### Axiom runtime development
@@ -47,9 +47,10 @@ substituted for Axiom execution.
 ## Current comparison-oracle coverage
 
 The pre-migration parameters remain in `src/wealth_tax_es/schedules.py`. The 26
-unchanged originals comprise 20 hand-computed schedule cases and six
-index/long-run cases; they can compare the eventual RuleSpec-backed path against
-the original implementation.
+starting-point cases comprise 20 hand-computed schedule cases and six
+index/long-run cases. Current master adds four schedule/portfolio-path cases.
+Together, they can compare the eventual RuleSpec-backed path against the
+original implementation.
 
 - **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, using the published BOE
   cuota íntegra anchors rather than re-integrating rounded bracket edges),
@@ -84,6 +85,7 @@ the original implementation.
 | Panel de Hogares 2022 (INE–AEAT–IEF) | Free to researchers under the IEF data-request protocol (`ief.es → Est_peticion`) → near-exact replication. Request not yet filed. |
 | 17 regional IP schedules beyond the rebates | Only the state schedule + rebates are encoded; the regional scales/thresholds (Catalonia 500k & 0.21–3.48%, etc.) belong in the parameter appendix we ask the authors to publish. |
 | Per-scenario valuation base | The paper is ambiguous (declared vs ×3.08 market values by design); `calculator.py` deliberately leaves valuation to the caller. |
+| Asset-by-asset base map | The paper labels most scenarios "net wealth" but does not document how pension rights, business assets, or liabilities are identified and included/excluded in each design; Norway/Switzerland are only described narratively as pension-exempt. |
 | Díaz et al. level/distance decomposition | Not implemented — the paper's eq. (5) as printed has a typo, and we do not implement formulas we have not read in the original source. |
 
 ## Structure
@@ -91,7 +93,8 @@ the original implementation.
 - `src/wealth_tax_es/calculator.py` — liability functions (valuation-agnostic)
 - `src/wealth_tax_es/indices.py` — Gini/Kakwani/Suits/R–S (weighted)
 - `src/wealth_tax_es/longrun.py` — constant-g projection + cumulative rates
-- `tests/` — 26 original tests, three source-audit regressions, and 12 runtime
-  contract tests around a real-engine-compiled synthetic composition
+- `tests/` — the schedule, portfolio-path, index, and long-run anchors; three
+  source-audit regressions; and 12 runtime contract tests around a
+  real-engine-compiled synthetic composition
 - `NOTES.md` — primary-source register and open questions for the authors
 - `data/` — gitignored; put EFF/PH extracts here

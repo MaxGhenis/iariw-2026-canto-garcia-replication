@@ -9,9 +9,12 @@ session "Wealth and fiscal and monetary policy" (slot verified on the online pro
 to 2pm, keeping this paper at 4pm). Discussant: Max Ghenis (PolicyEngine). Author
 response: Olga Cantó & Francisco García-Rodríguez.
 
-- `app/slides/*.tsx` — 20 slides (Next.js + Tailwind): 14 present the paper,
-  divider + 4 discussion comments + close
-- `public/figures/` — figures cropped from the authors' PDFs (`source/`)
+- `app/slides/*.tsx` — 27 slides (Next.js + Tailwind): six design paths in the
+  paper's order + recap, then the paper's eight-row design table, results, divider,
+  4 discussion comments, and close. The path charts hold a labeled illustrative
+  portfolio fixed (25% main residence, 75% other assets; pensions excluded)
+- `public/figures/` — figures cropped from the authors' PDFs (`source/`) plus
+  discussant-generated schedule charts sourced in `replication/NOTES.md`
 - `REVIEW.md` — adversarial review findings (CONFIRMED/PLAUSIBLE/REFUTED) behind
   the discussion slides; full evidence in `REVIEW-APPENDIX.md`
 - `SPEAKER-NOTES.md` — talk track with every number sourced to a paper table
@@ -21,6 +24,7 @@ response: Olga Cantó & Francisco García-Rodríguez.
 ```bash
 bun install
 bun run dev          # http://localhost:3000  (arrow keys; ?slide=N deep-links)
+uv run --with matplotlib python replication/scripts/mtr_chart.py  # regenerate + sync schedule figures
 bun run export       # Playwright → export/slide-NN.png
 uv run --with pillow python make_pdf.py   # PNGs → export/discussant-slides.pdf
 ```

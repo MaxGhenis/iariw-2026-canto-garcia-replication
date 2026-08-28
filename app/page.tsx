@@ -7,7 +7,18 @@ import {
   SpanishIPSlide,
   ThisPaperSlide,
 } from './slides/Background';
-import { DataSlide, DesignsSlide, MethodsSlide } from './slides/Approach';
+import {
+  DataSlide,
+  ScheduleBuild1Slide,
+  ScheduleBuild2Slide,
+  ScheduleBuild3Slide,
+  ScheduleBuild4Slide,
+  ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
+  SchedulesChartSlide,
+  DesignsSlide,
+  MethodsSlide,
+} from './slides/Approach';
 import {
   AETRSlide,
   HeadlineTableSlide,
@@ -31,6 +42,13 @@ const slides = [
   SpanishIPSlide,
   ThisPaperSlide,
   DataSlide,
+  ScheduleBuild1Slide,
+  ScheduleBuild2Slide,
+  ScheduleBuild3Slide,
+  ScheduleBuild4Slide,
+  ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
+  SchedulesChartSlide,
   DesignsSlide,
   MethodsSlide,
   AETRSlide,
@@ -90,7 +108,7 @@ export default function Home() {
       <CurrentSlideComponent />
 
       {/* Slide counter */}
-      <div className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
+      <div data-testid="slide-counter" className="fixed bottom-14 right-4 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
         {currentSlide + 1} / {slides.length}
       </div>
     </main>

@@ -182,7 +182,7 @@ export function Comment4Slide() {
       <SlideTitle>4 · Say the finding your tables prove — and open the engine</SlideTitle>
       <SlideSubtitle>
         Redistribution and measured progressivity move in opposite directions;
-        replication is one artifact away
+        replication is one disclosure package away
       </SlideSubtitle>
       <div className="flex-1 flex flex-col justify-center pb-10 space-y-5 max-w-6xl w-full mx-auto text-xl text-slate-700 leading-relaxed">
         <div className="grid grid-cols-2 gap-8">
@@ -204,7 +204,7 @@ export function Comment4Slide() {
               The Panel de Hogares is a joint INE–AEAT–IEF product any
               researcher can request free under the IEF protocol — unusually
               open for register data. What&rsquo;s missing is yours, not
-              theirs: no code, no parameter tables (the Zurich design never
+              theirs: no code, no implementation-ready parameter tables (the Zurich design never
               states its schedule — statutory 0.3% top rate vs ~0.65% with
               multipliers). EUROMOD cannot simulate the IP at all
               (&ldquo;lack of data on wealth&rdquo;).
@@ -214,14 +214,16 @@ export function Comment4Slide() {
         <div className="border-l-4 border-pe-teal pl-5 py-2.5 bg-teal-50 rounded-r-lg">
           <p>
             <span className="font-semibold text-slate-900">The ask:</span>{' '}
-            publish the 17-region + 4-foreign-design parameter tables and the
-            calculator code with the journal version.{' '}
+            publish the 17-region + 3-foreign-design + Piketty parameter tables, an
+            asset-by-asset base map (property values, pension rights, business
+            assets, liabilities, exemptions, and caps), and the calculator code
+            with the journal version.{' '}
             <span className="font-semibold text-slate-900">
               We&rsquo;ve started an open re-encoding of all eight designs
             </span>{' '}
             (github.com/MaxGhenis/iariw-2026-canto-garcia-replication) — with
-            your parameters it becomes a full replication on any PH or EFF
-            extract.
+            your disclosures and a PH extract, it becomes the foundation for a
+            full replication.
           </p>
         </div>
       </div>
@@ -236,10 +238,10 @@ export function CloseSlide() {
         <h1 className="text-6xl font-bold text-center">Questions to open the floor</h1>
         <div className="space-y-5 text-3xl text-slate-200 leading-relaxed max-w-5xl mx-auto">
           <p>
-            <span className="text-teal-300 font-semibold">Valuation base.</span>{' '}
-            Which real-estate value enters each scenario&rsquo;s taxable base —
-            declared or ×3.08 market? What does Piketty raise on the
-            IP&rsquo;s own base?
+            <span className="text-teal-300 font-semibold">What is the base?</span>{' '}
+            Which property values, pension rights, business assets, and
+            liabilities enter each scenario? What does Piketty raise on one
+            common asset base?
           </p>
           <p>
             <span className="text-teal-300 font-semibold">The 2023 test.</span>{' '}

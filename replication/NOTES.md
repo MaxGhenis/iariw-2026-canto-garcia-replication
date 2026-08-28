@@ -15,7 +15,9 @@ authors can resolve.
 - AEAT IP 2022 statistics: 230,365 declarants / 185,101 with positive cuota / €1,250.0M (sede.agenciatributaria.gob.es, Estadística de los declarantes del IP 2022); 2023: 228,575 declarants, €1,926.3M.
 - Norway: operative Storting tax decisions for 2022 (https://lovdata.no/dokument/LTI/forskrift/2021-12-14-3571) and 2023 (https://lovdata.no/dokument/LTI/forskrift/2022-12-13-2199); Skatteetaten Forskuddsmeldingen 2022 (https://www.skatteetaten.no/rettskilder/type/skattedirektoratets-meldinger/forskuddsmeldingen-2022/) and 2023 (https://www.skatteetaten.no/rettskilder/type/skattedirektoratets-meldinger/forskuddsmeldingen-2023/), plus the historical housing-rate page (https://www.skatteetaten.no/satser/formuesverdi-bolig/?year=2022 and `year=2023`) for allowances and asset valuation.
 - Zurich: official historical StG ZH Nachtrag 115, https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-631_1-1997_06_08-1999_01_01-115.html — the § 47 single/married tariff in force for 2022; ESTV Kantonsblatt ZH, https://www.estv2.admin.ch/stp/kb/zh-de.pdf — the distinct 2026-indexed § 47 tables used by the original paper oracle; formal cantonal 99% factor resolution: https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-631_21-2021_12_14-2022_01_26-116.html; City of Zurich 119% factor in the official 2023 accounts: https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/rechnung/20240326-rechnung-23-medienkonferenz.pdf; family unit: Art. 3(3) StHG on Fedlex (https://www.fedlex.admin.ch/eli/cc/1991/1256_1256_1256/de).
+- CHF conversion: ECB annual-average 2022 reference rate, series `EXR.A.CHF.EUR.SP00.A` — €1 = CHF 1.0047093385214.
 - France: archived 2022 CGI IFI chapter, Articles 964–983: https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006069577/LEGISCTA000036384995/2022-03-02/ — €1.3M trigger, exact Article 977 scale and décote, 30% main-residence abatement, and 75% plafonnement.
+- France guidance cross-checks: https://www.service-public.gouv.fr/particuliers/vosdroits/F563 (trigger €1.3M and 30% abatement) and the impots.gouv.fr "Calcul de l'IFI" page (barème from €800k, décote from €1.3M to €1.4M, and 75% plafonnement). These supplement rather than replace the CGI statute.
 - Panel de Hogares access: https://www.ief.es/investigacion/Est_panelHogares.vbhtml and IEF DT 5/2024 (https://www.ief.es/docs/destacados/publicaciones/documentos_trabajo/2024_05.pdf) — joint INE–AEAT–IEF product, waves 2016–2023, M714 wealth-tax file, free under the petition protocol; covers the common fiscal territory only (excludes Basque Country and Navarre).
 - EFF 2022: Banco de España, mean €309k / median €142.7k per household (Documento Ocasional 2413).
 
@@ -65,11 +67,27 @@ authors can resolve.
 1. Which real-estate value enters each scenario's taxable base — declared/cadastral
    or ×3.08 EFF-market? (Paper p.9 vs slides contradict; Zurich's 70% and Norway's
    25% are defined on market values.)
-2. Which ratio was applied, 3.0838 or 3.1125 (both printed on p.39)?
-3. Sim. 2: are regional *scales and thresholds* retained (as Table A.8's overlap
+2. What is the asset-by-asset base in each scenario: are pension rights present in
+   the PH wealth measure and, if so, removed under NO/CH/IP; how are business assets
+   treated for non-filers; which liabilities are netted; and what does "full net
+   wealth" mean for Piketty? The paper does not document this implementation.
+3. Which ratio was applied, 3.0838 or 3.1125 (both printed on p.39)?
+4. Sim. 2: are regional *scales and thresholds* retained (as Table A.8's overlap
    matrix implies) or harmonized to the state €700k (as Table A.2 says)?
-4. Is the 60% IRPF–IP limit active in Sims 1–3 and Piketty, and with what revenue
+5. Is the 60% IRPF–IP limit active in Sims 1–3 and Piketty, and with what revenue
    effect? (Table A.8's 3,577 IP payers with zero Piketty liability suggest it is.)
-5. Zurich: statutory tariff only, or × Steuerfuss (≈2.18)? Which allowance vintage?
-6. The 17 regional schedules "replicated in full detail" (fn. 6): please publish the
+6. Zurich: statutory tariff only, or × Steuerfuss (≈2.18)? Which allowance vintage?
+7. The 17 regional schedules "replicated in full detail" (fn. 6): please publish the
    parameter tables — this package has slots ready for them.
+
+## Design-path chart assumption
+The discussant charts are illustrations, not population estimates. They hold one
+single-filer balance sheet fixed at every wealth level: 25% main residence and 75%
+other assets, with pension rights excluded from plotted net wealth. They then apply
+each design's documented valuation and exemption rules. This makes the paper's
+Norway housing valuation (25%) distinct from the chart's assumed residence share
+(also 25%): Sim. NO assesses 25% × 25% + 75% = 81.25% of the next total-wealth euro
+after its approximately €160k individual exemption. Piketty is shown on full
+non-pension net wealth because its published asset-level base is unresolved. The
+Zurich path converts the euro balance sheet to and the liability back from CHF at
+the ECB's 2022 annual average (€1 = CHF 1.0047).

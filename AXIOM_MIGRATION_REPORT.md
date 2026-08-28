@@ -4,6 +4,10 @@ Status date: 2026-08-28
 
 Canonical coordination branch: `axiom-rulespec-migration-clean`
 
+The canonical branch is synchronized with current `origin/master`. Its Axiom
+PR diff does not modify the presentation, deck, PDF, chart, or communication
+artifacts inherited from that base.
+
 Legacy mixed branch: `axiom-rulespec-migration` (contains pre-existing
 presentation commits and is not the Axiom review branch)
 
@@ -44,7 +48,7 @@ The work did leave the migration in a more accurate and reproducible state:
 |---|---|---|
 | Four country encodings validate and carry provision citations | **Not complete** | `axiom-encode inventory` reports 0 files and 0 rules in every country repo. Only source maps and intake manifests exist. |
 | Axiom-backed calculator behind the existing signatures | **Not complete** | The real-engine runtime contract is implemented, but there are no country artifacts to bind; `calculator.py` remains the explicitly labelled comparator. |
-| Original 26 oracle tests pass unchanged against Axiom | **Not complete** | The two original test files are byte-unchanged and pass (20 schedule cases plus 6 index/long-run cases), but still reach the comparator/Python analysis path. Twelve additional runtime contract tests exercise a synthetic composition compiled and executed through the Rust engine. |
+| Original 26 oracle tests pass unchanged against Axiom | **Not complete** | The Axiom change set leaves the current-master baseline test files untouched. The 26 starting-point cases remain (20 schedule plus 6 index/long-run cases), and current master adds 4 schedule/portfolio-path cases, but all 30 baseline cases still reach the comparator/Python analysis path. Twelve additional runtime contract tests exercise a synthetic composition compiled and executed through the Rust engine. |
 | Eight paper scenarios are ProgramSpec overlays | **Not complete** | No ProgramSpecs were committed because their atomic imports and exported identifiers do not exist. |
 | Cent comparison table for all eight scenarios | **Not complete** | It cannot be generated without executable country artifacts and overlays. |
 | README, NOTES, and progress ledger updated | **Complete for the actual state** | They distinguish source vintages, record implementation gaps, tests, commits, and blockers. |
@@ -119,7 +123,9 @@ Clean branch commit chain:
 - `c8ab0e7`, `35bd133`, and `787a8f1` — finalize the blocker report and
   publish the clean handoff; and
 - `87b42b4` — pin compiled artifacts and the exact Axiom engine binary by
-  independently supplied SHA-256 digests.
+  independently supplied SHA-256 digests; and
+- `d8b19f1` — update the report and handoff with the final repository, PR, CI,
+  corpus-workflow, and blocker state before the current-master synchronization.
 
 The Axiom runtime validates artifact format and an externally supplied artifact
 SHA-256, enforces the compiler's exact input catalog, rejects missing or unknown
@@ -187,9 +193,10 @@ failure to the three-key toolchain gate.
 
 ## Validation evidence
 
-- Replication: **41 passed** — 26 original tests, 3 legal-correction
-  regressions, and 12 runtime contract tests around a synthetic composition
-  compiled and executed through the real Rust engine.
+- Replication: **45 passed** — 26 starting-point tests, 4 schedule/portfolio-path
+  tests inherited from current master, 3 legal-correction regressions, and 12
+  runtime contract tests around a synthetic composition compiled and executed
+  through the real Rust engine.
 - Axiom Compose core/spec/transformation suite: **18 passed**.
 - Country layout suites: **7 passed in each repo** (28 total).
 - Country encoder inventory: **0 files / 0 rules / 0 source-provision files / 0
@@ -309,14 +316,17 @@ request.
    artifact to the existing replication signatures. Add `axiom-compose` and the
    merged CHF/NOK-capable engine revision to the reproducible dependency lock
    after its release is verified.
-8. Run the unchanged 26 tests through those country artifacts, generate the
-   eight-design cent comparison table, update this report, and push all commits.
+8. Run the 26 starting-point oracle cases and the current-master baseline tests
+   through those country artifacts, generate the eight-design cent comparison
+   table, update this report, and push all commits.
 
 ## Scope integrity
 
-No deck slide source, staged OBBBA deliverable, or Gmail draft is included in
-the canonical `axiom-rulespec-migration-clean` history. The earlier
-`axiom-rulespec-migration` publication includes pre-existing presentation
-commits `b797752`, `42ac3df`, and `2daa58e`; it is preserved rather than
-force-rewritten, but should not be used as the Axiom review branch. Dirty
+The Axiom PR diff does not modify any slide/deck source, staged OBBBA
+deliverable, PDF, chart artifact, or Gmail draft. The canonical
+`axiom-rulespec-migration-clean` branch is synchronized with current master and
+therefore inherits master's pre-existing presentation commits and files
+unchanged. The earlier `axiom-rulespec-migration` publication also includes
+presentation commits `b797752`, `42ac3df`, and `2daa58e`; it is preserved rather
+than force-rewritten, but should not be used as the Axiom review branch. Dirty
 deck/chart/export files in the original worktree remain untouched.

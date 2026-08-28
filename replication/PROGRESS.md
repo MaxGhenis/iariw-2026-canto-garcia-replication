@@ -15,9 +15,10 @@
 - Recorded the standing requirement to preserve the 26 existing oracle tests,
   keep paper scenarios as overlays, and avoid all out-of-scope presentation and
   communication artifacts.
-- Independently ran 41/41 replication tests: 20 original schedule cases, 6
-  original index/long-run cases, 3 legal-correction regressions, and 12
-  synthetic contract tests that execute the real Rust engine.
+- Independently ran 45/45 replication tests: 20 starting-point schedule cases,
+  6 starting-point index/long-run cases, 4 schedule/portfolio-path cases added
+  on current master, 3 legal-correction regressions, and 12 synthetic contract
+  tests that execute the real Rust engine.
 - Confirmed the current calculator still uses bespoke schedules and every
   country repository contains zero atomic RuleSpec modules and zero overlays.
 - Confirmed no protected Axiom signer is attached. A names-only credential
@@ -30,9 +31,10 @@
   spouses have a doubled top-rate threshold, and Spanish IP bracket integration
   drifts one cent from the statute's mandatory quota anchors at two edges.
 - Corrected both defects in the comparison path and added the verified 2022
-  Zürich tariff without altering either original test file. The full suite now
-  passes 41/41, including three legal-correction regressions and 12 synthetic
-  real-engine contract tests.
+  Zürich tariff. The Axiom change set leaves current-master baseline test files
+  untouched. The full suite now passes 45/45, including the 26 starting-point
+  cases, 4 schedule/portfolio-path cases added on current master, 3
+  legal-correction regressions, and 12 synthetic real-engine contract tests.
 - Expanded the source intake to 11 manifests and 19 documents, added the
   retroactive ITSGF exemption amendment, split Zürich statute/guidance scopes,
   narrowed overbroad Swiss, Spanish, and Norwegian slices, and updated the Spain

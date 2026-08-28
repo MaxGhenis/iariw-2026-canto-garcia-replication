@@ -2,7 +2,10 @@
 
 ## State
 
-- Canonical Axiom-only branch: `axiom-rulespec-migration-clean`.
+- Canonical Axiom migration review branch: `axiom-rulespec-migration-clean`,
+  synchronized with current `origin/master`. Its Axiom PR diff does not modify
+  the presentation, deck, PDF, chart, or communication artifacts inherited from
+  that base.
 - Legacy mixed branch: `axiom-rulespec-migration` also contains three
   pre-existing presentation commits and is not the review branch for this work.
 - Coordination repository: this replication package.
@@ -32,7 +35,8 @@
 - Added the replication package's fail-closed Axiom compiled-artifact runtime:
   exact input-catalog validation, `tax_year` intervals, Decimal-only
   inputs/outputs, externally pinned artifact and executable hashes, and explicit
-  dependency/runtime errors. The current full suite passes 41/41.
+  dependency/runtime errors. The current full suite passes 45/45 after
+  current master added four schedule/portfolio-path cases.
 - Pinned and locked the official Axiom Python client to engine commit `2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4`. The runtime foundation does not yet switch jurisdiction calculators or ship stand-in country artifacts.
 - Prepared each country lane for the bounded wealth-tax scope without hand-authoring protected atomic modules: Spain `a7f3b539` (plus progress `b085cc99`), Norway `9ace7f16` (`7822a8e5`), Switzerland `08096273` (`7daf80c4`), and France `c38c40d0` (`6e52e154`).
 - Cross-checked the four country source maps against all 11 corpus manifests and
@@ -52,12 +56,13 @@
   intermittent, `gh` authentication was expired, and its credential lookup was
   unavailable at that stage. Local work could continue, but signed apply could
   not.
-- Re-audited the actual branch after takeover: the current full replication
-  suite is 41/41 (20 original schedule cases, 6 original index/long-run cases,
-  3 correction regressions, and 12 synthetic real-engine contract tests),
-  but `calculator.py` is byte-unchanged from `origin/master` and none of the 26
-  oracle cases reaches Axiom. Each country lane has 0 atomic modules, 0
-  companion RuleSpec tests, and 0 ProgramSpecs; its 7/7 tests are layout-only.
+- Re-audited the actual branch after takeover: the then-current full replication
+  suite was 41/41 (20 starting-point schedule cases, 6 starting-point
+  index/long-run cases, 3 correction regressions, and 12 synthetic real-engine
+  contract tests). At that checkpoint, `calculator.py` was byte-unchanged from
+  then-current `origin/master`, and none of the 26 oracle cases reached Axiom.
+  Each country lane had 0 atomic modules, 0 companion RuleSpec tests, and 0
+  ProgramSpecs; its 7/7 tests were layout-only.
 - Reconfirmed the protected trust boundary: current `axiom-encode` requires a
   signed corpus release and a supervisor-attached external signer for
   `encode --apply`. No protected trust-root config or signer socket is present.
@@ -77,12 +82,13 @@
   Spanish IP computation must honor the statutory cuota anchors to avoid
   one-cent drift. These are defects in the bespoke comparison path that its
   current broad tolerances do not expose.
-- Corrected those comparison-oracle defects without changing the 26 original
-  tests: Spain now uses the statutory cumulative-quota anchors, jointly assessed
-  Norwegian spouses use the NOK 40m top-rate threshold, and the official 2022
-  Zürich tariff is available separately from the preserved 2026 paper oracle.
-  Three focused regression tests and the expanded runtime contract suite bring
-  the current full replication suite to 41/41.
+- Corrected those comparison-oracle defects without changing the 26
+  starting-point cases: Spain now uses the statutory cumulative-quota anchors,
+  jointly assessed Norwegian spouses use the NOK 40m top-rate threshold, and
+  the official 2022 Zürich tariff is available separately from the preserved
+  2026 paper oracle. Three focused regression tests and the expanded runtime
+  contract suite brought that checkpoint to 41/41; current master's four added
+  schedule/portfolio-path cases bring the synchronized suite to 45/45.
 - Added the retroactive ITSGF exemption amendment to the corpus intake branch at
   `f00f7d4a`, bound it in the Spain source map at `4f8f338`, and closed the
   Zurich 2022-vintage source-map gap. The subsequent corpus scope fixes land at
@@ -94,9 +100,12 @@
   isolated S3/Supabase services and a new root-owned supervisor tree, neither of
   which is available in this sandbox. The final report records the exact
   production resume sequence without weakening those controls.
-- Reconstructed the migration commits on the Axiom-only
-  `axiom-rulespec-migration-clean` branch from `origin/master`, excluding the
-  three pre-existing deck/chart commits on the legacy mixed branch.
+- Initially reconstructed the migration commits on
+  `axiom-rulespec-migration-clean` from the then-current `origin/master`,
+  excluding three deck/chart commits unique to the legacy mixed branch. The
+  review branch was later synchronized with current master, inheriting its
+  newer presentation work unchanged; those files remain absent from the Axiom
+  PR diff.
 - Pushed the clean coordination branch, `wealth-tax-source-manifests`, and
   `wealth-tax-currency-seeds`.
 - GitHub authentication later recovered. Created public
