@@ -197,6 +197,10 @@ failure to the three-key toolchain gate.
   tests inherited from current master, 3 legal-correction regressions, and 12
   runtime contract tests around a synthetic composition compiled and executed
   through the real Rust engine.
+- Coordination PR #1 is open and mergeable/clean, but this repository has no PR
+  validation workflow or reported status checks. The replication, Ruff, and
+  formatting evidence here is local; GitHub's `CLEAN` state confirms only that
+  the branch is conflict-free.
 - Axiom Compose core/spec/transformation suite: **18 passed**.
 - Country layout suites: **7 passed in each repo** (28 total).
 - Country encoder inventory: **0 files / 0 rules / 0 source-provision files / 0

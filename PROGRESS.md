@@ -147,6 +147,11 @@
   needed, must compose them into a third distinct target version.
 - Opened `TheAxiomFoundation/axiom-corpus#625` with the bounded DILA LEGI
   streaming importer design and historical article-selection acceptance tests.
+- Opened coordination PR #1 and synchronized it with current master. It is
+  mergeable/clean and its diff contains no presentation, PDF, chart/export, or
+  communication files. This repository has no PR workflow or reported checks,
+  so the 45-test, Ruff, and formatting validation is local-only; `CLEAN` means
+  conflict-free rather than CI-validated.
 
 ## Next
 
