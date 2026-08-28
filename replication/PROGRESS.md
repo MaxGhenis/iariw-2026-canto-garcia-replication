@@ -2,8 +2,9 @@
 
 ## State
 
-- Active: auditing the existing migration branch, country RuleSpec repositories,
-  Axiom corpus/toolchain, and immutable replication oracle tests.
+- Active: audit complete; testing the remaining locally feasible source,
+  composition, and runtime steps without bypassing Axiom's signed-apply trust
+  boundary.
 - Constraint: all production calculations must execute real composed RuleSpec
   artifacts through the Axiom rules engine; no parallel hand-written evaluator.
 
@@ -14,13 +15,19 @@
 - Recorded the standing requirement to preserve the 26 existing oracle tests,
   keep paper scenarios as overlays, and avoid all out-of-scope presentation and
   communication artifacts.
+- Independently ran 34/34 replication tests: 26 byte-unchanged legal oracles and
+  8 synthetic tests that execute the real Rust engine.
+- Confirmed the current calculator still uses bespoke schedules and every
+  country repository contains zero atomic RuleSpec modules and zero overlays.
+- Confirmed terminal DNS, GitHub authentication, the agent secret store, and
+  protected Axiom signer attachment are unavailable in this session.
 
 ## Next
 
-1. Inventory existing commits and uncommitted work without disturbing user edits.
-2. Verify repository-creation/CI conventions, RuleSpec format, composition, and
-   engine bindings against the checked-out Axiom sources.
-3. Validate and complete ES, NO, CH/ZH, and FR legal encodings with citations.
-4. Replace the replication calculator path with composition plus Axiom execution.
-5. Add and run eight-scenario cent-parity comparison, update documentation, push,
-   and write the final report.
+1. Finish the repository-creation/CI and source-value audits.
+2. Attempt source extraction and supervised encoding only through supported
+   Axiom paths; record any repeated hard blocker precisely.
+3. Once country artifacts exist, replace the calculator path with composition
+   plus Axiom execution and run the immutable oracle suite.
+4. Add eight ProgramSpec scenarios and cent-parity comparison, update docs,
+   push, and write the final report.
