@@ -4,7 +4,10 @@
 
 - Active branch: `axiom-rulespec-migration`.
 - Coordination repository: this replication package.
-- Current phase: source intake and the real-engine runtime foundation are committed; corpus extraction/signing and first supervised country encodings are next.
+- Current phase: the independent audit is complete. Source intake and the
+  real-engine runtime foundation are committed, but there are still zero live
+  country RuleSpec modules and zero paper-scenario ProgramSpecs. Corpus
+  extraction/signing and the first supervised country encodings are next.
 - Guardrails: use the real Axiom RuleSpec composition and rules-engine path; preserve the 26 existing oracle tests unchanged; keep paper scenarios as overlays; do not touch the slide app, staged OBBBA PDF, or Gmail drafts.
 
 ## Done
@@ -29,10 +32,22 @@
 - Updated `replication/README.md` and `replication/NOTES.md` with the real-engine development contract, exact 2022/2023 primary-source URLs, the country-lane/source-intake state, the still-open Zürich 2022 tariff vintage, and the now-closed French IFI Article 977 bracket check.
 - Created the committed handoff/output file `AXIOM_MIGRATION_REPORT.md` with the definition-of-done matrix, validation evidence, commit map, exact blockers, and resume sequence. It reports the migration as incomplete rather than overstating the scaffold/runtime work.
 - Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
+- Re-audited the actual branch after takeover: the full replication suite is
+  34/34 (26 byte-unchanged legal oracles plus 8 synthetic real-engine tests),
+  but `calculator.py` is byte-unchanged from `origin/master` and none of the 26
+  oracle cases reaches Axiom. Each country lane has 0 atomic modules, 0
+  companion RuleSpec tests, and 0 ProgramSpecs; its 7/7 tests are layout-only.
+- Reconfirmed the protected trust boundary: current `axiom-encode` requires a
+  signed corpus release and a supervisor-attached external signer for
+  `encode --apply`. No protected trust-root config or signer socket is present;
+  `gh auth status` reports an invalid token, and `agent-secret` is locked.
+- Confirmed terminal DNS still cannot resolve BOE. The Playwright CLI wrapper
+  also could not establish a usable retrieval session, so no source snapshot
+  was fabricated or copied through an untrusted path.
 
 ## Next
 
-- Extract and sign the 17 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow. The intake manifests are ready; terminal DNS and signing access currently block this step.
+- Extract and sign the 17 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow. The intake manifests are ready; terminal DNS and protected signing access currently block this step.
 - Encode and validate sourced law through `axiom-encode`, including explicit unresolved-source notes without guessing.
 - Replace the bespoke replication execution path with Axiom composition and engine execution.
 - Run unchanged oracle tests and produce cent-level scenario comparisons.
