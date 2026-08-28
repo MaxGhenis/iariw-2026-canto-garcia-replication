@@ -31,6 +31,9 @@
   Zürich tariff without altering the original 26-test oracle file. The full
   suite now passes 37/37, including three new legal-correction regressions and
   eight synthetic real-engine contract tests.
+- Expanded the source intake to 19 documents with the retroactive ITSGF
+  exemption amendment and updated the Spain and Zurich source maps. This closes
+  the legal-source gaps but not the signed corpus/apply prerequisite.
 
 ## Next
 

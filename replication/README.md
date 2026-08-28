@@ -9,7 +9,7 @@ becomes re-runnable the moment microdata are attached.
 
 ```bash
 uv sync
-uv run pytest      # 26 unchanged legal anchors + 8 real-engine runtime tests
+uv run pytest      # 26 unchanged anchors + 3 legal fixes + 8 engine tests
 ```
 
 ### Axiom runtime development
@@ -41,19 +41,21 @@ The pre-migration parameters remain in `src/wealth_tax_es/schedules.py` so the 2
 unchanged, hand-computed legal tests can compare the eventual RuleSpec-backed
 path against the original implementation.
 
-- **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, anchor-tested against the
-  BOE cuota íntegra table), €700k/€300k exemptions, the 60% IRPF–IP joint limit with
+- **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, using the published BOE
+  cuota íntegra anchors rather than re-integrating rounded bracket edges),
+  €700k/€300k exemptions, the 60% IRPF–IP joint limit with
   its 80%-reduction floor, and the 2022 regional 100%/25% rebates (Madrid, Andalusia,
   Galicia).
 - **ITSGF** (Ley 38/2022): €3M zero band over a €700k exemption, 1.7/2.1/3.5%
   brackets (edges shared with the IP top brackets), IP-quota credit — the tax the
   paper's "2022 baseline" excludes despite its first accrual falling on the paper's
   valuation date.
-- **Norway**: true 2022 rules (0.95%/1.10% above NOK 20M, NOK 1.7M/3.4M thresholds,
-  primary-residence 25%-then-50% valuation kink) *and* the paper's stylized flat-1%
-  variant, so the fidelity gap is computable.
-- **Zurich**: § 47 StG Grundtarif (single and married), with the Steuerfuss
-  (canton 99% + city 119%) as an explicit choice the paper never discloses.
+- **Norway**: true 2022 rules (0.95%/1.10%, with the upper threshold at NOK 20M
+  single and NOK 40M joint; NOK 1.7M/3.4M allowances; primary-residence
+  25%-then-50% valuation kink) *and* the paper's stylized flat-1% variant.
+- **Zurich**: verified 2022 § 47 StG Grundtarif (single and married), plus the
+  separately named 2026 indexed table used by the immutable paper oracle, with
+  the Steuerfuss (canton 99% + city 119%) as an explicit choice.
 - **French IFI**: €1.3M trigger, schedule from €800k, 1.3–1.4M décote, 30%
   main-residence abatement, 75%-of-income plafonnement (the cap the paper says has
   "no analogue" abroad).
@@ -79,6 +81,7 @@ path against the original implementation.
 - `src/wealth_tax_es/calculator.py` — liability functions (valuation-agnostic)
 - `src/wealth_tax_es/indices.py` — Gini/Kakwani/Suits/R–S (weighted)
 - `src/wealth_tax_es/longrun.py` — constant-g projection + cumulative rates
-- `tests/` — 26 anchor tests, every number hand-computed from the cited statute
+- `tests/` — 26 unchanged anchors, three source-audit regressions, and eight
+  tests that compile and execute a synthetic composition through the real engine
 - `NOTES.md` — primary-source register and open questions for the authors
 - `data/` — gitignored; put EFF/PH extracts here
