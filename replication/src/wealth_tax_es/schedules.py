@@ -11,17 +11,19 @@ exemptions, in ascending order; ``progressive_tax`` in calculator.py integrates 
 # ---------------------------------------------------------------------------
 # Spain — Impuesto sobre el Patrimonio, state default schedule
 # Source: Ley 19/1991, art. 30.2 (consolidated), BOE-A-1991-14392.
-# Cuota íntegra anchor points verified against the BOE table (see tests).
+# Each row is (lower bound, cuota at the lower bound, marginal rate).  The
+# published cuota column is legally operative: deriving it by integrating the
+# rounded bounds drifts by one cent at the two highest edges.
 # ---------------------------------------------------------------------------
 IP_STATE_SCHEDULE = [
-    (0.0, 0.002),
-    (167_129.45, 0.003),
-    (334_252.88, 0.005),
-    (668_499.75, 0.009),
-    (1_336_999.51, 0.013),
-    (2_673_999.01, 0.017),
-    (5_347_998.03, 0.021),
-    (10_695_996.06, 0.035),
+    (0.0, 0.0, 0.002),
+    (167_129.45, 334.26, 0.003),
+    (334_252.88, 835.63, 0.005),
+    (668_499.75, 2_506.86, 0.009),
+    (1_336_999.51, 8_523.36, 0.013),
+    (2_673_999.01, 25_904.35, 0.017),
+    (5_347_998.03, 71_362.33, 0.021),
+    (10_695_996.06, 183_670.29, 0.035),
 ]
 IP_GENERAL_EXEMPTION = 700_000.0  # art. 28 (state default; regions may vary)
 IP_MAIN_RESIDENCE_EXEMPTION = 300_000.0  # art. 4.Nueve
@@ -44,10 +46,10 @@ REGIONAL_REBATES_2022 = {"madrid": 1.00, "andalucia": 1.00, "galicia": 0.25}
 # IP quota actually paid is credited.
 # ---------------------------------------------------------------------------
 ITSGF_SCHEDULE = [
-    (0.0, 0.0),
-    (3_000_000.0, 0.017),
-    (5_347_998.03, 0.021),
-    (10_695_996.06, 0.035),
+    (0.0, 0.0, 0.0),
+    (3_000_000.0, 0.0, 0.017),
+    (5_347_998.03, 39_915.97, 0.021),
+    (10_695_996.06, 152_223.93, 0.035),
 ]
 ITSGF_EXEMPTION = 700_000.0
 
@@ -60,26 +62,49 @@ ITSGF_EXEMPTION = 700_000.0
 # bracket — encoded as PAPER_VARIANT for comparability runs.
 # ---------------------------------------------------------------------------
 NOK_PER_EUR_2022 = 10.10  # ECB average 2022; used only for rough EUR conversions
-NORWAY_2022 = {"threshold_single": 1_700_000.0, "threshold_couple": 3_400_000.0,
-               "schedule": [(0.0, 0.0095), (20_000_000.0, 0.011)]}
-NORWAY_2023 = {"threshold_single": 1_700_000.0, "threshold_couple": 3_400_000.0,
-               "schedule": [(0.0, 0.010), (20_000_000.0, 0.011)]}
-NORWAY_PAPER_VARIANT = {"threshold_single": 1_700_000.0, "threshold_couple": 3_400_000.0,
-                        "schedule": [(0.0, 0.010)]}
+NORWAY_2022 = {
+    "threshold_single": 1_700_000.0,
+    "threshold_couple": 3_400_000.0,
+    "schedule": [(0.0, 0.0095), (20_000_000.0, 0.011)],
+    "schedule_couple": [(0.0, 0.0095), (40_000_000.0, 0.011)],
+    "municipal_rate_default": 0.007,
+    "state_schedule": [(0.0, 0.0025), (20_000_000.0, 0.004)],
+    "state_schedule_couple": [(0.0, 0.0025), (40_000_000.0, 0.004)],
+}
+NORWAY_2023 = {
+    "threshold_single": 1_700_000.0,
+    "threshold_couple": 3_400_000.0,
+    "schedule": [(0.0, 0.010), (20_000_000.0, 0.011)],
+    "schedule_couple": [(0.0, 0.010), (40_000_000.0, 0.011)],
+    "municipal_rate_default": 0.007,
+    "state_schedule": [(0.0, 0.003), (20_000_000.0, 0.004)],
+    "state_schedule_couple": [(0.0, 0.003), (40_000_000.0, 0.004)],
+}
+NORWAY_PAPER_VARIANT = {
+    "threshold_single": 1_700_000.0,
+    "threshold_couple": 3_400_000.0,
+    "schedule": [(0.0, 0.010)],
+}
 # Housing valuation (Skatteetaten): primary dwelling at 25% of market value up to
 # NOK 10M, excess at 50% (2022) / 70% (2023+); secondary dwellings 95% (2022) /
 # 100% (2023). The paper values ALL housing at 25%.
 NORWAY_PRIMARY_RESIDENCE_DISCOUNT = 0.25
 NORWAY_PRIMARY_RESIDENCE_KINK_NOK = 10_000_000.0
 NORWAY_PRIMARY_RESIDENCE_EXCESS_RATE_2022 = 0.50
+NORWAY_PRIMARY_RESIDENCE_EXCESS_RATE_2023 = 0.70
+NORWAY_SECONDARY_RESIDENCE_RATE_2022 = 0.95
+NORWAY_SECONDARY_RESIDENCE_RATE_2023 = 1.00
+NORWAY_SHARE_RATE_2022 = 0.75
+NORWAY_SHARE_RATE_2023 = 0.80
+
 
 # ---------------------------------------------------------------------------
 # Zurich — Vermögenssteuer Grundtarif, § 47 StG ZH.
-# Source: ESTV Kantonsblatt Zürich (estv2.admin.ch/stp/kb/zh-de.pdf), 2026
-# indexed edition ("Gültig ab Steuerperiode 2026"); bracket WIDTHS as printed.
-# 2022-vintage thresholds were lower (allowance ~CHF 77k/154k) — flagged in
-# NOTES.md as an open item; the paper never states which vintage or whether
-# cantonal (99%) + municipal (Zurich city 119%) Steuerfuss multipliers apply.
+# Source for 2022: official historical StG ZH, Nachtrag 115, § 47.  Source for
+# 2026: ESTV Kantonsblatt Zürich (estv2.admin.ch/stp/kb/zh-de.pdf), indexed
+# edition ("Gültig ab Steuerperiode 2026").  Both tables print bracket widths.
+# The immutable paper-replication oracle used the 2026 table, so that vintage is
+# retained under the historical public names; the 2022 law has explicit names.
 # ---------------------------------------------------------------------------
 def _widths_to_schedule(widths):
     """[(width, rate), ...] -> [(lower_bound, rate), ...]"""
@@ -89,16 +114,52 @@ def _widths_to_schedule(widths):
         lo += width
     return out
 
-ZURICH_GRUNDTARIF_SINGLE = _widths_to_schedule([
-    (81_000.0, 0.0000), (241_000.0, 0.0005), (404_000.0, 0.0010),
-    (645_000.0, 0.0015), (968_000.0, 0.0020), (965_000.0, 0.0025),
-]) + [(3_304_000.0, 0.0030)]
-ZURICH_GRUNDTARIF_MARRIED = _widths_to_schedule([
-    (161_000.0, 0.0000), (242_000.0, 0.0005), (402_000.0, 0.0010),
-    (646_000.0, 0.0015), (967_000.0, 0.0020), (967_000.0, 0.0025),
-]) + [(3_385_000.0, 0.0030)]
-ZURICH_STEUERFUSS_CANTON = 0.99   # zh.ch, 2022-23
-ZURICH_STEUERFUSS_CITY = 1.19     # City of Zurich
+
+ZURICH_GRUNDTARIF_SINGLE_2022 = _widths_to_schedule(
+    [
+        (77_000.0, 0.0000),
+        (231_000.0, 0.0005),
+        (386_000.0, 0.0010),
+        (616_000.0, 0.0015),
+        (925_000.0, 0.0020),
+        (923_000.0, 0.0025),
+    ]
+) + [(3_158_000.0, 0.0030)]
+ZURICH_GRUNDTARIF_MARRIED_2022 = _widths_to_schedule(
+    [
+        (154_000.0, 0.0000),
+        (231_000.0, 0.0005),
+        (385_000.0, 0.0010),
+        (616_000.0, 0.0015),
+        (925_000.0, 0.0020),
+        (924_000.0, 0.0025),
+    ]
+) + [(3_235_000.0, 0.0030)]
+ZURICH_GRUNDTARIF_SINGLE_2026 = _widths_to_schedule(
+    [
+        (81_000.0, 0.0000),
+        (241_000.0, 0.0005),
+        (404_000.0, 0.0010),
+        (645_000.0, 0.0015),
+        (968_000.0, 0.0020),
+        (965_000.0, 0.0025),
+    ]
+) + [(3_304_000.0, 0.0030)]
+ZURICH_GRUNDTARIF_MARRIED_2026 = _widths_to_schedule(
+    [
+        (161_000.0, 0.0000),
+        (242_000.0, 0.0005),
+        (402_000.0, 0.0010),
+        (646_000.0, 0.0015),
+        (967_000.0, 0.0020),
+        (967_000.0, 0.0025),
+    ]
+) + [(3_385_000.0, 0.0030)]
+# Backwards-compatible names used by the unchanged 2026-vintage paper oracle.
+ZURICH_GRUNDTARIF_SINGLE = ZURICH_GRUNDTARIF_SINGLE_2026
+ZURICH_GRUNDTARIF_MARRIED = ZURICH_GRUNDTARIF_MARRIED_2026
+ZURICH_STEUERFUSS_CANTON = 0.99  # zh.ch, 2022-23
+ZURICH_STEUERFUSS_CITY = 1.19  # City of Zurich
 ZURICH_REAL_ESTATE_FACTOR = 0.70  # paper p.10: real estate at 70% of market value
 
 # ---------------------------------------------------------------------------
@@ -128,6 +189,6 @@ PIKETTY_PAPER = [(0.0, 0.0), (200_000.0, 0.005), (1_000_000.0, 0.01), (5_000_000
 PIKETTY_BOOK_VARIANT = [(0.0, 0.001), (200_000.0, 0.005), (1_000_000.0, 0.01), (5_000_000.0, 0.02)]
 
 # Paper reform scenarios (Sec. 4.2): threshold changes on the IP.
-SIM1_EXEMPTION = 300_000.0   # Sim. 1: general exemption cut to EUR 300k
-SIM2_REMOVE_REBATES = True   # Sim. 2: regional bonificaciones removed (per the
-                             # authors' overlap matrix, thresholds/scales stay regional)
+SIM1_EXEMPTION = 300_000.0  # Sim. 1: general exemption cut to EUR 300k
+SIM2_REMOVE_REBATES = True  # Sim. 2: regional bonificaciones removed (per the
+# authors' overlap matrix, thresholds/scales stay regional)
