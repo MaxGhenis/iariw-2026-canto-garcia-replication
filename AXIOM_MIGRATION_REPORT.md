@@ -2,7 +2,10 @@
 
 Status date: 2026-08-28
 
-Coordination branch: `axiom-rulespec-migration`
+Canonical coordination branch: `axiom-rulespec-migration-clean`
+
+Legacy mixed branch: `axiom-rulespec-migration` (contains pre-existing
+presentation commits and is not the Axiom review branch)
 
 Status: **incomplete; blocked at Axiom's protected corpus/apply boundary**
 
@@ -38,7 +41,7 @@ The work did leave the migration in a more accurate and reproducible state:
 | Eight paper scenarios are ProgramSpec overlays | **Not complete** | No ProgramSpecs were committed because their atomic imports and exported identifiers do not exist. |
 | Cent comparison table for all eight scenarios | **Not complete** | It cannot be generated without executable country artifacts and overlays. |
 | README, NOTES, and progress ledger updated | **Complete for the actual state** | They distinguish source vintages, record implementation gaps, tests, commits, and blockers. |
-| Commits pushed | **Partly complete** | The coordination, corpus, and engine branches are pushed. `gh` authentication is invalid and the four country repos do not exist/have remotes, so those histories remain local. |
+| Commits pushed | **Partly complete** | The clean coordination, corpus, and engine branches are pushed. `gh` authentication is invalid and the four country repos do not exist/have remotes, so those histories remain local. |
 
 ## Legal-source corrections
 
@@ -183,8 +186,11 @@ corpus release, real three-key toolchain binding, then supervised
    but subsequent GitHub resolution failed again. Browser-accessible primary
    sources cannot be converted into authenticated corpus snapshots by copying
    rendered text.
-2. `gh auth status` reports an invalid token; the approved `agent-secret` store
-   is locked. No credential value was requested or exposed.
+2. `gh auth status` reports an invalid token. A post-run names-only
+   `agent-secret` search confirmed that the relevant Axiom corpus/apply key
+   entries exist; no credential value was read or exposed. This does not
+   unblock the production apply path, which is deliberately bound to the
+   protected GitHub Actions workflow.
 3. The corpus worktree contains manifests only. The normal publisher needs an
    isolated S3-compatible bucket, migrated Supabase/PostgREST, a corpus signing
    key, and a clean tracked release selector. None is present locally.
@@ -242,6 +248,9 @@ request.
 
 ## Scope integrity
 
-No deck slide source, staged OBBBA deliverable, or Gmail draft was included in a
-migration commit. The dirty deck/chart/export files visible in the coordination
-worktree predated this work and remain untouched by these commits.
+No deck slide source, staged OBBBA deliverable, or Gmail draft is included in
+the canonical `axiom-rulespec-migration-clean` history. The earlier
+`axiom-rulespec-migration` publication includes pre-existing presentation
+commits `b797752`, `42ac3df`, and `2daa58e`; it is preserved rather than
+force-rewritten, but should not be used as the Axiom review branch. Dirty
+deck/chart/export files in the original worktree remain untouched.

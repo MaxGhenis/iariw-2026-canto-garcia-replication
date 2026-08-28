@@ -18,8 +18,10 @@
   8 synthetic tests that execute the real Rust engine.
 - Confirmed the current calculator still uses bespoke schedules and every
   country repository contains zero atomic RuleSpec modules and zero overlays.
-- Confirmed terminal DNS, GitHub authentication, the agent secret store, and
-  protected Axiom signer attachment are unavailable in this session.
+- Confirmed terminal DNS and GitHub authentication were intermittent or
+  unavailable to the worker, and no protected Axiom signer was attached. A
+  post-run names-only credential inventory found the relevant Axiom key entries
+  without reading them; production apply remains GitHub-Actions-only.
 - Added the verified historical Zürich StG § 47 source that governed tax year
   2022 to the corpus intake branch (`6cfb8231`), while retaining the 2026
   indexed ESTV table as a separate vintage.

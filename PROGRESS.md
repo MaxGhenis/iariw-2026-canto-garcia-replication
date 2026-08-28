@@ -2,7 +2,9 @@
 
 ## State
 
-- Active branch: `axiom-rulespec-migration`.
+- Canonical Axiom-only branch: `axiom-rulespec-migration-clean`.
+- Legacy mixed branch: `axiom-rulespec-migration` also contains three
+  pre-existing presentation commits and is not the review branch for this work.
 - Coordination repository: this replication package.
 - Current phase: externally blocked after exhausting supported local paths.
   Source intake and the real-engine runtime foundation are committed, but there
@@ -32,7 +34,10 @@
 - Left country toolchains and reusable-workflow pins deliberately unresolved: no signed corpus release exists, the source-intake commit is not published, and the current encoder does not accept the workflow pin copied by older BE/NZ lanes. The dedicated binding/pin commits must follow release signing.
 - Updated `replication/README.md` and `replication/NOTES.md` with the real-engine development contract, exact 2022/2023 primary-source URLs, the country-lane/source-intake state, the still-open Zürich 2022 tariff vintage, and the now-closed French IFI Article 977 bracket check.
 - Created the committed handoff/output file `AXIOM_MIGRATION_REPORT.md` with the definition-of-done matrix, validation evidence, commit map, exact blockers, and resume sequence. It reports the migration as incomplete rather than overstating the scaffold/runtime work.
-- Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
+- Recorded the worker's external-access constraints: terminal GitHub DNS was
+  intermittent, `gh` authentication was expired, and its credential lookup was
+  unavailable at that stage. Local work could continue, but signed apply could
+  not.
 - Re-audited the actual branch after takeover: the full replication suite is
   34/34 (26 byte-unchanged legal oracles plus 8 synthetic real-engine tests),
   but `calculator.py` is byte-unchanged from `origin/master` and none of the 26
@@ -41,7 +46,10 @@
 - Reconfirmed the protected trust boundary: current `axiom-encode` requires a
   signed corpus release and a supervisor-attached external signer for
   `encode --apply`. No protected trust-root config or signer socket is present;
-  `gh auth status` reports an invalid token, and `agent-secret` is locked.
+  `gh auth status` reports an invalid token. A post-run names-only
+  `agent-secret` search confirmed the relevant Axiom entries exist, without
+  reading their values; that does not bypass the GitHub-Actions-only production
+  apply signer.
 - Confirmed terminal DNS still cannot resolve BOE. The Playwright CLI wrapper
   also could not establish a usable retrieval session, so no source snapshot
   was fabricated or copied through an untrusted path.
@@ -68,10 +76,13 @@
   isolated S3/Supabase services and a new root-owned supervisor tree, neither of
   which is available in this sandbox. The final report records the exact
   production resume sequence without weakening those controls.
-- Pushed `axiom-rulespec-migration`, `wealth-tax-source-manifests`, and
-  `wealth-tax-currency-seeds` during a brief working network interval. The four
-  country histories remain local because their organization repositories do not
-  exist and `gh` authentication is invalid.
+- Reconstructed the migration commits on the Axiom-only
+  `axiom-rulespec-migration-clean` branch from `origin/master`, excluding the
+  three pre-existing deck/chart commits on the legacy mixed branch.
+- Pushed the clean coordination branch, `wealth-tax-source-manifests`, and
+  `wealth-tax-currency-seeds` during working network intervals. The four country
+  histories remain local because their organization repositories do not exist
+  and `gh` authentication is invalid.
 
 ## Next
 
