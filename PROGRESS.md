@@ -58,6 +58,10 @@
   Norwegian spouses use the NOK 40m top-rate threshold, and the official 2022
   Zürich tariff is available separately from the preserved 2026 paper oracle.
   Three focused regression tests bring the full replication suite to 37/37.
+- Added the retroactive ITSGF exemption amendment to the corpus intake branch at
+  `f00f7d4a`, bound it in the Spain source map at `4f8f338`, and closed the
+  Zurich 2022-vintage source-map gap at `988ebd3`. The intake now covers 19
+  official documents; it still has no extracted/signed release artifacts.
 
 ## Next
 
