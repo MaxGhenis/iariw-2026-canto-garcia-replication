@@ -230,6 +230,85 @@ def render(out_path, slide=False):
     print(f"wrote {out_path}")
 
 
+
+
+BUILD_ORDER = ["Zurich ×2.18 Steuerfuss", "Norway 2022", "France IFI (real estate)",
+               "Piketty (paper variant)", "Spain IP (no abatements)"]
+SHORT_NAMES = {"Zurich ×2.18 Steuerfuss": "Zurich", "Norway 2022": "Norway",
+               "France IFI (real estate)": "France IFI", "Piketty (paper variant)": "Piketty",
+               "Spain IP (no abatements)": "Spain IP"}
+
+
+def render_buildup(out_path, upto):
+    """Reveal slide k (1-based): series BUILD_ORDER[:upto], last one highlighted,
+    earlier ones faded in place. Stacked MTR (top) and ATR (bottom), shared x."""
+    base = 13
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9.6, 8.2), dpi=300,
+                                   sharex=True, height_ratios=[1, 1])
+    SURFACE = "#fcfcfb"
+    fig.patch.set_facecolor(SURFACE)
+    shown = BUILD_ORDER[:upto]
+    current = shown[-1]
+    by_name = {name: (color, steps, fn) for name, color, steps, fn in SERIES}
+
+    for ax in (ax1, ax2):
+        ax.set_facecolor(SURFACE)
+        ax.grid(True, which="major", color="#e8e8e4", linewidth=0.8, zorder=0)
+        for side in ("top", "right"):
+            ax.spines[side].set_visible(False)
+        for side in ("left", "bottom"):
+            ax.spines[side].set_color("#c9c9c4")
+        ax.tick_params(colors="#6f6f6a", labelsize=base)
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}%"))
+        ax.set_xscale("log")
+        ax.set_xlim(X_MIN, X_MAX)
+
+    for name in shown:
+        color, steps, fn = by_name[name]
+        hot = name == current
+        alpha, lw = (1.0, 2.8) if hot else (0.22, 2.0)
+        xs, ys = [X_MIN], [0.0]
+        for lo, rate in steps:
+            if lo > X_MAX:
+                continue
+            xs += [max(lo, X_MIN), max(lo, X_MIN)]
+            ys += [ys[-1], rate * 100]
+        xs.append(X_MAX)
+        ys.append(ys[-1])
+        ax1.plot(xs, ys, color=color, linewidth=lw, alpha=alpha,
+                 solid_joinstyle="miter", zorder=4 if hot else 2)
+        atr = np.array([fn(w) / w for w in W_GRID]) * 100
+        ax2.plot(W_GRID, atr, color=color, linewidth=lw, alpha=alpha,
+                 zorder=4 if hot else 2)
+        if hot:
+            y1 = steps[-1][1] * 100
+            ax1.annotate(SHORT_NAMES[name], xy=(X_MAX, y1), xytext=(X_MAX * 1.07, y1),
+                         color="#3d3d3a", fontsize=base + 1, fontweight="bold",
+                         va="center", annotation_clip=False)
+            ax1.plot([X_MAX * 1.02], [y1], marker="o", color=color, markersize=6,
+                     clip_on=False, zorder=5)
+            y2 = fn(X_MAX) / X_MAX * 100
+            ax2.plot([X_MAX * 1.02], [y2], marker="o", color=color, markersize=6,
+                     clip_on=False, zorder=5)
+    ax1.set_ylim(0, 3.7)
+    ax2.set_ylim(0, 3.2)
+    for ax, panel in ((ax1, "Marginal rate (next euro)"),
+                      (ax2, "Average rate (total tax ÷ net wealth)")):
+        ax.text(0.008, 0.95, panel, transform=ax.transAxes, fontsize=base + 1,
+                fontweight="bold", color="#3d3d3a", va="top")
+    ticks = [1e5, 1e6, 1e7]
+    ax2.xaxis.set_major_locator(FixedLocator(ticks))
+    ax2.xaxis.set_major_formatter(FuncFormatter(
+        lambda v, _: f"€{v/1e6:g}M" if v >= 1e6 else f"€{v/1e3:g}k"))
+    ax2.xaxis.set_minor_formatter(NullFormatter())
+    fig.subplots_adjust(left=0.075, right=0.80, top=0.985, bottom=0.06, hspace=0.10)
+    fig.savefig(out_path, facecolor=SURFACE)
+    plt.close(fig)
+    print(f"wrote {out_path}")
+
+
 results = Path(__file__).resolve().parents[1] / "results"
 render(results / "mtr_by_wealth.png", slide=False)
 render_mtr_only(results / "mtr_by_wealth_slide.png")
+for k in range(1, 6):
+    render_buildup(results / f"schedule_build_{k}.png", k)
