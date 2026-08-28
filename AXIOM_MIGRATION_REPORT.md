@@ -38,7 +38,7 @@ The work did leave the migration in a more accurate and reproducible state:
 | Eight paper scenarios are ProgramSpec overlays | **Not complete** | No ProgramSpecs were committed because their atomic imports and exported identifiers do not exist. |
 | Cent comparison table for all eight scenarios | **Not complete** | It cannot be generated without executable country artifacts and overlays. |
 | README, NOTES, and progress ledger updated | **Complete for the actual state** | They distinguish source vintages, record implementation gaps, tests, commits, and blockers. |
-| Commits pushed | **Not complete** | GitHub DNS is unavailable, `gh` authentication is invalid, and the four country repos have no remotes. |
+| Commits pushed | **Partly complete** | The coordination, corpus, and engine branches are pushed. `gh` authentication is invalid and the four country repos do not exist/have remotes, so those histories remain local. |
 
 ## Legal-source corrections
 
@@ -123,6 +123,7 @@ Branch `wealth-tax-source-manifests`:
 Current intake total: 10 manifests, 19 documents, 19 unique citation roots.
 There are still no extracted `sources/`, `inventory/`, `provisions/`, or
 `coverage/` artifacts for these scopes and no signed named release.
+The branch is pushed to `TheAxiomFoundation/axiom-corpus`.
 
 ### `axiom-rules-engine`
 
@@ -132,8 +133,12 @@ Branch `wealth-tax-currency-seeds`, commit `9d61eea`:
 - adds RuleSpec compile tests for each.
 
 The replication lock remains on upstream engine `v0.2.2`/`2c0e1ed` because the
-CHF/NOK commit is local and unpushed. Pinning the replication to an unavailable
-commit would make installation non-reproducible.
+CHF/NOK feature commit is not reviewed, merged, or released. Pinning production
+replication code to the feature branch would get ahead of that admission step.
+
+The engine branch is now pushed to `TheAxiomFoundation/axiom-rules-engine`; the
+replication lock should move only after the engine change is reviewed and lands
+on a stable reachable revision.
 
 ### Country repositories
 
@@ -173,9 +178,11 @@ The supported country-lane sequence is source extraction, immutable signed
 corpus release, real three-key toolchain binding, then supervised
 `axiom-encode encode ... --apply`. This environment cannot complete that chain:
 
-1. Terminal DNS and raw outbound connections to official publishers and GitHub
-   fail. The browser-accessible primary sources cannot be converted into
-   authenticated corpus snapshots by copying rendered text.
+1. Terminal DNS and raw outbound connections are intermittent and normally
+   fail. A brief working interval allowed the three existing branches to push,
+   but subsequent GitHub resolution failed again. Browser-accessible primary
+   sources cannot be converted into authenticated corpus snapshots by copying
+   rendered text.
 2. `gh auth status` reports an invalid token; the approved `agent-secret` store
    is locked. No credential value was requested or exposed.
 3. The corpus worktree contains manifests only. The normal publisher needs an
@@ -196,9 +203,10 @@ request.
 
 ## Exact resume sequence
 
-1. Restore terminal network/DNS and GitHub authentication. Create the four
-   `TheAxiomFoundation/rulespec-*` repositories, add remotes, and push the clean
-   local histories plus corpus and engine branches.
+1. Restore stable terminal network/DNS and GitHub CLI authentication. Create the
+   four `TheAxiomFoundation/rulespec-*` repositories, add remotes, and push the
+   clean local histories. The coordination, corpus, and engine branches are
+   already pushed.
 2. Run all 10 corpus manifests through the normal extraction pipeline; inspect
    official snapshots and the resulting source inventory, provisions, and
    coverage. Commit them, create complete-expression-date release selectors,

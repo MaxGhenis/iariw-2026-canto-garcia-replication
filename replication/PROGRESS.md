@@ -37,6 +37,8 @@
   a guarded dev release additionally requires isolated S3/Supabase services and
   root-owned supervisor provisioning unavailable in this sandbox. The required
   output report now contains the exact production resume sequence.
+- Pushed the coordination, corpus, and engine branches. The country histories
+  remain local pending authenticated creation of their organization repositories.
 
 ## Next
 
