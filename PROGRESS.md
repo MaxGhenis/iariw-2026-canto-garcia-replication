@@ -16,11 +16,11 @@
 - Committed the scaffolds locally: `rulespec-es` `97d4a7c`, `rulespec-no` `d014f21`, `rulespec-ch` `afa3b37`, and `rulespec-fr` `915d946`.
 - Recorded executable oracle plans for Spain and France (EUROMOD is available) and explicit no-oracle status for Norway and Switzerland.
 - Confirmed Axiom engine v0.2.2 already registers EUR but needs the generated NOK and CHF currency seeds before those two country modules can validate.
+- Added and tested the missing CHF/NOK currency registrations on Axiom engine branch `wealth-tax-currency-seeds`, commit `9d61eea` (both RuleSpec compile tests pass; `cargo fmt --check` passes).
 - Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
 
 ## Next
 
-- Add NOK and CHF currency units to the real Axiom engine with tests.
 - Ingest the verified legal sources into `axiom-corpus` and cut the jurisdiction bindings required by the current supervised workflow.
 - Encode and validate sourced law through `axiom-encode`, including explicit unresolved-source notes without guessing.
 - Replace the bespoke replication execution path with Axiom composition and engine execution.
