@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,12 +20,19 @@ from typing import Any
 from .errors import AxiomArtifactError, AxiomInputCatalogError
 
 SUPPORTED_ARTIFACT_FORMAT_VERSION = 2
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 def _required_string(value: Any, label: str) -> str:
     if not isinstance(value, str) or not value:
         raise AxiomArtifactError(f"{label} must be a non-empty string")
     return value
+
+
+def _required_sha256(value: str, label: str) -> str:
+    if not isinstance(value, str) or not _SHA256_RE.fullmatch(value.lower()):
+        raise AxiomArtifactError(f"{label} must be a 64-character hexadecimal SHA-256")
+    return value.lower()
 
 
 @dataclass(frozen=True, slots=True)
@@ -144,7 +152,8 @@ class CompiledArtifact:
     output_request_names: frozenset[str]
 
     @classmethod
-    def load(cls, path: str | Path) -> CompiledArtifact:
+    def load(cls, path: str | Path, *, expected_sha256: str) -> CompiledArtifact:
+        pinned_sha256 = _required_sha256(expected_sha256, "expected artifact SHA-256")
         artifact_path = Path(path).expanduser()
         try:
             artifact_path = artifact_path.resolve(strict=True)
@@ -155,6 +164,13 @@ class CompiledArtifact:
             ) from exc
         if not artifact_path.is_file():
             raise AxiomArtifactError(f"compiled Axiom artifact is not a file: {artifact_path}")
+
+        actual_sha256 = hashlib.sha256(source).hexdigest()
+        if actual_sha256 != pinned_sha256:
+            raise AxiomArtifactError(
+                "compiled Axiom artifact SHA-256 mismatch: "
+                f"expected {pinned_sha256}, got {actual_sha256}"
+            )
 
         try:
             raw = json.loads(source)
@@ -200,12 +216,26 @@ class CompiledArtifact:
 
         return cls(
             path=artifact_path,
-            sha256=hashlib.sha256(source).hexdigest(),
+            sha256=pinned_sha256,
             artifact_format_version=version,
             engine_version=engine_version,
             input_catalog=catalog,
             output_request_names=frozenset(output_names),
         )
+
+    def verify_integrity(self) -> None:
+        """Fail if the artifact path no longer contains the pinned bytes."""
+
+        try:
+            source = self.path.read_bytes()
+        except OSError as exc:
+            raise AxiomArtifactError(f"cannot re-read compiled Axiom artifact {self.path}") from exc
+        actual_sha256 = hashlib.sha256(source).hexdigest()
+        if actual_sha256 != self.sha256:
+            raise AxiomArtifactError(
+                "compiled Axiom artifact changed after binding: "
+                f"expected {self.sha256}, got {actual_sha256}"
+            )
 
     def assert_output(self, output: str) -> None:
         if output not in self.output_request_names:
@@ -229,6 +259,7 @@ class CompiledProgramBinding:
         cls,
         artifact_path: str | Path,
         *,
+        expected_artifact_sha256: str,
         output: str,
         entity: str,
         expected_input_catalog: Mapping[str, str],
@@ -237,7 +268,10 @@ class CompiledProgramBinding:
             raise AxiomArtifactError("compiled output name must be non-empty")
         if not entity:
             raise AxiomArtifactError("compiled output entity must be non-empty")
-        artifact = CompiledArtifact.load(artifact_path)
+        artifact = CompiledArtifact.load(
+            artifact_path,
+            expected_sha256=expected_artifact_sha256,
+        )
         artifact.assert_output(output)
         artifact.input_catalog.assert_exact(expected_input_catalog)
         return cls(

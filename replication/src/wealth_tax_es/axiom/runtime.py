@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import os
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import date
@@ -21,6 +23,7 @@ from .errors import (
 
 ExecutionMode = Literal["explain", "fast"]
 ScalarKind = Literal["bool", "integer", "decimal", "text", "date"]
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,6 +107,7 @@ class AxiomEvaluation:
     actual_mode: str
     fallback_reason: str | None
     artifact_sha256: str
+    engine_binary_sha256: str
 
 
 def _load_python_binding() -> tuple[Any, Any, Any]:
@@ -119,7 +123,20 @@ def _load_python_binding() -> tuple[Any, Any, Any]:
 class AxiomRuntime:
     """Execute a pinned compiled program through the official Python client."""
 
-    def __init__(self, binary_path: str | Path, *, timeout: float = 30.0) -> None:
+    def __init__(
+        self,
+        binary_path: str | Path,
+        *,
+        expected_binary_sha256: str,
+        timeout: float = 30.0,
+    ) -> None:
+        if not isinstance(expected_binary_sha256, str) or not _SHA256_RE.fullmatch(
+            expected_binary_sha256.lower()
+        ):
+            raise AxiomRuntimeUnavailableError(
+                "expected Axiom engine binary SHA-256 must be 64 hexadecimal characters"
+            )
+        pinned_binary_sha256 = expected_binary_sha256.lower()
         binary = Path(binary_path).expanduser()
         try:
             binary = binary.resolve(strict=True)
@@ -134,12 +151,41 @@ class AxiomRuntime:
         if timeout <= 0:
             raise ValueError("Axiom runtime timeout must be positive")
 
+        actual_binary_sha256 = self._binary_digest(binary)
+        if actual_binary_sha256 != pinned_binary_sha256:
+            raise AxiomRuntimeUnavailableError(
+                "Axiom rules-engine binary SHA-256 mismatch: "
+                f"expected {pinned_binary_sha256}, got {actual_binary_sha256}"
+            )
+
         engine_type, dataset_type, query_type = _load_python_binding()
         self.binary_path = binary
+        self.binary_sha256 = pinned_binary_sha256
         self.timeout = timeout
         self._engine = engine_type(binary_path=binary, timeout=timeout)
         self._dataset_type = dataset_type
         self._query_type = query_type
+
+    @staticmethod
+    def _binary_digest(binary: Path) -> str:
+        try:
+            digest = hashlib.sha256()
+            with binary.open("rb") as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                    digest.update(chunk)
+            return digest.hexdigest()
+        except OSError as exc:
+            raise AxiomRuntimeUnavailableError(
+                f"cannot read Axiom rules-engine binary: {binary}"
+            ) from exc
+
+    def _verify_binary_integrity(self) -> None:
+        actual_binary_sha256 = self._binary_digest(self.binary_path)
+        if actual_binary_sha256 != self.binary_sha256:
+            raise AxiomRuntimeUnavailableError(
+                "Axiom rules-engine binary changed after runtime initialization: "
+                f"expected {self.binary_sha256}, got {actual_binary_sha256}"
+            )
 
     def evaluate_decimal(
         self,
@@ -196,6 +242,8 @@ class AxiomRuntime:
                 "outputs": [binding.output],
             }
         )
+        self._verify_binary_integrity()
+        binding.artifact.verify_integrity()
         try:
             response = self._engine.run_compiled(
                 mode=mode,
@@ -226,6 +274,8 @@ class AxiomRuntime:
             raise AxiomOutputError(
                 f"Axiom output {binding.output!r} is not a valid decimal"
             ) from exc
+        if not value.is_finite():
+            raise AxiomOutputError(f"Axiom output {binding.output!r} is not finite")
 
         response_period = result.period
         if (
@@ -244,6 +294,7 @@ class AxiomRuntime:
             actual_mode=response.metadata.actual_mode,
             fallback_reason=response.metadata.fallback_reason,
             artifact_sha256=binding.artifact.sha256,
+            engine_binary_sha256=self.binary_sha256,
         )
 
 

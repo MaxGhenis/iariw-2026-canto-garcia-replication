@@ -7,6 +7,7 @@ used by the replication calculators.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -52,6 +53,10 @@ EXPECTED_CATALOG = {
     "rate": "rate",
     "adjustment": "adjustment",
 }
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _local_engine_binary() -> Path:
@@ -107,6 +112,7 @@ def compiled_fixture(tmp_path_factory, engine_binary: Path) -> CompiledFixture:
     )
     binding = CompiledProgramBinding.load(
         artifact_path,
+        expected_artifact_sha256=_sha256(artifact_path),
         output="test_wealth_tax",
         entity="TaxUnit",
         expected_input_catalog=EXPECTED_CATALOG,
@@ -144,7 +150,10 @@ def test_compiled_input_catalog_is_exact_and_exposed(compiled_fixture: CompiledF
 def test_real_compiled_execution_returns_exact_decimal_and_tax_year(
     compiled_fixture: CompiledFixture, engine_binary: Path
 ):
-    runtime = AxiomRuntime(engine_binary)
+    runtime = AxiomRuntime(
+        engine_binary,
+        expected_binary_sha256=_sha256(engine_binary),
+    )
     result = runtime.evaluate_decimal(
         compiled_fixture.binding,
         _inputs(),
@@ -161,12 +170,16 @@ def test_real_compiled_execution_returns_exact_decimal_and_tax_year(
     assert result.requested_mode == "explain"
     assert result.actual_mode == "explain"
     assert len(result.artifact_sha256) == 64
+    assert result.engine_binary_sha256 == _sha256(engine_binary)
 
 
 def test_runtime_rejects_missing_and_unknown_inputs_before_execution(
     compiled_fixture: CompiledFixture, engine_binary: Path
 ):
-    runtime = AxiomRuntime(engine_binary)
+    runtime = AxiomRuntime(
+        engine_binary,
+        expected_binary_sha256=_sha256(engine_binary),
+    )
     missing = _inputs()
     missing.pop("rate")
     with pytest.raises(AxiomInputCatalogError, match=r"missing input slots=\['rate'\]"):
@@ -184,7 +197,33 @@ def test_decimal_inputs_reject_binary_floats():
 
 def test_runtime_fails_closed_when_engine_is_missing(tmp_path):
     with pytest.raises(AxiomRuntimeUnavailableError, match="does not exist"):
-        AxiomRuntime(tmp_path / "missing-axiom-rules-engine")
+        AxiomRuntime(
+            tmp_path / "missing-axiom-rules-engine",
+            expected_binary_sha256="0" * 64,
+        )
+
+
+def test_runtime_rejects_unpinned_engine_binary(engine_binary: Path):
+    with pytest.raises(AxiomRuntimeUnavailableError, match="binary SHA-256 mismatch"):
+        AxiomRuntime(engine_binary, expected_binary_sha256="0" * 64)
+
+
+def test_runtime_rejects_engine_binary_changed_after_initialization(
+    compiled_fixture: CompiledFixture,
+    engine_binary: Path,
+    tmp_path: Path,
+):
+    mutable_binary = tmp_path / "axiom-rules-engine"
+    shutil.copy2(engine_binary, mutable_binary)
+    runtime = AxiomRuntime(
+        mutable_binary,
+        expected_binary_sha256=_sha256(mutable_binary),
+    )
+    with mutable_binary.open("r+b") as stream:
+        stream.write(b"changed")
+
+    with pytest.raises(AxiomRuntimeUnavailableError, match="changed after"):
+        runtime.evaluate_decimal(compiled_fixture.binding, _inputs(), tax_year=2022)
 
 
 def test_artifact_rejects_unsupported_format(compiled_fixture: CompiledFixture, tmp_path):
@@ -194,13 +233,49 @@ def test_artifact_rejects_unsupported_format(compiled_fixture: CompiledFixture, 
     incompatible.write_text(json.dumps(raw), encoding="utf-8")
 
     with pytest.raises(AxiomArtifactError, match="unsupported compiled artifact format"):
-        CompiledArtifact.load(incompatible)
+        CompiledArtifact.load(incompatible, expected_sha256=_sha256(incompatible))
+
+
+def test_binding_requires_expected_artifact_digest(compiled_fixture: CompiledFixture):
+    with pytest.raises(AxiomArtifactError, match="artifact SHA-256 mismatch"):
+        CompiledProgramBinding.load(
+            compiled_fixture.artifact_path,
+            expected_artifact_sha256="0" * 64,
+            output="test_wealth_tax",
+            entity="TaxUnit",
+            expected_input_catalog=EXPECTED_CATALOG,
+        )
+
+
+def test_runtime_rejects_artifact_changed_after_binding(
+    compiled_fixture: CompiledFixture,
+    engine_binary: Path,
+    tmp_path: Path,
+):
+    artifact_path = tmp_path / "mutable.compiled.json"
+    shutil.copyfile(compiled_fixture.artifact_path, artifact_path)
+    binding = CompiledProgramBinding.load(
+        artifact_path,
+        expected_artifact_sha256=_sha256(artifact_path),
+        output="test_wealth_tax",
+        entity="TaxUnit",
+        expected_input_catalog=EXPECTED_CATALOG,
+    )
+    artifact_path.write_text("{}", encoding="utf-8")
+    runtime = AxiomRuntime(
+        engine_binary,
+        expected_binary_sha256=_sha256(engine_binary),
+    )
+
+    with pytest.raises(AxiomArtifactError, match="changed after binding"):
+        runtime.evaluate_decimal(binding, _inputs(), tax_year=2022)
 
 
 def test_binding_rejects_output_absent_from_artifact(compiled_fixture: CompiledFixture):
     with pytest.raises(AxiomArtifactError, match="does not publish output"):
         CompiledProgramBinding.load(
             compiled_fixture.artifact_path,
+            expected_artifact_sha256=_sha256(compiled_fixture.artifact_path),
             output="invented_tax",
             entity="TaxUnit",
             expected_input_catalog=EXPECTED_CATALOG,
