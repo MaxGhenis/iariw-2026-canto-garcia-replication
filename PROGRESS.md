@@ -44,10 +44,19 @@
 - Confirmed terminal DNS still cannot resolve BOE. The Playwright CLI wrapper
   also could not establish a usable retrieval session, so no source snapshot
   was fabricated or copied through an untrusted path.
+- Located and line-checked the official historical Zürich StG edition that was
+  in force for tax year 2022. Added its § 47 PDF and historical-law landing page
+  to the corpus intake branch at `6cfb8231`; the prior 2026 ESTV indexed table
+  remains separately identified rather than being relabelled as 2022 law.
+- Completed the ES/NO legal audit. It found that joint Norwegian assessment
+  doubles both the allowance and the NOK 20m state-rate threshold, and that the
+  Spanish IP computation must honor the statutory cuota anchors to avoid
+  one-cent drift. These are defects in the bespoke comparison path that its
+  current broad tolerances do not expose.
 
 ## Next
 
-- Extract and sign the 17 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow. The intake manifests are ready; terminal DNS and protected signing access currently block this step.
+- Extract and sign the now 18 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow. The intake manifests are ready; terminal DNS and protected signing access currently block this step.
 - Encode and validate sourced law through `axiom-encode`, including explicit unresolved-source notes without guessing.
 - Replace the bespoke replication execution path with Axiom composition and engine execution.
 - Run unchanged oracle tests and produce cent-level scenario comparisons.
