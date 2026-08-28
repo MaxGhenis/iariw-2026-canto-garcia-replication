@@ -21,6 +21,12 @@
   country repository contains zero atomic RuleSpec modules and zero overlays.
 - Confirmed terminal DNS, GitHub authentication, the agent secret store, and
   protected Axiom signer attachment are unavailable in this session.
+- Added the verified historical Zürich StG § 47 source that governed tax year
+  2022 to the corpus intake branch (`6cfb8231`), while retaining the 2026
+  indexed ESTV table as a separate vintage.
+- Confirmed two latent bespoke-oracle defects: jointly assessed Norwegian
+  spouses have a doubled top-rate threshold, and Spanish IP bracket integration
+  drifts one cent from the statute's mandatory quota anchors at two edges.
 
 ## Next
 
