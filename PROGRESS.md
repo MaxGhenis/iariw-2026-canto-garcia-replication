@@ -4,10 +4,11 @@
 
 - Active branch: `axiom-rulespec-migration`.
 - Coordination repository: this replication package.
-- Current phase: the independent audit is complete. Source intake and the
-  real-engine runtime foundation are committed, but there are still zero live
-  country RuleSpec modules and zero paper-scenario ProgramSpecs. Corpus
-  extraction/signing and the first supervised country encodings are next.
+- Current phase: externally blocked after exhausting supported local paths.
+  Source intake and the real-engine runtime foundation are committed, but there
+  are still zero live country RuleSpec modules and zero paper-scenario
+  ProgramSpecs. Production progress now requires network/authentication, signed
+  corpus releases, and the protected apply signer.
 - Guardrails: use the real Axiom RuleSpec composition and rules-engine path; preserve the 26 existing oracle tests unchanged; keep paper scenarios as overlays; do not touch the slide app, staged OBBBA PDF, or Gmail drafts.
 
 ## Done
@@ -62,10 +63,16 @@
   `f00f7d4a`, bound it in the Spain source map at `4f8f338`, and closed the
   Zurich 2022-vintage source-map gap at `988ebd3`. The intake now covers 19
   official documents; it still has no extracted/signed release artifacts.
+- Probed the complete guarded local path. The available local-dev signer creates
+  explicitly nonpublishable manifests; a safe real dev release would also need
+  isolated S3/Supabase services and a new root-owned supervisor tree, neither of
+  which is available in this sandbox. The final report records the exact
+  production resume sequence without weakening those controls.
 
 ## Next
 
-- Extract and sign the now 18 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow. The intake manifests are ready; terminal DNS and protected signing access currently block this step.
+- Restore operator-managed network/authentication and protected signing access.
+- Extract and sign the 19 verified legal-source snapshots in `axiom-corpus`, then cut the jurisdiction bindings required by the current supervised workflow.
 - Encode and validate sourced law through `axiom-encode`, including explicit unresolved-source notes without guessing.
 - Replace the bespoke replication execution path with Axiom composition and engine execution.
 - Run unchanged oracle tests and produce cent-level scenario comparisons.

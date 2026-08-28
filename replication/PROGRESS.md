@@ -2,9 +2,8 @@
 
 ## State
 
-- Active: audit complete; testing the remaining locally feasible source,
-  composition, and runtime steps without bypassing Axiom's signed-apply trust
-  boundary.
+- Externally blocked after exhausting supported local source, composition, and
+  runtime paths without bypassing Axiom's signed-apply trust boundary.
 - Constraint: all production calculations must execute real composed RuleSpec
   artifacts through the Axiom rules engine; no parallel hand-written evaluator.
 
@@ -34,6 +33,10 @@
 - Expanded the source intake to 19 documents with the retroactive ITSGF
   exemption amendment and updated the Spain and Zurich source maps. This closes
   the legal-source gaps but not the signed corpus/apply prerequisite.
+- Confirmed the only available local-dev signer produces nonpublishable output;
+  a guarded dev release additionally requires isolated S3/Supabase services and
+  root-owned supervisor provisioning unavailable in this sandbox. The required
+  output report now contains the exact production resume sequence.
 
 ## Next
 
