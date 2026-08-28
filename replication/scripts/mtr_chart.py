@@ -1,16 +1,21 @@
-"""Six reference wealth-tax schedules related to the eight designs in Cantó &
-García-Rodríguez (2026), with the Spanish state-schedule references named:
+"""Six wealth-tax design paths related to the eight designs in Cantó &
+García-Rodríguez (2026), ordered as in the paper's Tables 1 and A.2:
 
-- Spain IP, €700k exemption is a state-default reference for Sim. 2; the
-  paper does not publish enough information to resolve its regional scales.
-- Spain IP, €300k exemption is a state-schedule reference for Sims 1 & 3;
-  their design-specific regional parameters are not exactly recovered.
-- Zurich City (a transparent reference for Sim. CH; the paper omits the
-  multiplier/vintage), Norway 2022 law (the paper uses flat 1%), France IFI,
-  and the paper's Piketty schedule.
+- Spanish IP baseline / the state-schedule reference later reused by Sim. 2.
+- Sim. NO: the paper's flat 1% Norway variant after its ~EUR 160k threshold.
+- Sim. CH: an illustrative Zurich City reference because the paper omits the
+  tariff vintage and Steuerfuss.
+- Sim. FR: France's real-estate-only IFI.
+- Sims 1-3: the EUR 300k Spanish threshold line, alongside the baseline line.
+- Sim. Piketty: the paper's normative schedule.
 
-Marginal steps are cross-checked against numeric derivatives of the tested
-calculators at every bracket midpoint before plotting. Outputs:
+The x-axis is non-pension net wealth along one transparent illustrative
+portfolio: 25% main residence and 75% other assets at every wealth level.
+Each design's valuation rules are then applied to that same portfolio. This
+is not an estimate of a representative Spanish household.
+
+Underlying statutory schedules remain cross-checked against numeric
+derivatives of the tested calculators at every bracket midpoint. Outputs:
   results/mtr_by_wealth.png        standalone two-panel (MTR + ATR), titled
   results/mtr_by_wealth_slide.png  recap slide chart (MTR only, untitled)
   results/schedule_build_{1..6}.png  reveal slides (MTR+ATR stacked, fade-in)
@@ -27,13 +32,22 @@ import numpy as np
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from wealth_tax_es import schedules as S  # noqa: E402
-from wealth_tax_es.calculator import (  # noqa: E402
+from wealth_tax_es import schedules as S
+from wealth_tax_es.calculator import (
     ifi_liability,
     ip_liability,
     norway_liability,
     piketty_liability,
     zurich_liability,
+)
+from wealth_tax_es.portfolio_paths import (
+    CHF_PER_EUR_2022,
+    RESIDENCE_SHARE,
+    france_path,
+    ip_path,
+    norway_paper_path,
+    portfolio,
+    zurich_path,
 )
 
 NOK = S.NOK_PER_EUR_2022
@@ -48,30 +62,26 @@ def steps_from_schedule(schedule, exemption=0.0):
 
 IP700 = steps_from_schedule(S.IP_STATE_SCHEDULE, S.IP_GENERAL_EXEMPTION)
 IP300 = steps_from_schedule(S.IP_STATE_SCHEDULE, S.SIM1_EXEMPTION)
-NORWAY = [(S.NORWAY_2022["threshold_single"] / NOK, 0.0095), (20_000_000 / NOK, 0.011)]
+NORWAY_PAPER = [(S.NORWAY_PAPER_VARIANT["threshold_single"] / NOK, 0.010)]
 ZURICH = [(lo, rate * STEUERFUSS) for lo, rate in S.ZURICH_GRUNDTARIF_SINGLE]
 IFI = [(S.IFI_TRIGGER, 0.007 + 0.0125), (1_400_000.0, 0.007),
        (2_570_000.0, 0.010), (5_000_000.0, 0.0125), (10_000_000.0, 0.015)]
 PIKETTY = list(S.PIKETTY_PAPER)
 
-# (name, short, color, linestyle, steps, liability_fn)
+# (name, short, color, linestyle, liability along the common total-wealth path)
 SERIES = [
-    ("Spain €700k (Sim. 2 ref.)", "Spain €700k", "#2a78d6", "solid", IP700,
-     lambda w: ip_liability(w, apply_rebate=False)),
-    ("Spain €300k (Sims 1/3 ref.)", "Spain €300k", "#2a78d6", (0, (5, 3)), IP300,
-     lambda w: ip_liability(w, exemption=S.SIM1_EXEMPTION, apply_rebate=False)),
-    ("Piketty (paper)", "Piketty", "#eb6834", "solid", PIKETTY, piketty_liability),
-    ("France IFI", "France IFI", "#1baf7a", "solid", IFI, ifi_liability),
-    ("Norway 2022 law", "Norway law", "#eda100", "solid", NORWAY,
-     lambda w: norway_liability(w * NOK) / NOK),
-    ("Zurich City reference", "Zurich City", "#e87ba4", "solid", ZURICH,
-     lambda w: zurich_liability(w, steuerfuss=STEUERFUSS)),
+    ("IP baseline / Sim. 2 ref.", "IP / Sim. 2", "#2a78d6", "solid",
+     lambda w: ip_path(w, S.IP_GENERAL_EXEMPTION)),
+    ("Sim. NO (paper)", "Sim. NO", "#eda100", "solid", norway_paper_path),
+    ("Sim. CH (Zurich ref.)", "Sim. CH", "#e87ba4", "solid", zurich_path),
+    ("Sim. FR (IFI)", "Sim. FR", "#1baf7a", "solid", france_path),
+    ("Sims 1/3 (€300k ref.)", "Sims 1/3", "#2a78d6", (0, (5, 3)),
+     lambda w: ip_path(w, S.SIM1_EXEMPTION)),
+    ("Sim. Piketty", "Piketty", "#eb6834", "solid", piketty_liability),
 ]
 BY_NAME = {r[0]: r for r in SERIES}
-BUILD_ORDER = ["Spain €700k (Sim. 2 ref.)", "Spain €300k (Sims 1/3 ref.)",
-               "Zurich City reference", "Norway 2022 law",
-               "France IFI", "Piketty (paper)"]
-W_GRID = np.geomspace(X_MIN, X_MAX, 600)
+BUILD_ORDER = [r[0] for r in SERIES]
+W_GRID = np.geomspace(X_MIN, X_MAX, 1_600)
 
 
 def crosscheck(steps, fn, name, eps=1.0):
@@ -84,9 +94,23 @@ def crosscheck(steps, fn, name, eps=1.0):
         assert abs(num - rate) < 1e-6, f"{name} @ {mid:,.0f}: analytic {rate} vs numeric {num}"
 
 
-for name, _, _, _, steps, fn in SERIES:
+CALCULATOR_CHECKS = [
+    (IP700, lambda w: ip_liability(w, apply_rebate=False), "Spain EUR 700k"),
+    (IP300,
+     lambda w: ip_liability(w, exemption=S.SIM1_EXEMPTION, apply_rebate=False),
+     "Spain EUR 300k"),
+    (NORWAY_PAPER,
+     lambda w: norway_liability(w * NOK, params=S.NORWAY_PAPER_VARIANT) / NOK,
+     "Norway paper variant"),
+    (ZURICH, lambda w: zurich_liability(w, steuerfuss=STEUERFUSS), "Zurich City"),
+    (IFI, ifi_liability, "France IFI"),
+    (PIKETTY, piketty_liability, "Piketty"),
+]
+for steps, fn, name in CALCULATOR_CHECKS:
     crosscheck(steps, fn, name)
-print("cross-checks passed: analytic steps == tested calculator marginals (6 reference series)")
+
+assert sum(portfolio(1_000_000.0)) == 1_000_000.0
+print("cross-checks passed: analytic steps == tested calculator marginals (6 series)")
 
 
 def style_axis(ax, base):
@@ -109,16 +133,22 @@ def euro_ticks(ax, ticks):
     ax.xaxis.set_minor_formatter(NullFormatter())
 
 
-def mtr_line(ax, steps, color, ls, lw, alpha, z):
-    xs, ys = [X_MIN], [0.0]
-    for lo, rate in steps:
-        if lo > X_MAX:
-            continue
-        xs += [max(lo, X_MIN), max(lo, X_MIN)]
-        ys += [ys[-1], rate * 100]
-    xs.append(X_MAX)
-    ys.append(ys[-1])
-    ax.plot(xs, ys, color=color, linestyle=ls, linewidth=lw, alpha=alpha,
+def marginal_rate(fn, wealth):
+    """Central-difference MTR along the common total-wealth portfolio path."""
+    eps = max(1.0, wealth * 1e-7)
+    lo = max(0.0, wealth - eps)
+    rate = (fn(wealth + eps) - fn(lo)) / (wealth + eps - lo) * 100
+    # IFI has a discrete entry liability. Leave that discontinuity to the
+    # annotation rather than drawing a meaningless near-infinite derivative.
+    return np.nan if abs(rate) > 4.0 else max(0.0, rate)
+
+
+def mtr_values(fn):
+    return np.array([marginal_rate(fn, w) for w in W_GRID])
+
+
+def line(ax, ys, color, ls, lw, alpha, z):
+    ax.plot(W_GRID, ys, color=color, linestyle=ls, linewidth=lw, alpha=alpha,
             solid_joinstyle="miter", zorder=z)
 
 
@@ -137,6 +167,22 @@ def right_labels(ax, entries, base, min_gap=0.16):
                 clip_on=False, zorder=5)
 
 
+def mtr_endpoint_labels():
+    """Merge the coincident Spanish 3.5% endpoints into one truthful label."""
+    ip_rate = marginal_rate(BY_NAME["IP baseline / Sim. 2 ref."][-1], X_MAX)
+    entries = [(
+        "IP baseline / Sim. 2 ref.\nSims 1/3 (€300k ref.)",
+        "#2a78d6",
+        ip_rate,
+    )]
+    entries.extend(
+        (name, color, marginal_rate(fn, X_MAX))
+        for name, _, color, _, fn in SERIES
+        if name not in {"IP baseline / Sim. 2 ref.", "Sims 1/3 (€300k ref.)"}
+    )
+    return entries
+
+
 def render_standalone(out_path):
     base = 10.5
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12.5, 8.6), dpi=300,
@@ -144,35 +190,42 @@ def render_standalone(out_path):
     fig.patch.set_facecolor(SURFACE)
     for ax in (ax1, ax2):
         style_axis(ax, base)
-    for name, short, color, ls, steps, fn in SERIES:
-        mtr_line(ax1, steps, color, ls, 2, 1.0, 3)
+    for name, short, color, ls, fn in SERIES:
+        line(ax1, mtr_values(fn), color, ls, 2, 1.0, 3)
         atr = np.array([fn(w) / w for w in W_GRID]) * 100
-        ax2.plot(W_GRID, atr, color=color, linestyle=ls, linewidth=2, zorder=3)
+        line(ax2, atr, color, ls, 2, 1.0, 3)
     ax1.set_ylim(0, 3.7)
     ax2.set_ylim(0, 3.4)
-    for ax, panel in ((ax1, "Marginal rate (next euro)"),
-                      (ax2, "Average rate (tax ÷ assessable wealth)")):
+    for ax, panel in ((ax1, "Marginal tax on next euro of net wealth"),
+                      (ax2, "Average tax ÷ non-pension net wealth")):
         ax.text(0.005, 0.96, panel, transform=ax.transAxes, fontsize=base + 1.5,
                 fontweight="bold", color="#3d3d3a", va="top")
     euro_ticks(ax2, [1e5, 3e5, 1e6, 3e6, 1e7, 3e7])
-    right_labels(ax1, [(n, c, s[-1][1] * 100) for n, _, c, _, s, _ in SERIES], base)
-    right_labels(ax2, [(sh, c, fn(X_MAX) / X_MAX * 100) for _, sh, c, _, _, fn in SERIES], base)
+    ax2.set_xlabel("Illustrative non-pension net wealth (log scale)",
+                   fontsize=base, color="#6f6f6a")
+    right_labels(ax1, mtr_endpoint_labels(), base)
+    right_labels(ax2, [(sh, c, fn(X_MAX) / X_MAX * 100)
+                       for _, sh, c, _, fn in SERIES], base)
     cliff = ifi_liability(S.IFI_TRIGGER + 1)
-    ax1.annotate(f"IFI entry cliff: ≈€{cliff:,.0f} just above €1.3M",
-                 xy=(1.32e6, 1.95), xytext=(2.3e5, 2.6), fontsize=base - 1,
-                 color="#6f6f6a", arrowprops=dict(arrowstyle="-", color="#b9b9b4", lw=1))
-    fig.text(0.045, 0.965, "Six reference schedules behind the paper's eight designs",
+    ifi_trigger_wealth = S.IFI_TRIGGER / (
+        (1.0 - S.IFI_MAIN_RESIDENCE_ABATEMENT) * RESIDENCE_SHARE
+    )
+    ax1.annotate(f"IFI entry: ≈€{cliff:,.0f} once 17.5% of wealth exceeds €1.3M",
+                 xy=(ifi_trigger_wealth * 1.02, 0.34),
+                 xytext=(1.1e6, 2.75), fontsize=base - 1,
+                 color="#6f6f6a",
+                 arrowprops={"arrowstyle": "-", "color": "#b9b9b4", "lw": 1})
+    fig.text(0.045, 0.965, "Six design paths in the paper's order",
              fontsize=16, fontweight="bold", color="#1e1e1c")
-    fig.text(0.045, 0.935, "Against each design's assessable wealth — single filer, log scale. "
-             "Spain shown as two state-schedule references after abatements are stripped.",
+    fig.text(0.045, 0.935, "Single filer; 25% main residence + 75% other assets; pension rights excluded.",
              fontsize=11, color="#6f6f6a")
     fig.text(0.045, 0.008,
-             "Spain: state schedules with residence relief, regional rules, and income cap stripped; references for Sim. 2 (€700k) and Sims 1/3 (€300k), not exact recoveries.\n"
-             "Norway: 2022 law (0.95%/1.10%; paper Sim. NO is flat 1%), NOK→EUR 10.10. Zurich: mixed-vintage reference — 2026-indexed tariff ×2.18\n"
-             "using canton 99% + City 119% factors documented for 2022–23; paper omits its multiplier. France: IFI real estate. Piketty: paper schedule.\n"
-             "Source: statutes cited in replication/NOTES.md.",
+             "Illustrative portfolio, not a representative household. Norway paper variant: housing valued at 25%, then flat 1% after ~€160k (double threshold for couples).\n"
+             f"Zurich: housing at 70%; mixed-vintage 2026 tariff ×2.18 (2022–23 factors); ECB 2022 average €1=CHF{CHF_PER_EUR_2022:.4f}. France: residence only, 30% abatement.\n"
+             "Spain: €300k residence relief; state schedules, no regional rebate or income cap. Piketty: full non-pension net wealth assumed; paper leaves its valuation base unresolved.\n"
+             "Sources: Tables 1/A.2 + replication/NOTES.md.",
              fontsize=8.5, color="#8a8a84", va="bottom")
-    fig.subplots_adjust(left=0.05, right=0.77, top=0.905, bottom=0.115, hspace=0.12)
+    fig.subplots_adjust(left=0.05, right=0.77, top=0.905, bottom=0.13, hspace=0.12)
     fig.savefig(out_path, facecolor=SURFACE)
     plt.close(fig)
     print(f"wrote {out_path}")
@@ -183,19 +236,18 @@ def render_recap_slide(out_path):
     fig, ax1 = plt.subplots(figsize=(12.8, 6.6), dpi=300)
     fig.patch.set_facecolor(SURFACE)
     style_axis(ax1, base)
-    for name, short, color, ls, steps, fn in SERIES:
-        mtr_line(ax1, steps, color, ls, 2.4, 1.0, 3)
+    for name, short, color, ls, fn in SERIES:
+        line(ax1, mtr_values(fn), color, ls, 2.4, 1.0, 3)
     ax1.set_ylim(0, 3.7)
     euro_ticks(ax1, [1e5, 3e5, 1e6, 3e6, 1e7, 3e7])
-    right_labels(ax1, [(n, c, s[-1][1] * 100) for n, _, c, _, s, _ in SERIES], base, min_gap=0.2)
-    cliff = ifi_liability(S.IFI_TRIGGER + 1)
-    ax1.annotate(f"IFI entry cliff: ≈€{cliff:,.0f} just above €1.3M",
-                 xy=(1.32e6, 1.95), xytext=(2.3e5, 2.6), fontsize=base - 2,
-                 color="#6f6f6a", arrowprops=dict(arrowstyle="-", color="#b9b9b4", lw=1))
-    fig.subplots_adjust(left=0.05, right=0.72, top=0.97, bottom=0.14)
+    ax1.set_xlabel("Illustrative non-pension net wealth (log scale)",
+                   fontsize=base, color="#6f6f6a")
+    right_labels(ax1, mtr_endpoint_labels(), base, min_gap=0.2)
+    fig.subplots_adjust(left=0.05, right=0.72, top=0.97, bottom=0.16)
     fig.text(0.05, 0.008,
-             "Assessable wealth, single filer; MTR. Spain stripped: state-schedule references for Sim. 2 / Sims 1&3; regional scales unresolved.\n"
-             "Norway = 2022 law (paper: flat 1%); Zurich City = mixed-vintage ×2.18 reference, 2026 brackets. NOK→EUR 10.10; CHF≈EUR.",
+             "Single filer; illustrative 25% main residence + 75% other assets; pensions excluded. Norway: paper's flat 1% after ~€160k, housing valued at 25%.\n"
+             f"Zurich City: housing 70%, mixed-vintage ×2.18 reference; ECB 2022 average €1=CHF{CHF_PER_EUR_2022:.4f}. France: residence only with 30% abatement.\n"
+             "Spain: residence relief shown; regional rules/cap omitted.",
              fontsize=9.5, color="#8a8a84", va="bottom")
     fig.savefig(out_path, facecolor=SURFACE)
     plt.close(fig)
@@ -212,15 +264,14 @@ def render_buildup(out_path, upto):
     shown = BUILD_ORDER[:upto]
     current = shown[-1]
     for name in shown:
-        _, short, color, ls, steps, fn = BY_NAME[name]
+        _, short, color, ls, fn = BY_NAME[name]
         hot = name == current
         alpha, lw = (1.0, 2.8) if hot else (0.22, 2.0)
-        mtr_line(ax1, steps, color, ls, lw, alpha, 4 if hot else 2)
+        line(ax1, mtr_values(fn), color, ls, lw, alpha, 4 if hot else 2)
         atr = np.array([fn(w) / w for w in W_GRID]) * 100
-        ax2.plot(W_GRID, atr, color=color, linestyle=ls, linewidth=lw, alpha=alpha,
-                 zorder=4 if hot else 2)
+        line(ax2, atr, color, ls, lw, alpha, 4 if hot else 2)
         if hot:
-            y1 = steps[-1][1] * 100
+            y1 = marginal_rate(fn, X_MAX)
             ax1.annotate(short, xy=(X_MAX, y1), xytext=(X_MAX * 1.07, y1),
                          color="#3d3d3a", fontsize=base + 1, fontweight="bold",
                          va="center", annotation_clip=False)
@@ -230,12 +281,14 @@ def render_buildup(out_path, upto):
                      color=color, markersize=6, clip_on=False, zorder=5)
     ax1.set_ylim(0, 3.7)
     ax2.set_ylim(0, 3.4)
-    for ax, panel in ((ax1, "Marginal rate (next euro)"),
-                      (ax2, "Average rate (tax ÷ assessable wealth)")):
+    for ax, panel in ((ax1, "Marginal tax on next euro"),
+                      (ax2, "Tax ÷ non-pension net wealth")):
         ax.text(0.008, 0.95, panel, transform=ax.transAxes, fontsize=base + 1,
                 fontweight="bold", color="#3d3d3a", va="top")
     euro_ticks(ax2, [1e5, 1e6, 1e7])
-    fig.subplots_adjust(left=0.075, right=0.83, top=0.985, bottom=0.06, hspace=0.10)
+    ax2.set_xlabel("Illustrative non-pension net wealth (log scale)",
+                   fontsize=base, color="#6f6f6a")
+    fig.subplots_adjust(left=0.075, right=0.83, top=0.985, bottom=0.085, hspace=0.10)
     fig.savefig(out_path, facecolor=SURFACE)
     plt.close(fig)
     print(f"wrote {out_path}")

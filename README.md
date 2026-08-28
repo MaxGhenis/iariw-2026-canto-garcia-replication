@@ -9,9 +9,10 @@ session "Wealth and fiscal and monetary policy" (slot verified on the online pro
 to 2pm, keeping this paper at 4pm). Discussant: Max Ghenis (PolicyEngine). Author
 response: Olga Cantó & Francisco García-Rodríguez.
 
-- `app/slides/*.tsx` — 27 slides (Next.js + Tailwind): 14 present the paper plus a
-  7-slide discussant-added schedule sequence (six statute/paper reference schedules
-  mapped to the eight designs + recap), divider + 4 discussion comments + close
+- `app/slides/*.tsx` — 27 slides (Next.js + Tailwind): six design paths in the
+  paper's order + recap, then the paper's eight-row design table, results, divider,
+  4 discussion comments, and close. The path charts hold a labeled illustrative
+  portfolio fixed (25% main residence, 75% other assets; pensions excluded)
 - `public/figures/` — figures cropped from the authors' PDFs (`source/`) plus
   discussant-generated schedule charts sourced in `replication/NOTES.md`
 - `REVIEW.md` — adversarial review findings (CONFIRMED/PLAUSIBLE/REFUTED) behind

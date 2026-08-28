@@ -44,6 +44,7 @@ uv run pytest      # 26 hand-computed anchor tests, all against primary sources
 | Panel de Hogares 2022 (INE–AEAT–IEF) | Free to researchers under the IEF data-request protocol (`ief.es → Est_peticion`) → near-exact replication. Request not yet filed. |
 | 17 regional IP schedules beyond the rebates | Only the state schedule + rebates are encoded; the regional scales/thresholds (Catalonia 500k & 0.21–3.48%, etc.) belong in the parameter appendix we ask the authors to publish. |
 | Per-scenario valuation base | The paper is ambiguous (declared vs ×3.08 market values by design); `calculator.py` deliberately leaves valuation to the caller. |
+| Asset-by-asset base map | The paper labels most scenarios "net wealth" but does not document how pension rights, business assets, or liabilities are identified and included/excluded in each design; Norway/Switzerland are only described narratively as pension-exempt. |
 | Díaz et al. level/distance decomposition | Not implemented — the paper's eq. (5) as printed has a typo, and we do not implement formulas we have not read in the original source. |
 
 ## Structure
@@ -51,6 +52,6 @@ uv run pytest      # 26 hand-computed anchor tests, all against primary sources
 - `src/wealth_tax_es/calculator.py` — liability functions (valuation-agnostic)
 - `src/wealth_tax_es/indices.py` — Gini/Kakwani/Suits/R–S (weighted)
 - `src/wealth_tax_es/longrun.py` — constant-g projection + cumulative rates
-- `tests/` — 26 anchor tests, every number hand-computed from the cited statute
+- `tests/` — 30 schedule and portfolio-path anchor tests
 - `NOTES.md` — primary-source register and open questions for the authors
 - `data/` — gitignored; put EFF/PH extracts here

@@ -13,6 +13,7 @@ primary sources actually consulted (all fetched during the adversarial review,
 - AEAT IP 2022 statistics: 230,365 declarants / 185,101 with positive cuota / €1,250.0M (sede.agenciatributaria.gob.es, Estadística de los declarantes del IP 2022); 2023: 228,575 declarants, €1,926.3M.
 - Norway: https://www.skatteetaten.no/en/rates/wealth-tax/?year=2022 and ?year=2023; residence valuation: skatteetaten.no "Taxable value of residential properties"; Forskuddsmeldingen 2022 (0.95%/1.10%, 25%-to-NOK-10M-then-50%, secondary 95%, shares 75%).
 - Zurich: ESTV Kantonsblatt ZH, https://www.estv2.admin.ch/stp/kb/zh-de.pdf — § 47 Grundtarif tables (single/married) as encoded; Steuerfuss: canton 99% (2022–23), City of Zurich 119%; ESTV "Vermögenssteuer natürlicher Personen" dossier — family taxation (Art. 3(3) StHG).
+- CHF conversion: ECB annual-average 2022 reference rate, series `EXR.A.CHF.EUR.SP00.A` — €1 = CHF 1.0047093385214.
 - France: https://www.service-public.gouv.fr/particuliers/vosdroits/F563 (trigger €1.3M, 30% abatement); impots.gouv.fr "Calcul de l'IFI" (barème from €800k, décote 1.3–1.4M, 75% plafonnement).
 - Panel de Hogares access: https://www.ief.es/investigacion/Est_panelHogares.vbhtml and IEF DT 5/2024 (https://www.ief.es/docs/destacados/publicaciones/documentos_trabajo/2024_05.pdf) — joint INE–AEAT–IEF product, waves 2016–2023, M714 wealth-tax file, free under the petition protocol; covers the common fiscal territory only (excludes Basque Country and Navarre).
 - EFF 2022: Banco de España, mean €309k / median €142.7k per household (Documento Ocasional 2413).
@@ -31,11 +32,27 @@ primary sources actually consulted (all fetched during the adversarial review,
 1. Which real-estate value enters each scenario's taxable base — declared/cadastral
    or ×3.08 EFF-market? (Paper p.9 vs slides contradict; Zurich's 70% and Norway's
    25% are defined on market values.)
-2. Which ratio was applied, 3.0838 or 3.1125 (both printed on p.39)?
-3. Sim. 2: are regional *scales and thresholds* retained (as Table A.8's overlap
+2. What is the asset-by-asset base in each scenario: are pension rights present in
+   the PH wealth measure and, if so, removed under NO/CH/IP; how are business assets
+   treated for non-filers; which liabilities are netted; and what does "full net
+   wealth" mean for Piketty? The paper does not document this implementation.
+3. Which ratio was applied, 3.0838 or 3.1125 (both printed on p.39)?
+4. Sim. 2: are regional *scales and thresholds* retained (as Table A.8's overlap
    matrix implies) or harmonized to the state €700k (as Table A.2 says)?
-4. Is the 60% IRPF–IP limit active in Sims 1–3 and Piketty, and with what revenue
+5. Is the 60% IRPF–IP limit active in Sims 1–3 and Piketty, and with what revenue
    effect? (Table A.8's 3,577 IP payers with zero Piketty liability suggest it is.)
-5. Zurich: statutory tariff only, or × Steuerfuss (≈2.18)? Which allowance vintage?
-6. The 17 regional schedules "replicated in full detail" (fn. 6): please publish the
+6. Zurich: statutory tariff only, or × Steuerfuss (≈2.18)? Which allowance vintage?
+7. The 17 regional schedules "replicated in full detail" (fn. 6): please publish the
    parameter tables — this package has slots ready for them.
+
+## Design-path chart assumption
+The discussant charts are illustrations, not population estimates. They hold one
+single-filer balance sheet fixed at every wealth level: 25% main residence and 75%
+other assets, with pension rights excluded from plotted net wealth. They then apply
+each design's documented valuation and exemption rules. This makes the paper's
+Norway housing valuation (25%) distinct from the chart's assumed residence share
+(also 25%): Sim. NO assesses 25% × 25% + 75% = 81.25% of the next total-wealth euro
+after its approximately €160k individual exemption. Piketty is shown on full
+non-pension net wealth because its published asset-level base is unresolved. The
+Zurich path converts the euro balance sheet to and the liability back from CHF at
+the ECB's 2022 annual average (€1 = CHF 1.0047).

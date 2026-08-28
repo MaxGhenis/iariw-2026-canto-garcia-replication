@@ -9,7 +9,6 @@ import {
 } from './slides/Background';
 import {
   DataSlide,
-  DesignsSlide,
   ScheduleBuild1Slide,
   ScheduleBuild2Slide,
   ScheduleBuild3Slide,
@@ -17,6 +16,7 @@ import {
   ScheduleBuild5Slide,
   ScheduleBuild6Slide,
   SchedulesChartSlide,
+  DesignsSlide,
   MethodsSlide,
 } from './slides/Approach';
 import {
@@ -42,7 +42,6 @@ const slides = [
   SpanishIPSlide,
   ThisPaperSlide,
   DataSlide,
-  DesignsSlide,
   ScheduleBuild1Slide,
   ScheduleBuild2Slide,
   ScheduleBuild3Slide,
@@ -50,6 +49,7 @@ const slides = [
   ScheduleBuild5Slide,
   ScheduleBuild6Slide,
   SchedulesChartSlide,
+  DesignsSlide,
   MethodsSlide,
   AETRSlide,
   HeadlineTableSlide,
