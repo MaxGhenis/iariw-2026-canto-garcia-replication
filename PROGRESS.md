@@ -23,6 +23,9 @@
 - Closed the previously flagged French IFI bracket gap against the archived 2022 CGI text; the source manifest covers the exact Article 977 scale and décote together with Articles 964, 973, and 979.
 - Added the replication package's fail-closed Axiom compiled-artifact runtime: exact input-catalog validation, `tax_year` intervals, Decimal-only inputs/outputs, artifact hashing, and explicit dependency/runtime errors. The focused suite compiles and executes a test composition through the real Rust engine; the full suite passes 34/34.
 - Pinned and locked the official Axiom Python client to engine commit `2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4`. The runtime foundation does not yet switch jurisdiction calculators or ship stand-in country artifacts.
+- Prepared each country lane for the bounded wealth-tax scope without hand-authoring protected atomic modules: Spain `a7f3b539` (plus progress `b085cc99`), Norway `9ace7f16` (`7822a8e5`), Switzerland `08096273` (`7daf80c4`), and France `c38c40d0` (`6e52e154`).
+- Cross-checked the four country source maps against all 10 corpus manifests and all 17 unique citation roots. Added `es-md`, `es-an`, `es-ga`, and `ch-zh` repository roots; retained the explicit Zürich 2022-vintage gap. Each country layout suite passes 7/7.
+- Left country toolchains and reusable-workflow pins deliberately unresolved: no signed corpus release exists, the source-intake commit is not published, and the current encoder does not accept the workflow pin copied by older BE/NZ lanes. The dedicated binding/pin commits must follow release signing.
 - Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
 
 ## Next
