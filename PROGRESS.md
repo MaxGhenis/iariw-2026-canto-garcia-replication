@@ -27,6 +27,7 @@
 - Cross-checked the four country source maps against all 10 corpus manifests and all 17 unique citation roots. Added `es-md`, `es-an`, `es-ga`, and `ch-zh` repository roots; retained the explicit Zürich 2022-vintage gap. Each country layout suite passes 7/7.
 - Left country toolchains and reusable-workflow pins deliberately unresolved: no signed corpus release exists, the source-intake commit is not published, and the current encoder does not accept the workflow pin copied by older BE/NZ lanes. The dedicated binding/pin commits must follow release signing.
 - Updated `replication/README.md` and `replication/NOTES.md` with the real-engine development contract, exact 2022/2023 primary-source URLs, the country-lane/source-intake state, the still-open Zürich 2022 tariff vintage, and the now-closed French IFI Article 977 bracket check.
+- Created the committed handoff/output file `AXIOM_MIGRATION_REPORT.md` with the definition-of-done matrix, validation evidence, commit map, exact blockers, and resume sequence. It reports the migration as incomplete rather than overstating the scaffold/runtime work.
 - Recorded external-access constraints: terminal GitHub DNS is unavailable, `gh` authentication is expired, and the approved agent secret store is locked; local work can continue, but signed apply and push cannot complete until access is restored.
 
 ## Next
