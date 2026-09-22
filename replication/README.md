@@ -9,23 +9,64 @@ becomes re-runnable the moment microdata are attached.
 
 ```bash
 uv sync
-uv run pytest      # 26 hand-computed anchor tests, all against primary sources
+uv run pytest      # 26 starting cases + 4 master cases + 3 legal fixes + 12 engine tests = 45
 ```
 
-## What is encoded (all parameters sourced in `src/wealth_tax_es/schedules.py`)
-- **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, anchor-tested against the
-  BOE cuota íntegra table), €700k/€300k exemptions, the 60% IRPF–IP joint limit with
+### Axiom runtime development
+
+`uv sync` installs the official Axiom Python client from the exact engine commit
+tagged `v0.2.2` (`2c0e1edac0dccc355297eb9663e0aa0c4e97e5b4`). The client delegates
+execution to the Rust binary. Point tests at a matching executable explicitly:
+
+```bash
+export AXIOM_RULES_ENGINE_BIN=/absolute/path/to/axiom-rules-engine/target/release/axiom-rules-engine
+uv run pytest tests/test_axiom_runtime.py
+```
+
+On Max's current checkout, the focused tests also discover the release or debug
+binary under `~/iariw-axiom-worktrees/axiom-rules-engine`. Runtime code never
+falls back to the bespoke Python calculator when Axiom is unavailable or rejects
+an artifact.
+
+Every binding must receive the expected compiled-artifact SHA-256 through
+`expected_artifact_sha256`, and every `AxiomRuntime` must receive the expected
+engine executable SHA-256 through `expected_binary_sha256`. The runtime checks
+both digests when binding and re-hashes both files immediately before each
+engine call. Production values must come from a trusted signed corpus release
+and dependency lock; the runtime does not manufacture or authenticate those
+pins.
+
+The four country repositories and their source-intake maps now exist locally
+and under `TheAxiomFoundation/rulespec-es`, `rulespec-no`, `rulespec-ch`, and
+`rulespec-fr`. Their live atomic modules are intentionally absent until the
+prepared official documents are ingested into signed corpus releases and
+applied through Axiom's supervised encoder. Until then, `calculator.py` remains
+the explicit comparison oracle; it has not been relabeled or silently
+substituted for Axiom execution.
+
+## Current comparison-oracle coverage
+
+The pre-migration parameters remain in `src/wealth_tax_es/schedules.py`. The 26
+starting-point cases comprise 20 hand-computed schedule cases and six
+index/long-run cases. Current master adds four schedule/portfolio-path cases.
+Together, they can compare the eventual RuleSpec-backed path against the
+original implementation.
+
+- **Spanish IP**: state schedule (Ley 19/1991 art. 30.2, using the published BOE
+  cuota íntegra anchors rather than re-integrating rounded bracket edges),
+  €700k/€300k exemptions, the 60% IRPF–IP joint limit with
   its 80%-reduction floor, and the 2022 regional 100%/25% rebates (Madrid, Andalusia,
   Galicia).
 - **ITSGF** (Ley 38/2022): €3M zero band over a €700k exemption, 1.7/2.1/3.5%
   brackets (edges shared with the IP top brackets), IP-quota credit — the tax the
   paper's "2022 baseline" excludes despite its first accrual falling on the paper's
   valuation date.
-- **Norway**: true 2022 rules (0.95%/1.10% above NOK 20M, NOK 1.7M/3.4M thresholds,
-  primary-residence 25%-then-50% valuation kink) *and* the paper's stylized flat-1%
-  variant, so the fidelity gap is computable.
-- **Zurich**: § 47 StG Grundtarif (single and married), with the Steuerfuss
-  (canton 99% + city 119%) as an explicit choice the paper never discloses.
+- **Norway**: true 2022 rules (0.95%/1.10%, with the upper threshold at NOK 20M
+  single and NOK 40M joint; NOK 1.7M/3.4M allowances; primary-residence
+  25%-then-50% valuation kink) *and* the paper's stylized flat-1% variant.
+- **Zurich**: verified 2022 § 47 StG Grundtarif (single and married), plus the
+  separately named 2026 indexed table used by the immutable paper oracle, with
+  the Steuerfuss (canton 99% + city 119%) as an explicit choice.
 - **French IFI**: €1.3M trigger, schedule from €800k, 1.3–1.4M décote, 30%
   main-residence abatement, 75%-of-income plafonnement (the cap the paper says has
   "no analogue" abroad).
@@ -52,6 +93,8 @@ uv run pytest      # 26 hand-computed anchor tests, all against primary sources
 - `src/wealth_tax_es/calculator.py` — liability functions (valuation-agnostic)
 - `src/wealth_tax_es/indices.py` — Gini/Kakwani/Suits/R–S (weighted)
 - `src/wealth_tax_es/longrun.py` — constant-g projection + cumulative rates
-- `tests/` — 30 schedule and portfolio-path anchor tests
+- `tests/` — the schedule, portfolio-path, index, and long-run anchors; three
+  source-audit regressions; and 12 runtime contract tests around a
+  real-engine-compiled synthetic composition
 - `NOTES.md` — primary-source register and open questions for the authors
 - `data/` — gitignored; put EFF/PH extracts here
