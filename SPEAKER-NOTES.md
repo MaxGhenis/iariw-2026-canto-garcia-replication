@@ -29,64 +29,67 @@ PH (Sec. 4.1 p.7–8): compiled by AEAT, provided by IEF; 2022 wave ~950k househ
 ## 6 · Eight designs
 Their Table 1 (p.11) + A.2 (p.40). IP baseline replicates all regional schedules for 2022 (footnote 6 says fiscal year 2022; p.9 text says benchmark legislation 2023 — small internal wobble, don't raise unless asked). NO: flat 1% (0.3% state + 0.7% municipal), threshold ~€160k, residence at 25% of market value, married double threshold. CH: Canton of Zurich schedule, real estate 70%. FR: IFI, real estate only, €1.3M threshold, 0.5–1.5%. Sim. 1: exemption €300k. Sim. 2: no regional deductions/rebates. Sim. 3: both. Piketty: 0/0.5/1/2% above 200k/1M/5M. Foreign designs drop the IRPF–IP cap (p.10).
 
-## 7–11 · Schedule build, one policy at a time (discussant-added)
-Own it out loud once, at slide 7: "the next five charts are mine, drawn from the statutes — because you can't feel the paper's results without knowing each schedule's shape." Each slide: text panel left, MTR (top) + ATR (bottom) stacked right, prior systems faded in place. ~35–40 seconds each; don't rush — this IS the setup for everything after.
-- **7 Zurich**: family unit; Grundtarif 0–3‰ ×2.18 Steuerfuss → top ≈0.65%; bites from ~CHF 81k. Gentlest, broadest; Swiss wealth taxes ≈1% of GDP (OECD 2018, 2016 figure).
-- **8 Norway**: NOK 1.7M threshold (~€168k), 0.95%/1.10% above NOK 20M; residence at 25% of market value. Near-flat wall; ≈0.48% of GDP in 2022.
-- **9 France**: IFI real-estate only; €1.3M trigger with ≈€1,250 entry cliff (schedule counts from €800k), décote to €1.4M, 0.5–1.5%. Nothing → cliff → modest.
-- **10 Piketty**: 0.5/1/2% above 200k/1M/5M on everything (paper variant; book adds 0.1% bottom, 5–10% top).
-- **11 Spain (punchline)**: €700k exemption then 0.2→3.5% — the STEEPEST top schedule of the five. Land the line: "on paper, Spain out-taxes everyone at the top — the whole paper is about why so little of this line survives."
+## 7–12 · Schedule build: all eight designs, one at a time (discussant-added)
+Own it at slide 7: "the next six charts are mine, drawn from the statutes — every one of the paper's eight designs appears, and two pairs coincide once you strip Spain's abatements." Text left, MTR (top) + ATR (bottom) stacked right, priors faded in place. ~30–35s each.
+- **7 Spain €700k (the anchor)**: 0.2→3.5% over eight brackets — steepest top of the set. Say the coincidence: un-abated, this IS Sim. 2. Land: "on paper Spain out-taxes everyone; the paper is why so little survives." Stays faded behind everything after.
+- **8 Spain €300k (dashed twin = Sims 1 & 3)**: same schedule, every bracket €400k earlier; taxpayers 170,404 → 1.8M (Sim. 1) / 4.6M (Sim. 3, rebates also gone; Table 3).
+- **9 Switzerland (SAY: Canton of Zurich)**: family unit; § 47 StG ZH Grundtarif 0–3‰ ×2.18 Steuerfuss (canton 99% + City of Zurich 119%) → top ≈0.65%; from ~CHF 81k. Swiss wealth taxes ≈1% of GDP (OECD 2018). If pressed: single-filer table, 2026-indexed bracket edition (2022 vintage slightly lower); the paper never states its Zurich tariff or multiplier — that ambiguity is in comment 4.
+- **10 Norway**: NOK 1.7M (~€168k), 0.95%/1.10% >NOK 20M, residence at 25%; ≈0.48% of GDP 2022. Note: paper's Sim. NO = flat 1% stylization; this line is the real 2022 statute.
+- **11 France**: IFI, real estate only; €1.3M trigger, ≈€1,250 entry cliff (schedule from €800k), décote to €1.4M, 0.5–1.5%.
+- **12 Piketty (closes the build)**: 0.5/1/2% above 200k/1M/5M; book adds 0.1% bottom + 5–10% top. Point out how it shadows dashed Spain-€300k mid-distribution.
 
-## 12 · All five together (recap)
+## 13 · All eight designs, six lines (recap)
+One breath over the combined MTR chart: steepest-on-paper Spain vs earliest-and-flattest Norway; the two Spanish lines carry four of the paper's designs between them. Bridge: "their Figure 3 shows what's LEFT of these lines after exemptions, rebates, and the cap — that gap is the paper." Charts from the replication package's statute-anchored calculators (bracket-edge cross-checks); two-panel standalone in the repo. NOK→EUR 10.10; CHF≈EUR.
+
 One breath over the combined MTR chart: steepest-on-paper Spain vs earliest-and-flattest Norway. Bridge to methods/results: "their Figure 3 will show what's LEFT of these lines after exemptions, rebates, and the cap — that gap is the paper." Charts generated from the replication package's statute-anchored calculators (bracket-edge cross-checks); two-panel MTR+ATR standalone in the repo. NOK→EUR 10.10; CHF≈EUR.
 
-## 13 · Methods
+## 14 · Methods
 Kakwani K = C_t − G_pre (eq. 2 p.13); Suits (eq. 3); R–S = G_pre − G_post = t/(1−t)·K − D (eq. 1 p.12); level vs distance decomposition of ΔR–S (eq. 5–8 p.14, Díaz et al. 2010/2011); long-run: project wealth at constant g ∈ {1,2,3}% with/without the annual tax, T = 25/50/75/100 (p.15). Measured on individual and equivalized net wealth + equivalized market and disposable income.
 
-## 14 · Result 1: AETR profiles (their Fig. 3 p.19)
+## 15 · Result 1: AETR profiles (their Fig. 3 p.19)
 IP: near zero until ~p99.3 (p.18) then rises modestly — only ~top 0.5% pay. NO: taxation from ~p80, smooth rise. CH: step ~p67, flat low. FR: lowest across most of the top (narrow base), crosses IP above p99.5. Piketty: steepest top gradient (to ~1.3% at p100); Sim. 3 next. Percentiles are over all 44.9M individuals.
 
-## 15 · Result 2: headline table (their Table 3 p.21, net-wealth panel)
+## 16 · Result 2: headline table (their Table 3 p.21, net-wealth panel)
 Read across IP → Piketty: taxpayers 170,404 → 11.0M; revenue €1,126M → €15,861M (14×); avg rate t 0.02% → 0.30%. Kakwani FALLS from 0.231 (IP) to 0.191 (NO) / 0.197 (Piketty); Suits 0.806 → 0.522/0.570. Only FR (K 0.244) and Sim. 2 (0.234) beat the IP on formal progressivity. Wealth Gini cuts are tiny in the short run (0.000%–0.080%). THE message: base breadth ↔ revenue; formal progressivity moves the other way.
 (If asked about R–S units: Table 3's net-wealth R–S column is ×1000 vs Table A.4 — flagged in the review; I quote Gini-reduction % instead.)
 
-## 16 · Result 3: decomposition (their Fig. 4 p.23)
+## 17 · Result 3: decomposition (their Fig. 4 p.23)
 All designs raise R–S vs IP; level effect (incidence) dominates everywhere; distance effect small and often negative for broad bases. Quote p.22: gains "driven primarily by the Level Effect". This is the paper's most honest self-diagnosis — the reforms redistribute by collecting more, not by being structurally more progressive.
 
-## 17 · Result 4: child benefit (their Table 4 p.25)
+## 18 · Result 4: child benefit (their Table 4 p.25)
 Revenue recycled as universal per-child transfer: IP €149/child/yr; NO €2,049; CH €642; FR €191; Sim. 1 €492; Sim. 2 €319; Sim. 3 €1,680; Piketty €2,103. Disposable-income Gini falls 0.48% (IP) → 4.58/4.21/4.87% (NO/S3/Piketty) — in POINTS that's 0.3779 → 0.3620/0.3595, i.e. 1.6–1.8 Gini points. (Their own slide says "4–5 Gini points" — it's 4–5 percent; I use the correct units and flag gently in discussion if useful.)
 
-## 18 · Result 5: long run (their Fig. 5 p.28, Tables 5/A.5–A.7)
+## 19 · Result 5: long run (their Fig. 5 p.28, Tables 5/A.5–A.7)
 Equivalized top-1% share 14.67% at T=0 (g=2%): IP → 13.45% at T=100 (−1.2pp); NO → 9.13%; Piketty → 7.96%; Sim. 3 → 6.58% (largest fall). Long-run effective rates t_l/r at T=100: IP 1.95% of wealth; NO 22.3%; Piketty 21.9%; Sim. 3 15.3% (Table 5 p.26). Robustness: g = 1% and 3% similar (Tables A.5–A.7). Their own caveat (p.25): "not intended to predict… but rather to illustrate a fundamental mechanism" — honor it in the framing. Note the equivalized-Gini wrinkle (Table 5 bottom): under IP/CH/FR/Sim.1/Sim.2 the equivalized Gini RISES for decades before the mechanics bite.
 
-## 19 · Result 6: who pays (their Fig. 6 p.29, Fig. 7 p.32, Table 6 p.31)
+## 20 · Result 6: who pays (their Fig. 6 p.29, Fig. 7 p.32, Table 6 p.31)
 IP payers: predominantly 65+; FR similar (take-off after ~65 in Fig. 7). Broad bases shift the age curve left (CH/Piketty steepest around 50–60). Women less likely to pay under every design (Table 6: marginal effects −0.00005 FR to −0.0048 CH, all significant) — consistent with the gender wealth gap (they cite UK: ~68% of potential payers male, Advani et al. 2021). Household: multi-adult households less likely at same age.
 
-## 20 · Their conclusions (p.33–34 + their deck)
+## 21 · Their conclusions (p.33–34 + their deck)
 Current IP: high formal progressivity, minimal effect; regional rebates create horizontal inequity. Reforms: broaden base + harmonize → 4.6–11M taxpayers, €12.7–15.9bn, real disposable-income redistribution once recycled, cumulative long-run concentration decline. Their policy line: gains come from base + incidence, not marginal-rate steepening.
 
-## 21 · Divider
+## 22 · Divider
 One breath. "Four comments — all offered in the spirit of making a genuinely valuable exercise sharper. Everything I'll say is documented, with sources, in a public repo I'll share at the end."
 
-## 22 · Comment 1: the pre-ITSGF baseline
+## 23 · Comment 1: the pre-ITSGF baseline
 Lead gently: "the paper's institutional timing needs one correction with real consequences." Ley 38/2022 (BOE): in force 29 Dec 2022, devengo each 31 December → first tax year 2022 = their valuation date; extended indefinitely by RDL 8/2023 (paper's fn.2 says "2023–2024" — wrong). Ejercicio 2022: €623M from 12,010 taxpayers, €555M (89%) Madrid ≈ 49% of Sim. 2's incremental €1,279.6M. Then 2023 reality: Madrid suspended its rebate (Ley 12/2023) → AEAT 2023: €1,926.3M IP (+€676.3M, 90.6% from Madrid), ITSGF collapses to ~€35M. So "current law" raises ~€1.96bn, not €1.13bn — and the ITSGF's 60% shortfall vs its ~€1.5bn forecast is a live static-scoring lesson. The gift framing: 2023 = out-of-sample validation of Sim. 2, a novel contribution nobody else can do as easily as they can.
 *Expected response (advocate-verified): exclusion was deliberate and disclosed (p.5, fn.2) for comparability; will fix the dating; Sim. 2 answers a broader question than the ITSGF (whole schedule vs >€3.7M). All true — my point is labeling and the validation opportunity, not the design choice.*
 
-## 23 · Comment 2: static ceilings, priced by their own citations
+## 24 · Comment 2: static ceilings, priced by their own citations
 Ready-reckoner (labeled illustration): Advani-Tarrant 7–17% base loss per 1pp → Sim. NO €15.5bn → €12.8–14.4bn; Mas-Montserrat (their citation) −3.21% per 0.1pp ATR → ~8–10% off the three broad designs; Brülhart (their citation) ≥43% per 1pp = upper bound; Saez-Zucman themselves score with 15%/50% erosion — zero is outside the entire published range. Key twist: erosion scales with rates → hits Sim. 3 (top 3.5%) and Piketty harder than Norway's flat 1% → behavioral adjustment STRENGTHENS breadth-over-rates. Agrawal/Foremny/Martínez-Toledano (AEJ: Applied 2025, uncited): Madrid's PIT losses 6× wealth-tax losses; Madrid gains from harmonization — their Sim. 2/3 case, stronger. One-liners: Norway's own yield ~0.5% GDP vs Sim. NO's 1.13% of Spain's; Sims 1–3 keep the 60% cap = 92.6% of measured Spanish avoidance (Mas-Montserrat).
 *Expected response: static-by-design (p.2, p.11, p.34); transplanted elasticities overstate because avoidance runs through features the reforms remove. Concede partially — then ask for the bounds column anyway.*
 
-## 24 · Comment 3: two mechanical re-runs
+## 25 · Comment 3: two mechanical re-runs
 (a) Equivalized long-run Gini: under uniform g the no-tax distribution is scale-invariant (our test verifies to 1e-12); with their C_t = 0.9744 and cumulative 0.50% at T=25 the max Gini move is ~0.17pt DOWN; Table 5 prints +1.04pt UP — 6× the bound, wrong sign; five designs stay above the starting Gini for a century; their p.27 "natural growth of wealth at the top" explanation is unavailable under their own uniform-g assumption (advocate verifier conceded this needs an audit). (b) Total wealth: every t and t_s/r implies ~€5.3T; Table A.1's mean×count = €7.2T (35% gap); EFF 2022 (€309k mean/household, BdE DO 2413) sides with €5.3T → A.1's descriptives look mis-vintaged, and t_s/r seeds the long-run tables. Smaller: R–S ×1000 units (Table 3 vs A.4); overlap matrix impossibilities (297,219 > 201,687; 72,186 < forced 170,404); 3.0838 vs 3.1125; 7/8/9 scenarios; declared-vs-market valuation base per scenario (Zurich housing base ≈ 2.16× the IP's legal base).
 *Expected responses: R–S = thousandths for readability (concede note); A.1 audit ("earlier vintage of the cadastral adjustment"); overlap matrix "transposition errors, purely descriptive"; valuation = "statutory rules are part of design" — my ask: then report the revaluation/design split.*
 
 Extra probe if the long-run discussion opens up (accrual mechanics): the projection pins each person's average rate at its year-0 value forever — the schedule is never re-applied to the growing stock. At g=2% wealth multiplies 7.2× over the century, yet nobody ever crosses the €700k threshold and no existing payer climbs a bracket. For progressive designs with fixed nominal thresholds that freezes the extensive margin and understates the long-run bite — differentially across designs (Norway's low flat threshold is least affected). Paper basis: p.15 "wealth is reduced each year by a constant ts/r"; Table 5 note.
 
-## 25 · Comment 4: say the real finding + open the engine
+## 26 · Comment 4: say the real finding + open the engine
 Framing: abstract says reforms "increase tax progressivity"; Table 3: K 0.2313 → 0.1912 (NO), 0.1969 (Piketty), Suits 0.806 → 0.522/0.570; only FR and Sim. 2 raise K. Their own decomposition + conclusions credit incidence. The inverse trade-off IS the paper — own it. Also report the AEAT validation (they land −8%/−10% vs official 185,101/€1,250M — a strength they never claim). Replicability: PH is free to researchers under the IEF protocol (joint INE-AEAT-IEF product) — the data are open-ish; the CODE and parameters aren't (Zurich never states its tariff or Steuerfuss — statutory 0.3% vs ~0.65% top rate; EUROMOD can't simulate the IP at all: "lack of data on wealth impedes simulation," JRC country report). The ask: parameter appendix + code with the journal version. Then the reveal: we've already re-encoded all eight designs with 26 statute-anchored tests — github.com/MaxGhenis/iariw-2026-canto-garcia-replication — their parameters would complete it.
 *Expected response: "working paper, no package yet; parameters come from public statutes; happy to commit to an appendix + code release." That's the win condition — get it said on the record.*
 
-## 26 · Close
+## 27 · Close
 Three floor questions (valuation base + Piketty-on-declared-values decomposition; the 2023 out-of-sample test; the cap in Sims 1–3/Piketty and Table A.8's 3,577 IP payers escaping Piketty). Hand to Olga and Francisco. Repo URL on screen.
 
 ---

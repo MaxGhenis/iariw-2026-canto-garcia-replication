@@ -15,6 +15,7 @@ import {
   ScheduleBuild3Slide,
   ScheduleBuild4Slide,
   ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
   SchedulesChartSlide,
   MethodsSlide,
 } from './slides/Approach';
@@ -47,6 +48,7 @@ const slides = [
   ScheduleBuild3Slide,
   ScheduleBuild4Slide,
   ScheduleBuild5Slide,
+  ScheduleBuild6Slide,
   SchedulesChartSlide,
   MethodsSlide,
   AETRSlide,

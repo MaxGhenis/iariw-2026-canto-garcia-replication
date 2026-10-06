@@ -125,29 +125,34 @@ export function DesignsSlide() {
 export function ScheduleBuild1Slide() {
   return (
     <Slide>
-      <SlideTitle>Switzerland: the broad, gentle floor</SlideTitle>
+      <SlideTitle>Spain: the steepest schedule on paper</SlideTitle>
       <SlideSubtitle>
-        Schedule 1 of 5 — discussant&rsquo;s rendering from the statutes
+        Schedule 1 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-10 pb-8">
-        <div className="w-[36%] space-y-5">
+        <div className="w-[36%] space-y-4">
           <div>
             <p className="font-semibold text-slate-900">Base and unit</p>
-            <p className="text-lg text-slate-700 leading-snug">All net wealth; spouses taxed jointly, minors' wealth attributed to parents. Allowance ≈ CHF 81k (single tariff).</p>
+            <p className="text-lg text-slate-700 leading-snug">All net wealth above a €700k exemption (plus €300k main residence in practice — stripped here, with the rebates and the income cap).</p>
           </div>
           <div>
             <p className="font-semibold text-slate-900">Rates</p>
-            <p className="text-lg text-slate-700 leading-snug">Statutory 0–3‰ Grundtarif, multiplied by cantonal + municipal Steuerfuss (≈×2.18 in Zurich city) → top ≈ 0.65%.</p>
+            <p className="text-lg text-slate-700 leading-snug">0.2% → 3.5% over eight brackets — the steepest top rate of the designs you are about to see.</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900">Coincidence</p>
+            <p className="text-lg text-slate-700 leading-snug">Un-abated, this line is also Sim. 2: that reform removes the regional rebates, which this rendering already strips.</p>
           </div>
           <div>
             <p className="font-semibold text-slate-900">Shape</p>
-            <p className="text-lg text-slate-700 leading-snug">Bites almost immediately, climbs slowly, never gets steep — the gentlest of the five, on the broadest base. Swiss wealth taxes raise ≈1% of GDP.</p>
+            <p className="text-lg text-slate-700 leading-snug">Late but fierce: on paper Spain out-taxes everyone at the top. The paper is about how little of this survives exemptions, rebates, and the cap.</p>
           </div>
         </div>
         <div className="flex-1 flex justify-center">
           <img
             src={assetPath('/figures/schedule_build_1.png')}
-            alt="Marginal and average rate schedules with Zurich highlighted"
+            alt="Marginal and average rate schedules with Spain IP highlighted"
             className="max-h-[700px] w-auto"
           />
         </div>
@@ -159,29 +164,30 @@ export function ScheduleBuild1Slide() {
 export function ScheduleBuild2Slide() {
   return (
     <Slide>
-      <SlideTitle>Norway: early, flat, real</SlideTitle>
+      <SlideTitle>The paper's own reform: pull the threshold to €300k</SlideTitle>
       <SlideSubtitle>
-        Schedule 2 of 5 — discussant&rsquo;s rendering from the statutes
+        Schedule 2 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-10 pb-8">
-        <div className="w-[36%] space-y-5">
+        <div className="w-[36%] space-y-4">
           <div>
             <p className="font-semibold text-slate-900">Base and unit</p>
-            <p className="text-lg text-slate-700 leading-snug">All net wealth above NOK 1.7M (≈€168k; doubled for couples), with valuation discounts (primary residence at 25% of market value).</p>
+            <p className="text-lg text-slate-700 leading-snug">Identical state schedule, exemption cut from €700k to €300k — the paper's Sim. 1, and Sim. 3 once rebates go (identical here).</p>
           </div>
           <div>
             <p className="font-semibold text-slate-900">Rates</p>
-            <p className="text-lg text-slate-700 leading-snug">0.95% flat in 2022, 1.10% above NOK 20M (≈€2M) — barely progressive by design.</p>
+            <p className="text-lg text-slate-700 leading-snug">Same 0.2% → 3.5% brackets; every step arrives €400k of wealth earlier.</p>
           </div>
           <div>
             <p className="font-semibold text-slate-900">Shape</p>
-            <p className="text-lg text-slate-700 leading-snug">A near-flat wall from ~€170k up: mass participation, low rates. Raised ≈0.5% of GDP in 2022.</p>
+            <p className="text-lg text-slate-700 leading-snug">The dashed twin of the Spanish line, shifted left. In the paper this alone takes effective taxpayers from 170,404 to 1.8M (Sim. 1) — and 4.6M with rebates also gone (Sim. 3).</p>
           </div>
         </div>
         <div className="flex-1 flex justify-center">
           <img
             src={assetPath('/figures/schedule_build_2.png')}
-            alt="Marginal and average rate schedules with Norway highlighted"
+            alt="Marginal and average rate schedules with Spain €300k highlighted"
             className="max-h-[700px] w-auto"
           />
         </div>
@@ -193,12 +199,83 @@ export function ScheduleBuild2Slide() {
 export function ScheduleBuild3Slide() {
   return (
     <Slide>
-      <SlideTitle>France: narrow base, sharp entry</SlideTitle>
+      <SlideTitle>Switzerland (Canton of Zurich): the broad, gentle floor</SlideTitle>
       <SlideSubtitle>
-        Schedule 3 of 5 — discussant&rsquo;s rendering from the statutes
+        Schedule 3 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-10 pb-8">
-        <div className="w-[36%] space-y-5">
+        <div className="w-[36%] space-y-4">
+          <div>
+            <p className="font-semibold text-slate-900">Base and unit</p>
+            <p className="text-lg text-slate-700 leading-snug">All net wealth; spouses taxed jointly, minors' wealth attributed to parents. Zurich's § 47 Grundtarif, allowance ≈ CHF 81k (single tariff).</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900">Rates</p>
+            <p className="text-lg text-slate-700 leading-snug">Statutory 0–3‰, multiplied by cantonal + municipal Steuerfuss (≈×2.18 in Zurich city) → top ≈ 0.65%.</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900">Shape</p>
+            <p className="text-lg text-slate-700 leading-snug">Bites almost immediately, climbs slowly, never gets steep — the gentlest of the set, on the broadest base. Swiss wealth taxes raise ≈1% of GDP.</p>
+          </div>
+        </div>
+        <div className="flex-1 flex justify-center">
+          <img
+            src={assetPath('/figures/schedule_build_3.png')}
+            alt="Marginal and average rate schedules with Zurich highlighted"
+            className="max-h-[700px] w-auto"
+          />
+        </div>
+      </div>
+    </Slide>
+  );
+}
+
+export function ScheduleBuild4Slide() {
+  return (
+    <Slide>
+      <SlideTitle>Norway: early, flat, real</SlideTitle>
+      <SlideSubtitle>
+        Schedule 4 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
+      </SlideSubtitle>
+      <div className="flex-1 flex items-center gap-10 pb-8">
+        <div className="w-[36%] space-y-4">
+          <div>
+            <p className="font-semibold text-slate-900">Base and unit</p>
+            <p className="text-lg text-slate-700 leading-snug">All net wealth above NOK 1.7M (≈€168k; doubled for couples), with valuation discounts (primary residence at 25% of market value).</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900">Rates</p>
+            <p className="text-lg text-slate-700 leading-snug">0.95% flat in 2022, 1.10% above NOK 20M (≈€2M) — barely progressive by design (the paper's Sim. NO stylizes this as flat 1%).</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900">Shape</p>
+            <p className="text-lg text-slate-700 leading-snug">A near-flat wall from ~€170k up: mass participation, low rates. Raised ≈0.5% of GDP in 2022.</p>
+          </div>
+        </div>
+        <div className="flex-1 flex justify-center">
+          <img
+            src={assetPath('/figures/schedule_build_4.png')}
+            alt="Marginal and average rate schedules with Norway highlighted"
+            className="max-h-[700px] w-auto"
+          />
+        </div>
+      </div>
+    </Slide>
+  );
+}
+
+export function ScheduleBuild5Slide() {
+  return (
+    <Slide>
+      <SlideTitle>France: narrow base, sharp entry</SlideTitle>
+      <SlideSubtitle>
+        Schedule 5 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
+      </SlideSubtitle>
+      <div className="flex-1 flex items-center gap-10 pb-8">
+        <div className="w-[36%] space-y-4">
           <div>
             <p className="font-semibold text-slate-900">Base and unit</p>
             <p className="text-lg text-slate-700 leading-snug">Real-estate wealth only (the IFI, successor to the ISF since 2018) — financial assets exempt. Trigger at €1.3M.</p>
@@ -214,8 +291,8 @@ export function ScheduleBuild3Slide() {
         </div>
         <div className="flex-1 flex justify-center">
           <img
-            src={assetPath('/figures/schedule_build_3.png')}
-            alt="Marginal and average rate schedules with France highlighted"
+            src={assetPath('/figures/schedule_build_5.png')}
+            alt="Marginal and average rate schedules with France IFI highlighted"
             className="max-h-[700px] w-auto"
           />
         </div>
@@ -224,15 +301,16 @@ export function ScheduleBuild3Slide() {
   );
 }
 
-export function ScheduleBuild4Slide() {
+export function ScheduleBuild6Slide() {
   return (
     <Slide>
       <SlideTitle>Piketty: the normative benchmark</SlideTitle>
       <SlideSubtitle>
-        Schedule 4 of 5 — discussant&rsquo;s rendering from the statutes
+        Schedule 6 of 6 — discussant&rsquo;s rendering from the statutes; all
+        eight paper designs appear across these six lines
       </SlideSubtitle>
       <div className="flex-1 flex items-center gap-10 pb-8">
-        <div className="w-[36%] space-y-5">
+        <div className="w-[36%] space-y-4">
           <div>
             <p className="font-semibold text-slate-900">Base and unit</p>
             <p className="text-lg text-slate-700 leading-snug">All net wealth above €200k — no valuation discounts, no caps, as the paper implements it.</p>
@@ -243,47 +321,13 @@ export function ScheduleBuild4Slide() {
           </div>
           <div>
             <p className="font-semibold text-slate-900">Shape</p>
-            <p className="text-lg text-slate-700 leading-snug">Smoothly progressive from modest wealth up — the design the others get measured against.</p>
+            <p className="text-lg text-slate-700 leading-snug">Smoothly progressive from modest wealth up. Note how it shadows the dashed €300k Spanish line through the middle of the distribution.</p>
           </div>
         </div>
         <div className="flex-1 flex justify-center">
           <img
-            src={assetPath('/figures/schedule_build_4.png')}
+            src={assetPath('/figures/schedule_build_6.png')}
             alt="Marginal and average rate schedules with Piketty highlighted"
-            className="max-h-[700px] w-auto"
-          />
-        </div>
-      </div>
-    </Slide>
-  );
-}
-
-export function ScheduleBuild5Slide() {
-  return (
-    <Slide>
-      <SlideTitle>Spain: the steepest schedule on paper</SlideTitle>
-      <SlideSubtitle>
-        Schedule 5 of 5 — discussant&rsquo;s rendering from the statutes
-      </SlideSubtitle>
-      <div className="flex-1 flex items-center gap-10 pb-8">
-        <div className="w-[36%] space-y-5">
-          <div>
-            <p className="font-semibold text-slate-900">Base and unit</p>
-            <p className="text-lg text-slate-700 leading-snug">All net wealth above a €700k exemption (plus €300k main residence in practice — stripped here, with the rebates and the income cap).</p>
-          </div>
-          <div>
-            <p className="font-semibold text-slate-900">Rates</p>
-            <p className="text-lg text-slate-700 leading-snug">0.2% → 3.5% over eight brackets — the steepest top rate of all five systems.</p>
-          </div>
-          <div>
-            <p className="font-semibold text-slate-900">Shape</p>
-            <p className="text-lg text-slate-700 leading-snug">Late but fierce: on paper Spain out-taxes everyone at the top. What the paper shows is how little of this line survives contact with exemptions, rebates, and the cap.</p>
-          </div>
-        </div>
-        <div className="flex-1 flex justify-center">
-          <img
-            src={assetPath('/figures/schedule_build_5.png')}
-            alt="Marginal and average rate schedules with Spain highlighted"
             className="max-h-[700px] w-auto"
           />
         </div>
@@ -295,7 +339,7 @@ export function ScheduleBuild5Slide() {
 export function SchedulesChartSlide() {
   return (
     <Slide>
-      <SlideTitle>All five schedules together</SlideTitle>
+      <SlideTitle>All eight designs, six lines</SlideTitle>
       <SlideSubtitle>
         Discussant&rsquo;s rendering from the statutes (not from the paper) —
         Spain shown with no abatements
